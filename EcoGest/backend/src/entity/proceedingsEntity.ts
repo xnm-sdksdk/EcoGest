@@ -8,5 +8,6 @@ export class Proceedings extends BaseEntity {
     @Column({ nullable: false })
     createdBy!: string;
 
-    meetingId!: number;
+    // TODO
+    //meetingId!: number;
 }

@@ -35,6 +35,19 @@ export class User extends BaseEntity {
     @Column()
     active!: string;
 
+    // TODO
     //@Column(() => User)
     //photoId!: number;
+
+    // TODO
+    //@Column(() => User)
+    //projectId!: number;
+
+    // TODO
+    //@Column(() => User)
+    //activityId!: number;
+
+    // TODO
+    //@Column(() => User)
+    //meetingId!: number;
 }
