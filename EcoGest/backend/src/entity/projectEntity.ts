@@ -2,7 +2,7 @@ import { Column, Entity } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
 
 @Entity()
-export class User extends BaseEntity {
+export class Project extends BaseEntity {
     @Column()
     name!: string;
 
