@@ -1,11 +1,14 @@
 import { Router } from "express";
+import { ProjectController } from "../controller/projectController.js";
 
 const router = Router();
 
-router.get("/api/projects");
-router.get("/api/projects/:id");
-router.post("/api/projects");
-router.put("/api/projects/:id");
-router.delete("/api/projects/:id");
+const projectController = new ProjectController();
+
+router.get("/projects", projectController.findAll);
+// router.get("/projects/:id");
+// router.post("/projects");
+// router.put("/projects/:id");
+// router.delete("/projects/:id");
 
 export default router;

@@ -3,10 +3,10 @@ import { BaseEntity } from "./baseEntity.js";
 
 @Entity()
 export class Project extends BaseEntity {
-    @Column()
+    @Column({ type: "varchar" })
     name!: string;
 
-    @Column()
+    @Column({ type: "varchar" })
     school!: string;
 
     // TODO
@@ -17,9 +17,9 @@ export class Project extends BaseEntity {
     // @Column()
     // activityId!: number;
 
-    @Column()
-    schoolYear!: number;
+    // @Column()
+    // schoolYear!: number;
 
-    @Column()
+    @Column({ type: "boolean", default: true })
     state!: boolean;
 }

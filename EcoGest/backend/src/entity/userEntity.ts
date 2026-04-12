@@ -16,13 +16,13 @@ export enum UserRole {
 
 @Entity()
 export class User extends BaseEntity {
-    @Column()
+    @Column({ type: "varchar" })
     name!: string;
 
-    @Column()
+    @Column({ type: "varchar" })
     email!: string;
 
-    @Column({ select: false })
+    @Column({ type: "varchar", select: false })
     password!: string;
 
     @Column({
@@ -32,7 +32,7 @@ export class User extends BaseEntity {
     })
     profile!: UserRole;
 
-    @Column()
+    @Column({ type: "varchar" })
     active!: string;
 
     // TODO

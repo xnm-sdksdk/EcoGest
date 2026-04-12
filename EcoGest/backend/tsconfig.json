@@ -10,7 +10,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "esnext",
-    "types": [],
+    "types": ["reflect-metadata", "node"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -30,7 +30,7 @@
     // "noFallthroughCasesInSwitch": true,
     // "noPropertyAccessFromIndexSignature": true,
 
-    "verbatimModuleSyntax": true,
+    //"verbatimModuleSyntax": true,
     "isolatedModules": true,
     "sourceMap": true,
     "declaration": true,

@@ -1,7 +1,9 @@
+import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import projectRoutes from "./routes/projects.routes.js";
 
 const PORT = 8080;
 const app = express();
@@ -16,5 +18,7 @@ const limiter = rateLimit({
 
 app.use(express.json());
 app.use(limiter);
+
+app.use("/api", limiter, projectRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));
