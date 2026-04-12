@@ -36,12 +36,20 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "nodemon": "^3.1.14",
+    "prettier": "^3.8.2",
     "sequelize-cli": "^6.6.5",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
     "vitest": "^4.1.2"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx}": [
+      "prettier --write"
+    ]
   }
 }
