@@ -2,8 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/api/executions/:id/photos");
-router.post("/api/executions/:id/photos");
-router.delete("/api/photos/executions/:id");
+router.get("/executions/:id/photos");
+router.post("/executions/:id/photos");
+router.delete("/photos/executions/:id");
 
 export default router;

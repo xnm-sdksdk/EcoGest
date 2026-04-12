@@ -2,9 +2,9 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/api/activities/:id/execution");
-router.post("/api/activities/:id/execution");
-router.put("/api/executions/:id");
-router.delete("/api/executions/:id");
+router.get("/activities/:id/execution");
+router.post("/activities/:id/execution");
+router.put("/executions/:id");
+router.delete("/executions/:id");
 
 export default router;

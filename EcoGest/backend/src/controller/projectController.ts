@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { ProjectServiceImpl } from "../services/projectService/impl/projectServiceImpl.js";
 import type { ProjectService } from "../services/projectService/projectService.js";
+import { ProjectDTO } from "../dto/projectDTO.js";
 
 export class ProjectController {
     private projectService: ProjectService;
@@ -16,5 +17,9 @@ export class ProjectController {
         } catch (error: any) {
             res.status(500).json({ error: error.message });
         }
+    };
+
+    findProjectById = (): Promise<ProjectDTO> => {
+
     }
 }

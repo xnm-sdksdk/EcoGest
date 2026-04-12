@@ -2,11 +2,11 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get("/api/projects/:id/meetings");
-router.get("/api/meetings/:id");
-router.post("/api/projects/:id/meetings");
-router.put("/api/meetings/:id");
-router.delete("/api/meetings/:id");
-router.put("/api/meetings/:id/cancel");
+router.get('/projects/:id/meetings');
+router.get("/meetings/:id");
+router.post("/projects/:id/meetings");
+router.put("/meetings/:id");
+router.delete("/meetings/:id");
+router.put("/meetings/:id/cancel");
 
 export default router;

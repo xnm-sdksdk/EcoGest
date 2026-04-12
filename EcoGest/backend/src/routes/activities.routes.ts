@@ -2,14 +2,14 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/api/projects/:id/activities");
-router.get("/api//activities/:id");
+router.get("/projects/:id/activities");
+router.get("/activities/:id");
 
-router.post("/api/projects/:id/activities");
-router.put("/api//activities/:id");
-router.delete("/api//activities/:id");
+router.post("/projects/:id/activities");
+router.put("/activities/:id");
+router.delete("/activities/:id");
 
-router.put("/api//activities/:id/approve");
-router.put("/api//activities/:id/reject");
+router.put("/activities/:id/approve");
+router.put("/activities/:id/reject");
 
 export default router;

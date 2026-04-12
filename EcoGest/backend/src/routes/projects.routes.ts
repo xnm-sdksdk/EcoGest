@@ -6,9 +6,9 @@ const router = Router();
 const projectController = new ProjectController();
 
 router.get("/projects", projectController.findAll);
-// router.get("/projects/:id");
-// router.post("/projects");
-// router.put("/projects/:id");
-// router.delete("/projects/:id");
+router.get("/projects/:id", projectController.findProjectById);
+router.post("/projects");
+router.put("/projects/:id");
+router.delete("/projects/:id");
 
 export default router;

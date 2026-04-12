@@ -2,8 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.post("/api/admin/backup");
-router.get("/api/admin/backup");
-router.post("/api/admin/restore");
+router.post("/admin/backup");
+router.get("/admin/backup");
+router.post("/admin/restore");
 
 export default router;

@@ -2,8 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/api/meetings/:id/proceedings");
-router.post("/api/meetings/:id/proceedings");
-router.put("/api/proceedings/:id");
+router.get("/meetings/:id/proceedings");
+router.post("/meetings/:id/proceedings");
+router.put("/proceedings/:id");
 
 export default router;

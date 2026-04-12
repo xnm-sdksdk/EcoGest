@@ -2,10 +2,10 @@ import { Router } from "express";
 
 const router = Router();
 
-router.post("/api/auth/login");
-router.post("/api/auth/logout");
-router.post("/api/auth/recover-password");
-router.post("/api/auth/accept-invite");
-router.put("/api/auth/reset-password");
+router.post("/auth/login");
+router.post("/auth/logout");
+router.post("/auth/recover-password");
+router.post("/auth/accept-invite");
+router.put("/auth/reset-password");
 
 export default router;
