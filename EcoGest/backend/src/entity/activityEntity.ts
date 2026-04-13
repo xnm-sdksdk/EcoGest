@@ -12,22 +12,22 @@ export enum ActivityState {
 
 @Entity()
 export class Activity extends BaseEntity {
-    @Column()
+    @Column({ type: "varchar" })
     name!: string;
 
-    @Column()
+    @Column({ type: "varchar" })
     description!: string;
 
-    @Column()
+    @Column({ type: "varchar" })
     area!: string;
 
-    @Column()
+    @Column({ type: "varchar" })
     resources!: string;
 
-    @Column()
+    @Column({ type: "date" })
     startDate!: Date;
 
-    @Column()
+    @Column({ type: "date" })
     endDate!: Date;
 
     @Column({
@@ -37,18 +37,16 @@ export class Activity extends BaseEntity {
     })
     state!: ActivityState;
 
-    // TODO
-    // @Column()
-    // projectId!: number;
+    // TODO add relations
+    @Column({ type: "int", nullable: true })
+    projectId!: number;
 
-    @Column()
+    @Column({ type: "varchar", nullable: true })
     createdBy!: string;
 
-    // TODO
-    // @Column()
-    // progressId!: number;
+    @Column({ type: "int", nullable: true })
+    progressId!: number;
 
-    // TODO
-    // @Column()
-    // photoId!: number;
+    @Column({ type: "int", nullable: true })
+    photoId!: number;
 }

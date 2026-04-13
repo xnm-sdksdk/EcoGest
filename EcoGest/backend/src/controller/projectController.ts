@@ -10,7 +10,7 @@ export class ProjectController {
         this.projectService = new ProjectServiceImpl();
     }
 
-    findAll = async (_req: Request, res: Response): Promise<void> => {
+    getAllProjects = async (_req: Request, res: Response): Promise<void> => {
         try {
             const projects = await this.projectService.findAll();
             res.status(200).json(projects);
@@ -19,7 +19,7 @@ export class ProjectController {
         }
     };
 
-    findProjectById = (): Promise<ProjectDTO> => {
+    getProjectById = (): Promise<ProjectDTO> => {
 
     }
 }
