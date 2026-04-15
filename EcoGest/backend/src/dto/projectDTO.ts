@@ -1,8 +1,7 @@
-export interface ActivityDTO {
+export interface ProjectDTO {
+    id?: number;
     name: string;
-    description: string;
-    area: string;
-    resources: string[];
-    startDate: Date;
-    endDate: Date;
+    school: string;
+    schoolYear: string;
+    state?: boolean;
 }

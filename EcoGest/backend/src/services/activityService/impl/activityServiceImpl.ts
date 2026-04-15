@@ -18,7 +18,7 @@ export class ActivityServiceImpl implements ActivityService {
         if (!project) {
             throw new Error(`Project with id ${projectId} not found.`);
         }
-        return this.activityRepository.findBy({ projectId });
+        return this.activityRepository.findBy({ id: projectId });
     }
 
     async findActivityById(activityId: number): Promise<Activity | null> {
@@ -35,14 +35,14 @@ export class ActivityServiceImpl implements ActivityService {
         projectId: number,
         activityDTO: ActivityDTO,
     ): Promise<Activity> {
-        const project = await this.projectRepository.existsBy({ id: projectId });
+        const project = await this.projectRepository.findOneBy({ id: projectId });
         if (!project) {
             throw new Error(`Project with id ${projectId} not found.`);
         }
 
         const activity = this.activityRepository.create({
             ...activityDTO,
-            projectId,
+            project,
             state: ActivityState.PENDING,
         });
         return this.activityRepository.save(activity);

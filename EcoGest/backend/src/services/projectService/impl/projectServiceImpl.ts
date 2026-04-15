@@ -11,7 +11,7 @@ export class ProjectServiceImpl implements ProjectService {
     }
 
     async createProject(projectDTO: ProjectDTO): Promise<Project> {
-        const project = await this.projectRepository.create({
+        const project = this.projectRepository.create({
             ...projectDTO,
         });
         if (!project) {
@@ -20,7 +20,7 @@ export class ProjectServiceImpl implements ProjectService {
         return this.projectRepository.save(project);
     }
 
-    async findAll(): Promise<Project[]> {
+    async findAllProjects(): Promise<Project[]> {
         return this.projectRepository.find();
     }
 

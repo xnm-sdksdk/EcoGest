@@ -4,7 +4,7 @@ import { Project } from "../../entity/projectEntity.js";
 export interface ProjectService {
     createProject(projectDTO: ProjectDTO): Promise<Project>;
 
-    findAll(): Promise<Project[]>;
+    findAllProjects(): Promise<Project[]>;
 
     findProjectById(projectId: number): Promise<Project | null>;
 

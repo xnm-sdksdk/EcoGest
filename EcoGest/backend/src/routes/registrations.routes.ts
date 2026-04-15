@@ -4,7 +4,7 @@ const router = Router();
 
 router.get("/activities/:id/registrations");
 router.post("/activities/:id/registrations");
-router.delete("/activities/:token");
-router.delete("/activities/:id/admin");
+router.delete("/registrations/:token");
+router.delete("/registrations/:id/admin");
 
 export default router;
