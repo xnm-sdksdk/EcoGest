@@ -1,3 +1,5 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class PhotoDTO extends BaseDTO { }
+export interface PhotoDTO {
+    path: string;
+    executionId?: number;
+    meetingId?: number;
+}

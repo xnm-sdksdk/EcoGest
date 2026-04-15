@@ -1,3 +1,4 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class ProceedingsDTO extends BaseDTO { }
+export interface ProceedingsDTO {
+    id?: number;
+    content: string;
+}

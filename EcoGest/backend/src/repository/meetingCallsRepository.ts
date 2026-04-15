@@ -1,6 +1,6 @@
 import { AppDataSource } from "../config/data-source.js";
-import { MeetingCalls } from "../entity/meetingCallsEntity.js";
+import { Convocation } from "../entity/convocationEntity.js";
 
-export const MeetingCallsRepository = AppDataSource.getRepository(
-    MeetingCalls,
+export const ConvocationRepository = AppDataSource.getRepository(
+    Convocation,
 ).extend({});

@@ -1,3 +1,8 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class ProjectDTO extends BaseDTO { }
+export interface ActivityDTO {
+    name: string;
+    description: string;
+    area: string;
+    resources: string[];
+    startDate: Date;
+    endDate: Date;
+}

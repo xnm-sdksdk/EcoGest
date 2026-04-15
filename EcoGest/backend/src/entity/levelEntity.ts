@@ -1,23 +1,24 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, OneToMany } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
+import { Project } from "./projectEntity.js";
 
 @Entity()
 export class Level extends BaseEntity {
-    @Column()
+    @Column({ type: "varchar" })
     name!: string;
 
-    @Column()
+    @Column({ type: "text" })
     description!: string;
 
-    @Column()
+    @Column({ type: "int" })
     minActivities!: number;
 
-    @Column()
+    @Column({ type: "int" })
     minAreas!: number;
 
-    @Column()
+    @Column({ type: "int" })
     order!: number;
 
-    // TODO
-    //projectId!: number;
+    @OneToMany(() => Project, project => project.level)
+    projects!: Project[];
 }

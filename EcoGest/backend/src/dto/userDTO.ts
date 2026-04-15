@@ -1,3 +1,10 @@
-import { BaseDTO } from "./baseDTO.js";
+import { UserRole } from "../entity/userEntity.js";
 
-export class UserDTO extends BaseDTO { }
+export interface UserDTO {
+    id?: number;
+    name: string;
+    email: string;
+    password?: string;
+    role?: UserRole;
+    active?: boolean;
+}

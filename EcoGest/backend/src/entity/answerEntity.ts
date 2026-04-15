@@ -1,15 +1,18 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
+import { Question } from "./questionEntity.js";
+import { User } from "./userEntity.js";
 
 @Entity()
 export class Answer extends BaseEntity {
-    @Column()
+    @Column({ type: "text" })
     value!: string;
 
-    @Column()
-    createdBy!: string;
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: "createdBy" })
+    createdBy!: User | null;
 
-    // TODO
-    // @Column()
-    // questionId!: number;
+    @ManyToOne(() => Question)
+    @JoinColumn({ name: "questionId" })
+    question!: Question;
 }

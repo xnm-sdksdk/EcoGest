@@ -1,3 +1,10 @@
-import { BaseDTO } from "./baseDTO.js";
+import { QuestionType } from "../entity/questionEntity.js";
 
-export class QuestionDTO extends BaseDTO { }
+export interface QuestionDTO {
+    id?: number;
+    value: string;
+    order: number;
+    required: boolean;
+    type: QuestionType;
+    questionnaireId: number;
+}

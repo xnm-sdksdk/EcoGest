@@ -1,3 +1,8 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class LevelDTO extends BaseDTO { }
+export interface LevelDTO {
+    id?: number;
+    name: string;
+    description: string;
+    minActivities: number;
+    minAreas: number;
+    order: number;
+}

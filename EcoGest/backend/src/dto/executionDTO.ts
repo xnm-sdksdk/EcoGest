@@ -1,3 +1,7 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class ExecutionDTO extends BaseDTO { }
+export interface ExecutionDTO {
+    id?: number;
+    date: Date;
+    location?: string;
+    annotation?: string;
+    activityId: number;
+}

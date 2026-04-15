@@ -1,27 +1,32 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, JoinColumn, ManyToOne, OneToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
+import { Activity } from "./activityEntity.js";
+import { Photo } from "./photoEntity.js";
+import { User } from "./userEntity.js";
 
 @Entity()
 export class Execution extends BaseEntity {
-
-    @Column()
+    @Column({ type: "date" })
     date!: Date;
 
-    @Column()
-    location!: string;
+    @Column({ type: "varchar", nullable: true })
+    location!: string | null;
 
-    @Column() //TODO
-    createdBy!: string;
+    @Column({ type: "text", nullable: true })
+    annotation!: string | null;
 
-    // TODO
-    //activityId!: number;
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: "createdBy" })
+    createdBy!: User | null;
 
-    // TODO
-    //startedBy!: string;
+    @OneToOne(() => Activity, (activity) => activity.execution)
+    @JoinColumn({ name: "activityId" })
+    activity!: Activity;
 
-    // TODO
-    //photoId!: number;
+    @OneToMany(() => Photo, (photo) => photo.execution)
+    photos!: Photo[];
 
-    @Column()
-    annotation!: string;
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: "executedById" })
+    executedBy!: User | null;
 }

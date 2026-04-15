@@ -1,14 +1,20 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
+import { Activity } from "./activityEntity.js";
 
 @Entity()
 export class Registration extends BaseEntity {
-    @Column()
+    @Column({ type: "varchar" })
     name!: string;
 
-    // TODO
-    //activityId!: number;
+    @Column({ type: "varchar" })
+    email!: string;
 
-    // TODO
-    //userId!: number;
+    @Column({ type: "varchar", nullable: true })
+    cancelToken!: string | null;
+
+    @ManyToOne(() => Activity, activity => activity.inscriptions)
+    @JoinColumn({ name: "activityId" })
+    activity!: Activity;
+
 }

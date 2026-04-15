@@ -1,5 +1,6 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, ManyToMany, JoinTable } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
+import { Project } from "./projectEntity.js";
 
 export enum UserRole {
     // Admin: Gestor técnico da plataforma, sendo responsável pela criação do projeto anual, registo do coordenador e realização de backups.
@@ -8,8 +9,6 @@ export enum UserRole {
     SECRETARIAT = "secretariat",
     // coordenador: Responsável pelo projeto na escola, tendo acesso à gestão de utilizadores, plano de atividades e relatório final.
     COORDINATOR = "coordinator",
-    // Utilizador nao registado: Utilizador geral, pode visualizar o plano de atividades, detalhes e calendarização, e inscrever-se em atividades.
-    UNREGISTERED = "unregistered",
     // Participante ativo do projeto, com permissão para criar propostas de atividades, registar informação no plano de atividades e na execução de atividades.
     MEMBER = "member",
 }
@@ -19,7 +18,7 @@ export class User extends BaseEntity {
     @Column({ type: "varchar" })
     name!: string;
 
-    @Column({ type: "varchar" })
+    @Column({ type: "varchar", unique: true })
     email!: string;
 
     @Column({ type: "varchar", select: false })
@@ -28,26 +27,14 @@ export class User extends BaseEntity {
     @Column({
         type: "enum",
         enum: UserRole,
-        default: UserRole.UNREGISTERED,
+        default: UserRole.MEMBER,
     })
-    profile!: UserRole;
+    role!: UserRole;
 
-    @Column({ type: "varchar" })
-    active!: string;
+    @Column({ type: "boolean", default: true })
+    active!: boolean;
 
-    // TODO
-    //@Column(() => User)
-    //photoId!: number;
-
-    // TODO
-    //@Column(() => User)
-    //projectId!: number;
-
-    // TODO
-    //@Column(() => User)
-    //activityId!: number;
-
-    // TODO
-    //@Column(() => User)
-    //meetingId!: number;
+    @ManyToMany(() => Project)
+    @JoinTable({ name: "project_members" })
+    projects!: Project[];
 }

@@ -1,19 +1,21 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
+import { User } from "./userEntity.js";
+import { Project } from "./projectEntity.js";
 
 @Entity()
 export class Scoring extends BaseEntity {
-    @Column()
+    @Column({ type: "int" })
     points!: number;
 
-    @Column()
+    @Column({ type: "varchar" })
     reason!: string;
 
-    // TODO
-    // @Column()
-    // challengeId!: number;
+    @ManyToOne(() => User)
+    @JoinColumn({ name: "userId" })
+    user!: User;
 
-    // TODO
-    // @Column()
-    // userId!: number;
+    @ManyToOne(() => Project)
+    @JoinColumn({ name: "projectId" })
+    project!: Project;
 }

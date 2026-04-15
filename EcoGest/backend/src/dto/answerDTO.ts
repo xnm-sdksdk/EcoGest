@@ -1,3 +1,5 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class AnswerDTO extends BaseDTO { }
+export interface AnswerDTO {
+    value: string;
+    questionId: number;
+    userId?: number;
+}

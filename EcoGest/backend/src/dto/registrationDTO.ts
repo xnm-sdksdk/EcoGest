@@ -1,3 +1,5 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class RegistrationDTO extends BaseDTO { }
+export interface RegistrationDTO {
+    name: string;
+    email: string;
+    activityId: number;
+}

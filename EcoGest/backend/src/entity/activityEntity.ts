@@ -1,5 +1,16 @@
-import { Column, Entity } from "typeorm";
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+} from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
+import { Project } from "./projectEntity.js";
+import { User } from "./userEntity.js";
+import { Registration } from "./registrationEntity.js";
+import { Execution } from "./executionEntity.js";
 
 export enum ActivityState {
     DRAFT = "draft",
@@ -21,8 +32,8 @@ export class Activity extends BaseEntity {
     @Column({ type: "varchar" })
     area!: string;
 
-    @Column({ type: "varchar" })
-    resources!: string;
+    @Column({ type: "jsonb" })
+    resources!: string[];
 
     @Column({ type: "date" })
     startDate!: Date;
@@ -37,16 +48,19 @@ export class Activity extends BaseEntity {
     })
     state!: ActivityState;
 
-    // TODO add relations
-    @Column({ type: "int", nullable: true })
-    projectId!: number;
+    @ManyToOne(() => Project)
+    @JoinColumn({ name: "projectId" })
+    project!: Project;
 
-    @Column({ type: "varchar", nullable: true })
-    createdBy!: string;
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: "createdBy" })
+    createdBy!: User | null;
 
-    @Column({ type: "int", nullable: true })
-    progressId!: number;
+    @OneToMany(() => Registration, (registration) => registration.activity)
+    inscriptions!: Registration[];
 
-    @Column({ type: "int", nullable: true })
-    photoId!: number;
+    @OneToOne(() => Execution, (execution) => execution.activity, {
+        nullable: true,
+    })
+    execution!: Execution | null;
 }

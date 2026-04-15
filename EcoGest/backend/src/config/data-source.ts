@@ -7,12 +7,16 @@ import { Activity } from "../entity/activityEntity.js";
 import { Answer } from "../entity/answerEntity.js";
 import { Execution } from "../entity/executionEntity.js";
 import { Level } from "../entity/levelEntity.js";
-import { MeetingCalls } from "../entity/meetingCallsEntity.js";
+import { Convocation } from "../entity/convocationEntity.js";
 import { Photo } from "../entity/photoEntity.js";
 import { Proceedings } from "../entity/proceedingsEntity.js";
 import { Question } from "../entity/questionEntity.js";
 import { Registration } from "../entity/registrationEntity.js";
 import { Scoring } from "../entity/scoringEntity.js";
+import { Challenge } from "../entity/challengeEntity.js";
+import { Questionnaire } from "../entity/questionnaireEntity.js";
+import { Progress } from "../entity/progressEntity.js";
+import { Meeting } from "../entity/meetingEntity.js";
 
 dotenv.config();
 
@@ -25,7 +29,24 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME as string,
     //synchronize: true,
     logging: true,
-    entities: [User, Project, Activity, Answer, Execution, Level, MeetingCalls, Photo, Proceedings, Question, Registration, Scoring],
+    entities: [
+        Activity,
+        Answer,
+        Challenge,
+        Convocation,
+        Execution,
+        Level,
+        Meeting,
+        Photo,
+        Proceedings,
+        Progress,
+        Project,
+        Question,
+        Questionnaire,
+        Registration,
+        Scoring,
+        User,
+    ],
 });
 
 await AppDataSource.initialize();

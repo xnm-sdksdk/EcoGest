@@ -1,3 +1,6 @@
-import { BaseDTO } from "./baseDTO.js";
-
-export class ScoringDTO extends BaseDTO { }
+export interface ScoringDTO {
+    points: number;
+    reason: string;
+    userId: number;
+    projectId: number;
+}
