@@ -1,0 +1,17 @@
+import { Meeting } from "../../entity/meetingEntity.js";
+import { MeetingDTO } from "../../dto/meetingDTO.js";
+
+export interface MeetingService {
+  findMeetingsByProjectId(projectId: number): Promise<Meeting[]>;
+
+  findMeetingByMeetingId(meetingId: number): Promise<Meeting>;
+
+  createMeeting(projectId: number, meetingDTO: MeetingDTO): Promise<Meeting>;
+
+  updateMeetingById(meetingId: number, meetingDTO: MeetingDTO): Promise<void>;
+
+  deleteMeetingById(meetingId: number): Promise<void>;
+
+  cancelMeetingById(meetingId: number): Promise<void>;
+
+}
