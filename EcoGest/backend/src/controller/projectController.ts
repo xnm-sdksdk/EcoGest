@@ -12,7 +12,7 @@ export class ProjectController {
 
     getAllProjects = async (_req: Request, res: Response): Promise<void> => {
         try {
-            const projects = await this.projectService.findAll();
+            const projects = await this.projectService.findAllProjects();
             res.status(200).json(projects);
         } catch (error: any) {
             res.status(500).json({ error: error.message });

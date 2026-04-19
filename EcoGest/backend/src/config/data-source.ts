@@ -1,5 +1,4 @@
 import { DataSource } from "typeorm";
-import dotenv from "dotenv";
 // Imports entities
 import { User } from "../entity/userEntity.js";
 import { Project } from "../entity/projectEntity.js";
@@ -18,7 +17,6 @@ import { Questionnaire } from "../entity/questionnaireEntity.js";
 import { Progress } from "../entity/progressEntity.js";
 import { Meeting } from "../entity/meetingEntity.js";
 
-dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -27,7 +25,7 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USER as string,
     password: process.env.DB_PASSWORD as string,
     database: process.env.DB_NAME as string,
-    //synchronize: true,
+    synchronize: true,
     logging: true,
     entities: [
         Activity,
