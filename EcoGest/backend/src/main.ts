@@ -6,6 +6,7 @@ import rateLimit from "express-rate-limit";
 // Project routes
 import projectRoutes from "./routes/projects.routes.js";
 import usersRoutes from "./routes/users.routes.js";
+import levelsRoutes from "./routes/levels.routes.js";
 
 import { httpLogger } from "./utils/logger/logger.js";
 
@@ -27,5 +28,6 @@ app.use(limiter);
 
 app.use("/api", projectRoutes);
 app.use("/api", usersRoutes);
+app.use("/api", levelsRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));

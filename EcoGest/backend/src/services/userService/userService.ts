@@ -2,11 +2,11 @@ import { User } from "../../entity/userEntity.js";
 import { UserDTO } from "../../dto/userDTO.js";
 
 export interface UserService {
-    findAll(): Promise<User[]>;
+  findAll(): Promise<User[]>;
 
-    findUserById(userId: number): Promise<User | null>;
+  findUserById(userId: number): Promise<User | null>;
 
-    removeUserById(userId: number): Promise<void>;
+  removeUserById(userId: number): Promise<void | null>;
 
-    updateUserById(userId: number, userDTO: UserDTO): Promise<User>;
+  updateUserById(userId: number, userDTO: UserDTO): Promise<User>;
 }

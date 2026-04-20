@@ -16,7 +16,7 @@ export interface ActivityService {
     activityDTO: ActivityDTO,
   ): Promise<Activity>;
 
-  removeActivity(activityId: number): Promise<void>;
+  removeActivity(activityId: number): Promise<void | null>;
 
   approveActivity(activityId: number): Promise<Activity>;
 

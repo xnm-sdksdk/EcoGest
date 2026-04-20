@@ -1,44 +1,47 @@
 import { ProjectDTO } from "../../../dto/projectDTO.js";
 import { Project } from "../../../entity/projectEntity.js";
 import { ProjectRepository } from "../../../repository/projectRepository.js";
-import type { ProjectService } from "../projectService.js";
+import { ProjectService } from "../projectService.js";
+import { logger } from "../../../utils/logger/logger.js";
 
 export class ProjectServiceImpl implements ProjectService {
-    private projectRepository: typeof ProjectRepository;
+  private readonly projectRepository: typeof ProjectRepository;
 
-    constructor() {
-        this.projectRepository = ProjectRepository;
-    }
+  constructor() {
+    this.projectRepository = ProjectRepository;
+  }
 
-    async createProject(projectDTO: ProjectDTO): Promise<Project> {
-        const project = this.projectRepository.create({
-            ...projectDTO,
-        });
-        if (!project) {
-            throw new Error("Error creating project.");
-        }
-        return this.projectRepository.save(project);
+  async createProject(projectDTO: ProjectDTO): Promise<Project> {
+    const project = this.projectRepository.create({
+      ...projectDTO,
+    });
+    if (!project) {
+      throw new Error("Error creating project.");
     }
+    return await this.projectRepository.save(project);
+  }
 
-    async findAllProjects(): Promise<Project[]> {
-        return this.projectRepository.find();
-    }
+  async findAllProjects(): Promise<Project[]> {
+    return await this.projectRepository.find();
+  }
 
-    findProjectById(projectId: number): Promise<Project | null> {
-        if (!projectId) {
-            throw new Error("Project ID not found.");
-        }
-        return this.projectRepository.findOneBy({ id: projectId });
+  async findProjectById(projectId: number): Promise<Project | null> {
+    if (!projectId || projectId <= 0) {
+      logger.warn({ projectId }, "Invalid Project ID.");
+      throw new Error(`Invalid Project ID: ${projectId}`);
     }
+    return await this.projectRepository.findOneBy({ id: projectId });
+  }
 
-    async removeProjectById(projectId: number): Promise<void> {
-        if (!projectId) {
-            throw new Error("Project ID not found.");
-        }
-        await this.projectRepository.delete(projectId).then(() => { });
+  async removeProjectById(projectId: number): Promise<void> {
+    if (!projectId) {
+      logger.warn({ projectId }, "Invalid Project ID.");
+      throw new Error("Project ID not found.");
     }
+    return await this.projectRepository.delete(projectId).then(() => {});
+  }
 
-    updateProjectById(projectDTO: ProjectDTO): Promise<Project> {
-        throw new Error("Method not implemented.");
-    }
+  updateProjectById(projectDTO: ProjectDTO): Promise<Project> {
+    throw new Error("Method not implemented.");
+  }
 }

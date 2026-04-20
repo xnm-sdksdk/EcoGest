@@ -8,7 +8,7 @@ export interface ProjectService {
 
   findProjectById(projectId: number): Promise<Project | null>;
 
-  removeProjectById(projectId: number): Promise<void>;
+  removeProjectById(projectId: number): Promise<void | null>;
 
   updateProjectById(
     projectId: number,

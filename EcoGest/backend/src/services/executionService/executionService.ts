@@ -7,7 +7,7 @@ export interface ExecutionService {
     executionDTO: ExecutionDTO,
   ): Promise<Execution>;
 
-  deleteExecutionById(executionId: number): Promise<void>;
+  deleteExecutionById(executionId: number): Promise<void | null>;
 
   updateExecutionById(
     execution: Execution,

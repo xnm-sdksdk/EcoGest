@@ -8,7 +8,7 @@ export interface PhotoService {
     photoDTOs: PhotoDTO[],
   ): Promise<Photo[]>;
 
-  removeExecutionPhoto(photoId: number): Promise<void>;
+  removeExecutionPhoto(photoId: number): Promise<void | null>;
 
   findPhotosByMeeting(meetingId: number): Promise<Photo[]>;
 
@@ -17,5 +17,5 @@ export interface PhotoService {
     photoDTOs: PhotoDTO[],
   ): Promise<Photo[]>;
 
-  removeMeetingPhoto(photoId: number): Promise<void>;
+  removeMeetingPhoto(photoId: number): Promise<void | null>;
 }

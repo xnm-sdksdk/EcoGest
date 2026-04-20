@@ -1,9 +1,12 @@
 import { Router } from "express";
+import { LevelController } from "../controller/levelController.js";
 
 const router = Router();
 
-router.get("/levels");
-router.get("/levels/:id");
+const levelController = new LevelController();
+
+router.get("/levels", levelController.getAllLevels);
+router.get("/levels/:id", levelController.getLevelById);
 
 router.post("/levels");
 router.put("/levels/:id");
