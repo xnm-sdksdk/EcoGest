@@ -4,7 +4,7 @@ import { Level } from "../../entity/levelEntity.js";
 export interface LevelService {
   findAllLevels(): Promise<Level[]>;
 
-  findLevelById(): Promise<Level>;
+  findLevelById(): Promise<Level | null>;
 
   createLevel(levelDTO: LevelDTO): Promise<Level>;
 

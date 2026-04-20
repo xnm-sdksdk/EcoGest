@@ -2,7 +2,10 @@ import { Execution } from "../../entity/executionEntity.js";
 import { ExecutionDTO } from "../../dto/executionDTO.js";
 
 export interface ExecutionService {
-  createExecution(activityId:number, executionDTO: ExecutionDTO): Promise<Execution>;
+  createExecution(
+    activityId: number,
+    executionDTO: ExecutionDTO,
+  ): Promise<Execution>;
 
   deleteExecutionById(executionId: number): Promise<void>;
 
@@ -11,5 +14,5 @@ export interface ExecutionService {
     executionDTO: ExecutionDTO,
   ): Promise<void>;
 
-  findExecutionByActivityId(executionId: number): Promise<Execution>;
+  findExecutionByActivityId(executionId: number): Promise<Execution | null>;
 }

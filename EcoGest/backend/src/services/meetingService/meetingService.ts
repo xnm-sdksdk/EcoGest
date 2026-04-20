@@ -4,7 +4,7 @@ import { MeetingDTO } from "../../dto/meetingDTO.js";
 export interface MeetingService {
   findMeetingsByProjectId(projectId: number): Promise<Meeting[]>;
 
-  findMeetingByMeetingId(meetingId: number): Promise<Meeting>;
+  findMeetingByMeetingId(meetingId: number): Promise<Meeting | null>;
 
   createMeeting(projectId: number, meetingDTO: MeetingDTO): Promise<Meeting>;
 
@@ -13,5 +13,4 @@ export interface MeetingService {
   deleteMeetingById(meetingId: number): Promise<void>;
 
   cancelMeetingById(meetingId: number): Promise<void>;
-
 }
