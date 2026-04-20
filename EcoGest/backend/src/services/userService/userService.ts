@@ -6,7 +6,7 @@ export interface UserService {
 
     findUserById(userId: number): Promise<User | null>;
 
-    deleteUserById(userId: number): Promise<void>;
+    removeUserById(userId: number): Promise<void>;
 
     updateUserById(userId: number, userDTO: UserDTO): Promise<User>;
 }

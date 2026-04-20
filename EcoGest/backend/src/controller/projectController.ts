@@ -2,24 +2,24 @@ import type { Request, Response } from "express";
 import { ProjectServiceImpl } from "../services/projectService/impl/projectServiceImpl.js";
 import type { ProjectService } from "../services/projectService/projectService.js";
 import { ProjectDTO } from "../dto/projectDTO.js";
+import { logger } from "../utils/logger/logger.js";
 
 export class ProjectController {
-    private projectService: ProjectService;
+  private projectService: ProjectService;
 
-    constructor() {
-        this.projectService = new ProjectServiceImpl();
+  constructor() {
+    this.projectService = new ProjectServiceImpl();
+  }
+
+  getAllProjects = async (_req: Request, res: Response): Promise<void> => {
+    try {
+      const projects = await this.projectService.findAllProjects();
+      res.status(200).json(projects);
+    } catch (error: any) {
+      logger.error({ err: error }, "Failed to get all projects");
+      res.status(500).json({ error: error.message });
     }
+  };
 
-    getAllProjects = async (_req: Request, res: Response): Promise<void> => {
-        try {
-            const projects = await this.projectService.findAllProjects();
-            res.status(200).json(projects);
-        } catch (error: any) {
-            res.status(500).json({ error: error.message });
-        }
-    };
-
-    getProjectById = (): Promise<ProjectDTO> => {
-
-    }
+  getProjectById = (): Promise<ProjectDTO> => {};
 }
