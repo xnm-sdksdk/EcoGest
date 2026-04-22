@@ -1,25 +1,25 @@
-import type { Request, Response } from "express";
-import { ActivityService } from "../services/activityService/activityService.js";
-import { ActivityServiceImpl } from "../services/activityService/impl/activityServiceImpl.js";
+import type {Request, Response} from "express";
+import {ActivityService} from "../services/activityService/activityService.js";
+import {ActivityServiceImpl} from "../services/activityService/impl/activityServiceImpl.js";
 
 export class ActivityController {
-    private activityService: ActivityService;
+  private readonly activityService: ActivityService;
 
-    constructor() {
-        this.activityService = new ActivityServiceImpl();
-    }
+  constructor() {
+    this.activityService = new ActivityServiceImpl();
+  }
 
-    getProjectActivities = () => { }
+  getProjectActivities = (req: Request, res: Response) => {};
 
-    getActivityById = () => { }
+  getActivityById = (req: Request, res: Response) => {};
 
-    createActivityProposal = () => { }
+  createActivityProposal = (req: Request, res: Response) => {};
 
-    updateActivityById = () => { }
+  updateActivityById = (req: Request, res: Response) => {};
 
-    deleteActivityById = () => { }
+  deleteActivityById = (req: Request, res: Response) => {};
 
-    approveActivityById = () => { }
+  approveActivityById = (req: Request, res: Response) => {};
 
-    rejectActivityById = () => { }
+  rejectActivityById = (req: Request, res: Response) => {};
 }

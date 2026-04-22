@@ -41,7 +41,22 @@ export class ProjectServiceImpl implements ProjectService {
     return await this.projectRepository.delete(projectId).then(() => {});
   }
 
-  updateProjectById(projectDTO: ProjectDTO): Promise<Project> {
-    throw new Error("Method not implemented.");
+  async updateProjectById(
+    projectId: number,
+    projectDTO: ProjectDTO,
+  ): Promise<Project> {
+    if (!projectId) {
+      logger.warn({ projectId }, "Invalid project ID.");
+      throw new Error("Project ID not found.");
+    }
+    await this.projectRepository.update(projectId, projectDTO);
+
+    const updated = await this.projectRepository.findOneBy({ id: projectId });
+    if (!updated) {
+      logger.warn({ projectId }, "Project ID not found.");
+      throw new Error(`Project with id ${projectId} not found.`);
+    }
+
+    return updated;
   }
 }

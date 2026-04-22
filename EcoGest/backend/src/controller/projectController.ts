@@ -11,6 +11,8 @@ export class ProjectController {
     this.projectService = new ProjectServiceImpl();
   }
 
+  createProject = async (res: Response, res: Response): Promise<void> => {};
+
   getAllProjects = async (_req: Request, res: Response): Promise<void> => {
     try {
       const projects = await this.projectService.findAllProjects();
@@ -28,7 +30,7 @@ export class ProjectController {
     }
   };
 
-  getProjectById = (req: Request, res: Response): Promise<void> => {
+  getProjectById = async (req: Request, res: Response): Promise<void> => {
     try {
       const projectId = Number(req.params.id);
       if (Number.isNaN(projectId) || projectId <= 0) {
@@ -46,13 +48,21 @@ export class ProjectController {
         id: project.id,
         name: project.name,
         school: project.school,
-        schoolYear: new Date().toISOString(),
+        schoolYear: project.schoolYear,
         state: project.state,
       };
 
       res.status(200).json(projectDTO);
     } catch (error: any) {
+      logger.error(
+        { err: error, projectId: req.params.id },
+        "Failed to get project by id.",
+      );
       res.status(500).json({ error: error.message });
     }
   };
+
+  updateProjectById = async (res: Response, res: Response): Promise<void> => {};
+
+  removeProjectById = async (res: Response, res: Response): Promise<void> => {};
 }
