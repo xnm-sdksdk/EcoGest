@@ -62,7 +62,21 @@ export class ProjectController {
     }
   };
 
-  updateProjectById = async (res: Response, res: Response): Promise<void> => {};
+  updateProjectById = async (req: Request, res: Response): Promise<void> => {};
 
-  removeProjectById = async (res: Response, res: Response): Promise<void> => {};
+  removeProjectById = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const projectId = Number(req.params.id);
+      if (Number.isNaN(projectId) || projectId <= 0) {
+        res.status(400).json({ error: "Invalid Project ID" });
+        return;
+      }
+      await this.projectService.removeProjectById(projectId);
+      logger.info({ projectId }, "Project deleted");
+      res.status(204).send();
+    } catch (error: any) {
+      logger.error({ err: error }, "Failed to delete project");
+      res.status(500).json({ error: error.message });
+    }
+  };
 }

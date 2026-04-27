@@ -21,7 +21,7 @@ export class UserController {
       logger.info({ userId }, "User deleted");
       res.status(204).send();
     } catch (error: any) {
-      logger.error({ err: error, userId }, "Failed to delete user");
+      logger.error({ err: error }, "Failed to delete user");
       res.status(500).json({ error: error.message });
     }
   };
