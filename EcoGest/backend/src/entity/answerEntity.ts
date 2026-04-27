@@ -8,9 +8,9 @@ export class Answer extends BaseEntity {
   @Column({ type: "text" })
   value!: string;
 
-  @ManyToOne(() => User, { nullable: true })
+  @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: "createdBy" })
-  createdBy!: User | null;
+  createdBy!: User;
 
   @ManyToOne(() => Question)
   @JoinColumn({ name: "questionId" })

@@ -1,8 +1,17 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
 import { Photo } from "./photoEntity.js";
 import { Project } from "./projectEntity.js";
 import { User } from "./userEntity.js";
+import { Proceedings } from "./proceedingsEntity.js";
+import { Convocation } from "./convocationEntity.js";
 
 export enum MeetingState {
   SCHEDULED = "scheduled",
@@ -10,20 +19,13 @@ export enum MeetingState {
   CANCELED = "canceled",
 }
 
-export enum AttendanceState {
-  PENDING = "pending",
-  PRESENT = "present",
-  ABSENT = "absent",
-  EXCUSED = "excused",
-}
-
 @Entity()
 export class Meeting extends BaseEntity {
   @Column({ type: "timestamp" })
   date!: Date;
 
-  @Column({ type: "varchar", nullable: false })
-  location!: string | null;
+  @Column({ type: "varchar" })
+  location!: string;
 
   @Column({ type: "text", nullable: true })
   workOrder!: string | null;
@@ -39,9 +41,9 @@ export class Meeting extends BaseEntity {
   @JoinColumn({ name: "projectId" })
   project!: Project;
 
-  @ManyToOne(() => User, { nullable: true })
+  @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: "createdBy" })
-  createdBy!: User | null;
+  createdBy!: User;
 
   @OneToMany(() => Photo, (photo) => photo.meeting)
   photos!: Photo[];
@@ -51,10 +53,6 @@ export class Meeting extends BaseEntity {
   })
   proceedings!: Proceedings | null;
 
-  @Column({
-    type: "enum",
-    enum: AttendanceState,
-    default: AttendanceState.PENDING,
-  })
-  attendance!: AttendanceState;
+  @OneToMany(() => Convocation, (convocation) => convocation.meeting)
+  convocations!: Convocation[];
 }

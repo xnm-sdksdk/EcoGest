@@ -1,7 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, Unique } from "typeorm";
-import { BaseEntity } from "./baseEntity.js";
-import { Meeting } from "./meetingEntity.js";
-import { User } from "./userEntity.js";
+import {Column, Entity, JoinColumn, ManyToOne, Unique} from "typeorm";
+import {BaseEntity} from "./baseEntity.js";
+import {Meeting} from "./meetingEntity.js";
+import {User} from "./userEntity.js";
 
 export enum ConvocationState {
   PENDING = "pending",
@@ -9,8 +9,15 @@ export enum ConvocationState {
   FAILED = "failed",
 }
 
+export enum AttendanceState {
+  PENDING = "pending",
+  PRESENT = "present",
+  ABSENT = "absent",
+  EXCUSED = "excused",
+}
+
 @Entity()
-@Unique(["meeting", "user"])
+@Unique(["meeting", "recipient"])
 export class Convocation extends BaseEntity {
   @Column({ type: "timestamp", nullable: true })
   sentAt!: Date | null;
@@ -22,15 +29,22 @@ export class Convocation extends BaseEntity {
   })
   state!: ConvocationState;
 
+  @Column({
+    type: "enum",
+    enum: AttendanceState,
+    default: AttendanceState.PENDING,
+  })
+  attendance!: AttendanceState;
+
   @ManyToOne(() => Meeting, (meeting) => meeting.convocations)
   @JoinColumn({ name: "meetingId" })
   meeting!: Meeting;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: "userId" })
-  user!: User;
+  @JoinColumn({ name: "recipientId" })
+  recipient!: User;
 
-  @ManyToOne(() => User, { nullable: true })
-  @JoinColumn({ name: "createdById" })
-  createdBy!: User | null;
+  @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: "createdBy" })
+  createdBy!: User;
 }

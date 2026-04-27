@@ -22,7 +22,7 @@ export class Questionnaire extends BaseEntity {
   @OneToMany(() => Question, (question) => question.questionnaire)
   questions!: Question[];
 
-  @ManyToOne(() => User, { nullable: true })
-  @JoinColumn({ name: "createdById" })
-  createdBy!: User | null;
+  @ManyToOne(() => User, { nullable: false })
+  @JoinColumn({ name: "createdBy" })
+  createdBy!: User;
 }
