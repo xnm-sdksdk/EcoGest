@@ -1,8 +1,8 @@
 import { Project } from "../../entity/projectEntity.js";
-import { ProjectDTO } from "../../dto/projectDTO.js";
+import { CreateProjectDTO, UpdateProjectDTO } from "../../dto/projectDTO.js";
 
 export interface ProjectService {
-  createProject(projectDTO: ProjectDTO): Promise<Project>;
+  createProject(createProjectDTO: CreateProjectDTO): Promise<Project>;
 
   findAllProjects(): Promise<Project[]>;
 
@@ -12,6 +12,6 @@ export interface ProjectService {
 
   updateProjectById(
     projectId: number,
-    projectDTO: ProjectDTO,
+    updateProjectDTO: UpdateProjectDTO,
   ): Promise<Project>;
 }

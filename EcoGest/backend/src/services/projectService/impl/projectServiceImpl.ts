@@ -1,4 +1,4 @@
-import { ProjectDTO } from "../../../dto/projectDTO.js";
+import { CreateProjectDTO, UpdateProjectDTO } from "../../../dto/projectDTO.js";
 import { Project } from "../../../entity/projectEntity.js";
 import { ProjectRepository } from "../../../repository/projectRepository.js";
 import { ProjectService } from "../projectService.js";
@@ -11,9 +11,9 @@ export class ProjectServiceImpl implements ProjectService {
     this.projectRepository = ProjectRepository;
   }
 
-  async createProject(projectDTO: ProjectDTO): Promise<Project> {
+  async createProject(createProjectDTO: CreateProjectDTO): Promise<Project> {
     const project = this.projectRepository.create({
-      ...projectDTO,
+      ...createProjectDTO,
     });
     if (!project) {
       throw new Error("Error creating project.");
@@ -43,13 +43,13 @@ export class ProjectServiceImpl implements ProjectService {
 
   async updateProjectById(
     projectId: number,
-    projectDTO: ProjectDTO,
+    updateProjectDTO: UpdateProjectDTO,
   ): Promise<Project> {
     if (!projectId) {
       logger.warn({ projectId }, "Invalid project ID.");
       throw new Error("Project ID not found.");
     }
-    await this.projectRepository.update(projectId, projectDTO);
+    await this.projectRepository.update(projectId, updateProjectDTO);
 
     const updated = await this.projectRepository.findOneBy({ id: projectId });
     if (!updated) {
