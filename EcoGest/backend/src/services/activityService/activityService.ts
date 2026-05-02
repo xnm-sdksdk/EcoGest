@@ -1,24 +1,24 @@
-import { ActivityDTO } from "../../dto/activityDTO.js";
+import { CreateActivityDTO, UpdateActivityDTO } from "../../dto/activityDTO.js";
 import { Activity } from "../../entity/activityEntity.js";
 
 export interface ActivityService {
-  findActivitiesByProject(projectId: number): Promise<Activity[]>;
+  findActivitiesByProjectId(projectId: number): Promise<Activity[]>;
 
   findActivityById(activityId: number): Promise<Activity | null>;
 
   createActivity(
     projectId: number,
-    activityDTO: ActivityDTO,
+    createActivityDTO: CreateActivityDTO,
   ): Promise<Activity>;
 
-  updateActivity(
+  updateActivityById(
     activityId: number,
-    activityDTO: ActivityDTO,
+    updateActivityDTO: UpdateActivityDTO,
   ): Promise<Activity>;
 
-  removeActivity(activityId: number): Promise<void | null>;
+  removeActivityById(activityId: number): Promise<void | null>;
 
-  approveActivity(activityId: number): Promise<Activity>;
+  approveActivityById(activityId: number): Promise<Activity>;
 
-  rejectActivity(activityId: number): Promise<Activity>;
+  rejectActivityById(activityId: number): Promise<Activity>;
 }

@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
 import { Project } from "./projectEntity.js";
 import { User } from "./userEntity.js";
@@ -54,7 +47,7 @@ export class Activity extends BaseEntity {
 
   @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: "createdBy" })
-  createdBy!: User;
+  createdBy!: number;
 
   @OneToMany(() => Registration, (registration) => registration.activity)
   registrations!: Registration[];

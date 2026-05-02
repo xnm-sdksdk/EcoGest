@@ -1,4 +1,4 @@
-import { ActivityDTO } from "../../../dto/activityDTO.js";
+import { CreateActivityDTO, UpdateActivityDTO } from "../../../dto/activityDTO.js";
 import { Activity, ActivityState } from "../../../entity/activityEntity.js";
 import { ActivityRepository } from "../../../repository/activityRepository.js";
 import { ProjectRepository } from "../../../repository/projectRepository.js";
@@ -14,13 +14,17 @@ export class ActivityServiceImpl implements ActivityService {
     this.projectRepository = ProjectRepository;
   }
 
-  async findActivitiesByProject(projectId: number): Promise<Activity[]> {
-    const project = await this.projectRepository.existsBy({ id: projectId });
-    if (!project) {
+  async findActivitiesByProjectId(projectId: number): Promise<Activity[]> {
+    const projectExists = await this.projectRepository.existsBy({
+      id: projectId,
+    });
+    if (!projectExists) {
       logger.warn({ projectId }, "Invalid project ID.");
       throw new Error(`Project with id ${projectId} not found.`);
     }
-    return this.activityRepository.findBy({ id: projectId });
+    return this.activityRepository.find({
+      where: { project: { id: projectId } },
+    });
   }
 
   async findActivityById(activityId: number): Promise<Activity | null> {
@@ -33,7 +37,7 @@ export class ActivityServiceImpl implements ActivityService {
 
   async createActivity(
     projectId: number,
-    activityDTO: ActivityDTO,
+    createActivityDTO: CreateActivityDTO,
   ): Promise<Activity> {
     const project = await this.projectRepository.findOneBy({ id: projectId });
     if (!project) {
@@ -42,22 +46,22 @@ export class ActivityServiceImpl implements ActivityService {
     }
 
     const activity = this.activityRepository.create({
-      ...activityDTO,
+      ...createActivityDTO,
       project,
       state: ActivityState.PENDING,
     });
     return this.activityRepository.save(activity);
   }
 
-  async updateActivity(
+  async updateActivityById(
     activityId: number,
-    activityDTO: ActivityDTO,
+    updateActivityDTO: UpdateActivityDTO,
   ): Promise<Activity> {
     if (!activityId) {
       logger.warn({ activityId }, "Invalid activity ID.");
       throw new Error("Activity ID not found.");
     }
-    await this.activityRepository.update(activityId, activityDTO);
+    await this.activityRepository.update(activityId, updateActivityDTO);
 
     const updated = await this.activityRepository.findOneBy({ id: activityId });
     if (!updated) {
@@ -68,7 +72,7 @@ export class ActivityServiceImpl implements ActivityService {
     return updated;
   }
 
-  async removeActivity(activityId: number): Promise<void> {
+  async removeActivityById(activityId: number): Promise<void> {
     if (!activityId) {
       logger.warn({ activityId }, "Invalid activity ID.");
       throw new Error("Activity ID not found.");
@@ -76,7 +80,7 @@ export class ActivityServiceImpl implements ActivityService {
     return await this.activityRepository.delete(activityId).then(() => {});
   }
 
-  async approveActivity(activityId: number): Promise<Activity> {
+  async approveActivityById(activityId: number): Promise<Activity> {
     if (!activityId) {
       logger.warn({ activityId }, "Invalid activity ID.");
       throw new Error("Activity ID not found.");
@@ -92,7 +96,7 @@ export class ActivityServiceImpl implements ActivityService {
     return approve;
   }
 
-  async rejectActivity(activityId: number): Promise<Activity> {
+  async rejectActivityById(activityId: number): Promise<Activity> {
     if (!activityId) {
       logger.warn({ activityId }, "Invalid activity ID.");
       throw new Error("Activity ID not found.");
