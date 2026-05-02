@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "1c157bd7-807a-4eac-93fb-870d4a7bee14",
+		"name": "EcoGest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36199399"
+	},
+	"item": [
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "GetAllProjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProjectById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProjectById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Compostagem Escolar\",\n  \"school\": \"Escola Secundária de Rodrigues de Freitas\",\n  \"schoolYear\": \"2025/2026\",\n  \"state\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProjectById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Compostagem Escolar v2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projects/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "DeleteUserById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/sfdoigjhsdofij",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"sfdoigjhsdofij"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": []
+		},
+		{
+			"name": "ProjectMembers",
+			"item": []
+		},
+		{
+			"name": "Activities",
+			"item": []
+		},
+		{
+			"name": "Challenge",
+			"item": []
+		},
+		{
+			"name": "ActivityParticipants",
+			"item": []
+		},
+		{
+			"name": "Levels",
+			"item": []
+		},
+		{
+			"name": "Execution",
+			"item": []
+		},
+		{
+			"name": "ExecutionPhotos",
+			"item": []
+		},
+		{
+			"name": "Registrations",
+			"item": []
+		},
+		{
+			"name": "Meetings",
+			"item": []
+		},
+		{
+			"name": "Convocations",
+			"item": []
+		},
+		{
+			"name": "Proceedings",
+			"item": []
+		},
+		{
+			"name": "MeetingPhotos",
+			"item": []
+		},
+		{
+			"name": "Questionnaires",
+			"item": []
+		},
+		{
+			"name": "Questions",
+			"item": []
+		},
+		{
+			"name": "Answers",
+			"item": []
+		},
+		{
+			"name": "Gamification",
+			"item": []
+		},
+		{
+			"name": "Dashboard",
+			"item": []
+		},
+		{
+			"name": "Reports",
+			"item": []
+		},
+		{
+			"name": "Backups",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
