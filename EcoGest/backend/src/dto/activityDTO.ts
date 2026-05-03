@@ -1,3 +1,5 @@
+import { ActivityState } from "../entity/activityEntity.js";
+
 export interface ActivityDTO {
   id: number;
   name: string;
@@ -7,6 +9,8 @@ export interface ActivityDTO {
   startDate: Date;
   endDate: Date;
   createdBy: number;
+  state: ActivityState;
+  updatedAt: Date;
 }
 
 export interface CreateActivityDTO {
@@ -16,7 +20,8 @@ export interface CreateActivityDTO {
   resources: string[];
   startDate: Date;
   endDate: Date;
-  createdBy: number; // FIX
+  createdBy: number;
+  state: ActivityState;
 }
 
 export interface UpdateActivityDTO {
@@ -26,4 +31,6 @@ export interface UpdateActivityDTO {
   resources?: string[];
   startDate?: Date;
   endDate?: Date;
+  state: ActivityState;
+  updatedAt: Date;
 }

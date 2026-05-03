@@ -44,19 +44,16 @@ export class ProjectServiceImpl implements ProjectService {
   async updateProjectById(
     projectId: number,
     updateProjectDTO: UpdateProjectDTO,
-  ): Promise<Project> {
-    if (!projectId) {
-      logger.warn({ projectId }, "Invalid project ID.");
-      throw new Error("Project ID not found.");
-    }
-    await this.projectRepository.update(projectId, updateProjectDTO);
-
-    const updated = await this.projectRepository.findOneBy({ id: projectId });
-    if (!updated) {
-      logger.warn({ projectId }, "Project ID not found.");
-      throw new Error(`Project with id ${projectId} not found.`);
+  ): Promise<Project | null> {
+    const project = await this.projectRepository.findOneBy({
+      id: projectId,
+    });
+    if (!project) {
+      logger.warn({ projectId }, "Project not found.");
+      return null;
     }
 
-    return updated;
+    Object.assign(project, updateProjectDTO);
+    return await this.projectRepository.save(project);
   }
 }

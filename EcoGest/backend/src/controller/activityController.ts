@@ -1,8 +1,8 @@
-import type { Request, Response } from "express";
-import { ActivityService } from "../services/activityService/activityService.js";
-import { ActivityServiceImpl } from "../services/activityService/impl/activityServiceImpl.js";
-import { logger } from "../utils/logger/logger.js";
-import { ActivityDTO, CreateActivityDTO, UpdateActivityDTO } from "../dto/activityDTO.js";
+import type {Request, Response} from "express";
+import {ActivityService} from "../services/activityService/activityService.js";
+import {ActivityServiceImpl} from "../services/activityService/impl/activityServiceImpl.js";
+import {logger} from "../utils/logger/logger.js";
+import {ActivityDTO, CreateActivityDTO, UpdateActivityDTO,} from "../dto/activityDTO.js";
 
 export class ActivityController {
   private readonly activityService: ActivityService;
@@ -34,7 +34,9 @@ export class ActivityController {
         resources: activity.resources,
         startDate: activity.startDate,
         endDate: activity.endDate,
-        createdBy: 1,
+        createdBy: activity.createdBy,
+        state: activity.state,
+        updatedAt: activity.updatedAt,
       }));
       res.status(200).json(activitiesDTO);
     } catch (error: any) {
@@ -67,6 +69,8 @@ export class ActivityController {
         startDate: activity.startDate,
         endDate: activity.endDate,
         createdBy: activity.createdBy,
+        state: activity.state,
+        updatedAt: activity.updatedAt,
       };
 
       logger.info({ activityDTO }, "Activity updated");
@@ -118,7 +122,9 @@ export class ActivityController {
         resources: activity.resources,
         startDate: activity.startDate,
         endDate: activity.endDate,
-        createdBy: 1, //FIX
+        createdBy: activity.createdBy,
+        state: activity.state,
+        updatedAt: activity.updatedAt,
       };
       logger.info({ activityId: activity.id, projectId }, "Activity created");
       res.status(201).json(activityDTO);
@@ -156,7 +162,9 @@ export class ActivityController {
         resources: updateActivity.resources,
         startDate: updateActivity.startDate,
         endDate: updateActivity.endDate,
-        createdBy: 1,
+        createdBy: updateActivity.createdBy,
+        state: updateActivity.state,
+        updatedAt: updateActivity.updatedAt,
       };
 
       logger.info({ activityDTO }, "Activity updated");
@@ -184,16 +192,72 @@ export class ActivityController {
     }
   };
 
-  approveActivityById = (req: Request, res: Response): Promise<void> => {
+  approveActivityById = async (req: Request, res: Response): Promise<void> => {
     try {
+      const activityId = Number(req.params.id);
+      if (Number.isNaN(activityId) || activityId <= 0) {
+        res.status(400).json({ error: "Invalid Activity ID" });
+        return;
+      }
+
+      const activity =
+        await this.activityService.approveActivityById(activityId);
+      if (!activity) {
+        res.status(404).json({ error: "Activity not found" });
+        return;
+      }
+
+      const activityDTO: ActivityDTO = {
+        id: activity.id,
+        name: activity.name,
+        description: activity.description,
+        area: activity.area,
+        resources: activity.resources,
+        startDate: activity.startDate,
+        endDate: activity.endDate,
+        state: activity.state,
+        createdBy: activity.createdBy,
+        updatedAt: activity.updatedAt,
+      };
+
+      logger.info({ activityId }, "Activity approved");
+      res.status(200).json(activityDTO);
     } catch (error: any) {
       logger.error({ err: error }, "Failed to get all activities");
       res.status(500).json({ error: error.message });
     }
   };
 
-  rejectActivityById = (req: Request, res: Response): Promise<void> => {
+  rejectActivityById = async (req: Request, res: Response): Promise<void> => {
     try {
+      const activityId = Number(req.params.id);
+      if (Number.isNaN(activityId) || activityId <= 0) {
+        res.status(400).json({ error: "Invalid Activity ID" });
+        return;
+      }
+
+      const activity =
+        await this.activityService.rejectActivityById(activityId);
+      if (!activity) {
+        res.status(404).json({ error: "Activity not found" });
+        return;
+      }
+
+      const activityDTO: ActivityDTO = {
+        id: activity.id,
+        name: activity.name,
+        description: activity.description,
+        area: activity.area,
+        resources: activity.resources,
+        startDate: activity.startDate,
+        endDate: activity.endDate,
+        state: activity.state,
+        createdBy: activity.createdBy,
+        updatedAt: activity.updatedAt,
+      };
+
+      logger.info({ activityId }, "Activity rejected");
+      res.status(200).json(activityDTO);
     } catch (error: any) {
       logger.error({ err: error }, "Failed to get all activities");
       res.status(500).json({ error: error.message });

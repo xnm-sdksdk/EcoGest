@@ -1,9 +1,9 @@
-import { CreateActivityDTO, UpdateActivityDTO } from "../../../dto/activityDTO.js";
-import { Activity, ActivityState } from "../../../entity/activityEntity.js";
-import { ActivityRepository } from "../../../repository/activityRepository.js";
-import { ProjectRepository } from "../../../repository/projectRepository.js";
-import { ActivityService } from "../activityService.js";
-import { logger } from "../../../utils/logger/logger.js";
+import {CreateActivityDTO, UpdateActivityDTO,} from "../../../dto/activityDTO.js";
+import {Activity, ActivityState} from "../../../entity/activityEntity.js";
+import {ActivityRepository} from "../../../repository/activityRepository.js";
+import {ProjectRepository} from "../../../repository/projectRepository.js";
+import {ActivityService} from "../activityService.js";
+import {logger} from "../../../utils/logger/logger.js";
 
 export class ActivityServiceImpl implements ActivityService {
   private readonly activityRepository: typeof ActivityRepository;
@@ -56,20 +56,17 @@ export class ActivityServiceImpl implements ActivityService {
   async updateActivityById(
     activityId: number,
     updateActivityDTO: UpdateActivityDTO,
-  ): Promise<Activity> {
-    if (!activityId) {
-      logger.warn({ activityId }, "Invalid activity ID.");
-      throw new Error("Activity ID not found.");
-    }
-    await this.activityRepository.update(activityId, updateActivityDTO);
-
-    const updated = await this.activityRepository.findOneBy({ id: activityId });
-    if (!updated) {
-      logger.warn({ activityId }, "Activity ID not found.");
-      throw new Error(`Activity with id ${activityId} not found.`);
+  ): Promise<Activity | null> {
+    const activity = await this.activityRepository.findOneBy({
+      id: activityId,
+    });
+    if (!activity) {
+      logger.warn({ activityId }, "Activity not found.");
+      return null;
     }
 
-    return updated;
+    Object.assign(activity, updateActivityDTO);
+    return await this.activityRepository.save(activity);
   }
 
   async removeActivityById(activityId: number): Promise<void> {
@@ -80,35 +77,48 @@ export class ActivityServiceImpl implements ActivityService {
     return await this.activityRepository.delete(activityId).then(() => {});
   }
 
-  async approveActivityById(activityId: number): Promise<Activity> {
-    if (!activityId) {
+  async approveActivityById(activityId: number): Promise<Activity | null> {
+    const activity = await this.activityRepository.findOneBy({
+      id: activityId,
+    });
+    if (!activity) {
       logger.warn({ activityId }, "Invalid activity ID.");
-      throw new Error("Activity ID not found.");
+      return null;
     }
 
-    const approve = await this.activityRepository.findOneBy({ id: activityId });
-
-    if (!approve) {
-      logger.warn({ activityId }, "Activity ID not found.");
-      throw new Error(`Activity with id ${activityId} not found.`);
+    if (activity.state !== ActivityState.PENDING) {
+      logger.warn(
+        { activityId },
+        `Activity is not pending (current state: ${activity.state}).`,
+      );
+      throw new Error(
+        `Activity is not pending (current state: ${activity.state}).`,
+      );
     }
 
-    return approve;
+    return await this.activityRepository.save(activity);
   }
 
-  async rejectActivityById(activityId: number): Promise<Activity> {
-    if (!activityId) {
+  async rejectActivityById(activityId: number): Promise<Activity | null> {
+    const activity = await this.activityRepository.findOneBy({
+      id: activityId,
+    });
+    if (!activity) {
       logger.warn({ activityId }, "Invalid activity ID.");
-      throw new Error("Activity ID not found.");
+      return null;
     }
 
-    const reject = await this.activityRepository.findOneBy({ id: activityId });
-
-    if (!reject) {
-      logger.warn({ activityId }, "Activity ID not found.");
-      throw new Error(`Activity with id ${activityId} not found.`);
+    if (activity.state !== ActivityState.PENDING) {
+      logger.warn(
+        { activityId },
+        `Activity is not pending (current state: ${activity.state}).`,
+      );
+      throw new Error(
+        `Activity is not pending (current state: ${activity.state}).`,
+      );
     }
 
-    return reject;
+    activity.state = ActivityState.CANCELED;
+    return await this.activityRepository.save(activity);
   }
 }

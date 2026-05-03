@@ -14,11 +14,11 @@ export interface ActivityService {
   updateActivityById(
     activityId: number,
     updateActivityDTO: UpdateActivityDTO,
-  ): Promise<Activity>;
+  ): Promise<Activity | null>;
 
   removeActivityById(activityId: number): Promise<void | null>;
 
-  approveActivityById(activityId: number): Promise<Activity>;
+  approveActivityById(activityId: number): Promise<Activity | null>;
 
-  rejectActivityById(activityId: number): Promise<Activity>;
+  rejectActivityById(activityId: number): Promise<Activity | null>;
 }

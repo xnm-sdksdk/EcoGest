@@ -13,5 +13,5 @@ export interface ProjectService {
   updateProjectById(
     projectId: number,
     updateProjectDTO: UpdateProjectDTO,
-  ): Promise<Project>;
+  ): Promise<Project | null>;
 }
