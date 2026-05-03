@@ -286,6 +286,72 @@
 					"response": []
 				},
 				{
+					"name": "UpdateActivityApproveState",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Plantação de árvores autóctones v2\",\n  \"description\": \"Atividade de reflorestação no recinto escolar com espécies nativas da região norte de Portugal.\",\n  \"area\": \"Biodiversidade\",\n  \"resources\": \"Pás, regadores, 30 árvores (carvalho, sobreiro, medronheiro), luvas\",\n  \"startDate\": \"2026-05-15\",\n  \"endDate\": \"2026-05-15\",\n  \"createdBy\": 1,\n  \"state\": \"approve\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activities/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateActivityRejectState",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Plantação de árvores autóctones v2\",\n  \"description\": \"Atividade de reflorestação no recinto escolar com espécies nativas da região norte de Portugal.\",\n  \"area\": \"Biodiversidade\",\n  \"resources\": \"Pás, regadores, 30 árvores (carvalho, sobreiro, medronheiro), luvas\",\n  \"startDate\": \"2026-05-15\",\n  \"endDate\": \"2026-05-15\",\n  \"createdBy\": 1,\n  \"state\": \"reject\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/activities/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GetActivityById",
 					"request": {
 						"method": "GET",
