@@ -7,5 +7,7 @@ export interface AnswerService {
     answerDTO: AnswerDTO,
   ): Promise<Answer[]>;
 
+  findQuestionnaireAnswers(questionnaireId: number): Promise<Answer[]>;
+
   findQuestionnaireAnswerResults(questionnaireId: number): Promise<Answer[]>;
 }

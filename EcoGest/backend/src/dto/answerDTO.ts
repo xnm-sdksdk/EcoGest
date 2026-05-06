@@ -1,5 +1,6 @@
 export interface AnswerDTO {
-    value: string;
-    questionId: number;
-    userId?: number;
+  id: number;
+  value: string;
+  questionId: number;
+  userId?: number;
 }
