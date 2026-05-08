@@ -9,6 +9,7 @@ import usersRoutes from "./routes/users.routes.js";
 import levelsRoutes from "./routes/levels.routes.js";
 import activityRoutes from "./routes/activities.routes.js";
 import meetingRoutes from "./routes/meetings.routes.js";
+import proceedingsRoutes from "./routes/proceedings.routes.js";
 
 import { httpLogger } from "./utils/logger/logger.js";
 
@@ -33,5 +34,6 @@ app.use("/api", usersRoutes);
 app.use("/api", levelsRoutes);
 app.use("/api", activityRoutes);
 app.use("/api", meetingRoutes);
+app.use("/api", proceedingsRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));
