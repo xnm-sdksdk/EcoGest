@@ -1,12 +1,15 @@
 import { Router } from "express";
+import { MeetingController } from "../controller/meetingController.js";
 
 const router = Router();
 
-router.get("/projects/:id/meetings");
-router.get("/meetings/:id");
-router.post("/projects/:id/meetings");
-router.put("/meetings/:id");
-router.delete("/meetings/:id");
-router.put("/meetings/:id/cancel");
+const meetingController = new MeetingController();
+
+router.get("/projects/:id/meetings", meetingController.getProjectMeetings);
+router.get("/meetings/:id", meetingController.getMeetingById);
+router.post("/projects/:id/meetings", meetingController.createMeeting);
+router.put("/meetings/:id", meetingController.updateMeetingById);
+router.delete("/meetings/:id", meetingController.deleteMeetingById);
+router.put("/meetings/:id/cancel", meetingController.cancelMeetingById);
 
 export default router;
