@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --env-file=.env src/main.ts",
+    "swagger": "node docs/swagger.js",
     "start": "node src/server.js",
     "test": "vitest",
     "prepare": "husky"
@@ -31,12 +32,15 @@
     "pino-pretty": "^13.1.3",
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.8",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.28"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.6.0",
+    "@types/swagger-ui-express": "^4.1.8",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "nodemon": "^3.1.14",

@@ -3,7 +3,11 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "../docs/swagger-output.json" with { type: "json" };
+
 // Project routes
+
 import projectRoutes from "./routes/projects.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import levelsRoutes from "./routes/levels.routes.js";
@@ -28,6 +32,8 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api", projectRoutes);
 app.use("/api", usersRoutes);
