@@ -423,7 +423,231 @@
 		},
 		{
 			"name": "Questions",
-			"item": []
+			"item": [
+				{
+					"name": "Get Questions by questionnaire ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/questionnaires/:questionnaireId/questions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":questionnaireId",
+								"questions"
+							],
+							"variable": [
+								{
+									"key": "questionnaireId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Lista todas as perguntas de um questionário.\n\n**Respostas:**\n- 200: Array de QuestionDTO\n- 400: Invalid Questionnaire ID\n- 500: Erro interno"
+					},
+					"response": []
+				},
+				{
+					"name": "Create question (text)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": \"Qual a tua opinião sobre a reciclagem na escola?\",\n  \"order\": 1,\n  \"required\": true,\n  \"type\": \"text\",\n  \"createdBy\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/questionnaires/:questionnaireId/questions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":questionnaireId",
+								"questions"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "questionnaireId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Cria uma pergunta de tipo texto (resposta livre).\n\n**Body (CreateQuestionDTO):**\n```json\n{\n  \"value\": string,\n  \"order\": number,\n  \"required\": boolean,\n  \"type\": \"text\" | \"scale\" | \"choice\"\n}\n```\n\n**Respostas:**\n- 201: QuestionDTO criado\n- 400: Invalid Questionnaire ID / Missing required fields\n- 404: Questionnaire not found\n- 500: Erro interno"
+					},
+					"response": []
+				},
+				{
+					"name": "Create question (scale)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": \"De 1 a 5, quão satisfeito estás com as atividades ambientais?\",\n  \"order\": 2,\n  \"required\": true,\n  \"type\": \"scale\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/questionnaires/:questionnaireId/questions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":questionnaireId",
+								"questions"
+							],
+							"variable": [
+								{
+									"key": "questionnaireId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Cria uma pergunta de tipo escala numérica."
+					},
+					"response": []
+				},
+				{
+					"name": "Create question (choice)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": \"Que área ambiental te interessa mais?\",\n  \"order\": 3,\n  \"required\": false,\n  \"type\": \"choice\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/questionnaires/:questionnaireId/questions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":questionnaireId",
+								"questions"
+							],
+							"variable": [
+								{
+									"key": "questionnaireId",
+									"value": ""
+								}
+							]
+						},
+						"description": "Cria uma pergunta de escolha múltipla."
+					},
+					"response": []
+				},
+				{
+					"name": "Update question by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"value\": \"Texto da pergunta atualizado\",\n  \"order\": 1,\n  \"required\": true,\n  \"type\": \"text\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/questions/:questionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questions",
+								":questionId"
+							],
+							"variable": [
+								{
+									"key": "questionId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Atualiza uma pergunta existente.\n\n**Body (UpdateQuestionDTO):**\n```json\n{\n  \"value\": string,\n  \"order\": number,\n  \"required\": boolean,\n  \"type\": \"text\" | \"scale\" | \"choice\"\n}\n```\n\n**Respostas:**\n- 200: QuestionDTO atualizado\n- 400: Invalid Question ID / Missing fields\n- 404: Question not found\n- 500: Erro interno"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete question by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/questions/:questionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questions",
+								":questionId"
+							],
+							"variable": [
+								{
+									"key": "questionId",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Elimina uma pergunta pelo seu ID.\n\n**Respostas:**\n- 200 / 204: Eliminação bem-sucedida\n- 400: Invalid Question ID\n- 404: Question not found\n- 500: Erro interno"
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Answers",
