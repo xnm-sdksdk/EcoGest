@@ -14,9 +14,10 @@ import activityRoutes from "./routes/activities.routes.js";
 import meetingRoutes from "./routes/meetings.routes.js";
 import proceedingsRoutes from "./routes/proceedings.routes.js";
 import questionnaireRoutes from "./routes/questionnaires.routes.js";
+import questionsRoutes from "./routes/questions.routes.js";
+import registrationsRoutes from "./routes/registrations.routes.js";
 
 import { httpLogger } from "./utils/logger/logger.js";
-import questionsRoutes from "./routes/questions.routes.js";
 
 const PORT = 8080;
 const app = express();
@@ -44,5 +45,6 @@ app.use("/api", meetingRoutes);
 app.use("/api", proceedingsRoutes);
 app.use("/api", questionnaireRoutes);
 app.use("/api", questionsRoutes);
+app.use("/api", registrationsRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));

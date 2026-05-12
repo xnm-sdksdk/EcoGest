@@ -1,5 +1,6 @@
 export interface RegistrationDTO {
-    name: string;
-    email: string;
-    activityId: number;
+  id: number;
+  name: string;
+  email: string;
+  activityId: number;
 }
