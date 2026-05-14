@@ -14,6 +14,12 @@ export class LevelController {
   getAllLevels = async (_req: Request, res: Response): Promise<void> => {
     try {
       const levels = await this.levelService.findAllLevels();
+
+      if (!levels) {
+        res.status(404).json({ error: "Levels not found" });
+        return;
+      }
+
       const levelDTOs: LevelDTO[] = levels.map((level) => ({
         id: level.id,
         name: level.name,
@@ -56,4 +62,20 @@ export class LevelController {
       res.status(500).json({ error: error.message });
     }
   };
+
+  createlevel = async (req: Request, res: Response): Promise<void> => {};
+
+  updateLevelById = async (req: Request, res: Response): Promise<void> => {};
+
+  deleteLevelById = async (req: Request, res: Response): Promise<void> => {};
+
+  getLevelByProjectId = async (
+    req: Request,
+    res: Response,
+  ): Promise<void> => {};
+
+  updateLevelByProjectId = async (
+    req: Request,
+    res: Response,
+  ): Promise<void> => {};
 }

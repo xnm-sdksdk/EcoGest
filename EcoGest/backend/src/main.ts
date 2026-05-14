@@ -7,7 +7,6 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../docs/swagger-output.json" with { type: "json" };
 
 // Project routes
-
 import projectRoutes from "./routes/projects.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import levelsRoutes from "./routes/levels.routes.js";
@@ -15,6 +14,8 @@ import activityRoutes from "./routes/activities.routes.js";
 import meetingRoutes from "./routes/meetings.routes.js";
 import proceedingsRoutes from "./routes/proceedings.routes.js";
 import questionnaireRoutes from "./routes/questionnaires.routes.js";
+import questionsRoutes from "./routes/questions.routes.js";
+import registrationsRoutes from "./routes/registrations.routes.js";
 
 import { httpLogger } from "./utils/logger/logger.js";
 
@@ -43,5 +44,7 @@ app.use("/api", activityRoutes);
 app.use("/api", meetingRoutes);
 app.use("/api", proceedingsRoutes);
 app.use("/api", questionnaireRoutes);
+app.use("/api", questionsRoutes);
+app.use("/api", registrationsRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));

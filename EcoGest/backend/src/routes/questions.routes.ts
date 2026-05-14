@@ -1,10 +1,18 @@
-import { Router } from 'express';
+import { Router } from "express";
+import { QuestionController } from "../controller/questionController.js";
 
 const router = Router();
+const questionController = new QuestionController();
 
-router.get("/questionnaires/:id/questions");
-router.post("/questionnaires/:id/questions");
-router.put("/questions/:id");
-router.delete("/questions/:id");
+router.get(
+  "/questionnaires/:questionnaireId/questions",
+  questionController.getQuestionsByQuestionnaireId,
+);
+router.post(
+  "/questionnaires/:questionnaireId/questions",
+  questionController.createQuestionsByQuestionnaireId,
+);
+router.put("/questions/:id", questionController.updateQuestionById);
+router.delete("/questions/:id", questionController.deleteQuestionById);
 
 export default router;
