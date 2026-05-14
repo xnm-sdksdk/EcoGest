@@ -23,3 +23,23 @@ Steps to import and test:
 - Import `EcoGest.postman_collection.json` into Postman.
 - Fill the necessary env values
 - Test the endpoints freely
+
+## Swagger Documentation
+
+Generate the Swagger documentation:
+
+```bash
+npm run swagger
+```
+
+Run the backend server:
+
+```bash
+npm run dev
+```
+
+Access Swagger UI in the browser:
+
+```text
+http://localhost:8080/api-docs
+```
