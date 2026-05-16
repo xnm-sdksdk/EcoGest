@@ -14,3 +14,11 @@ export interface CreateLevelDTO {
   minAreas: number;
   order: number;
 }
+
+export interface UpdateLevelDTO {
+  name?: string;
+  description?: string;
+  minActivities?: number;
+  minAreas?: number;
+  order?: number;
+}

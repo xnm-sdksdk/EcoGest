@@ -1,8 +1,12 @@
-import type {Request, Response} from "express";
-import {ActivityService} from "../services/activityService/activityService.js";
-import {ActivityServiceImpl} from "../services/activityService/impl/activityServiceImpl.js";
-import {logger} from "../utils/logger/logger.js";
-import {ActivityDTO, CreateActivityDTO, UpdateActivityDTO,} from "../dto/activityDTO.js";
+import type { Request, Response } from "express";
+import { ActivityService } from "../services/activityService/activityService.js";
+import { ActivityServiceImpl } from "../services/activityService/impl/activityServiceImpl.js";
+import { logger } from "../utils/logger/logger.js";
+import {
+  ActivityDTO,
+  CreateActivityDTO,
+  UpdateActivityDTO,
+} from "../dto/activityDTO.js";
 
 export class ActivityController {
   private readonly activityService: ActivityService;
@@ -129,7 +133,7 @@ export class ActivityController {
       logger.info({ activityId: activity.id, projectId }, "Activity created");
       res.status(201).json(activityDTO);
     } catch (error: any) {
-      logger.error({ err: error }, "Failed to get all activities");
+      logger.error({ err: error }, "Failed to create activity");
       res.status(500).json({ error: error.message });
     }
   };
@@ -170,7 +174,7 @@ export class ActivityController {
       logger.info({ activityDTO }, "Activity updated");
       res.status(200).json(activityDTO);
     } catch (error: any) {
-      logger.error({ err: error }, "Failed to get all activities");
+      logger.error({ err: error }, "Failed to update activity");
       res.status(500).json({ error: error.message });
     }
   };
@@ -259,7 +263,7 @@ export class ActivityController {
       logger.info({ activityId }, "Activity rejected");
       res.status(200).json(activityDTO);
     } catch (error: any) {
-      logger.error({ err: error }, "Failed to get all activities");
+      logger.error({ err: error }, "Failed to reject activity");
       res.status(500).json({ error: error.message });
     }
   };

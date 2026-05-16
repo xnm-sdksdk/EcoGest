@@ -1,4 +1,8 @@
-import { CreateLevelDTO, LevelDTO } from "../../../dto/levelDTO.js";
+import {
+  CreateLevelDTO,
+  LevelDTO,
+  UpdateLevelDTO,
+} from "../../../dto/levelDTO.js";
 import { Level } from "../../../entity/levelEntity.js";
 import { LevelRepository } from "../../../repository/levelRepository.js";
 import { LevelService } from "../levelService.js";
@@ -52,7 +56,10 @@ export class LevelServiceImpl implements LevelService {
     return await this.levelRepository.save(level);
   }
 
-  async updateLevelById(levelId: number, levelDTO: LevelDTO): Promise<Level> {}
+  async updateLevelById(
+    levelId: number,
+    updateLevelDTO: UpdateLevelDTO,
+  ): Promise<Level> {}
 
   async removeLevelById(levelId: number): Promise<void> {
     if (!levelId || levelId <= 0) {
