@@ -7,10 +7,13 @@ const levelController = new LevelController();
 
 router.get("/levels", levelController.getAllLevels);
 router.get("/levels/:id", levelController.getLevelById);
-router.post("/levels");
-router.put("/levels/:id");
-router.delete("/levels/:id");
-router.get("/projects/:id/levels");
-router.put("/projects/:id/levels");
+router.post("/levels", levelController.createLevel);
+router.put("/levels/:id", levelController.updateLevelById);
+router.delete("/levels/:id", levelController.deleteLevelById);
+router.get("/projects/:projectId/levels", levelController.getLevelByProjectId);
+router.put(
+  "/projects/:projectId/levels",
+  levelController.updateLevelByProjectId,
+);
 
 export default router;

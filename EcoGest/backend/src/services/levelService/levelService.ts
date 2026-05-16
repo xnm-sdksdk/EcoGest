@@ -12,7 +12,7 @@ export interface LevelService {
 
   removeLevelById(levelId: number): Promise<void | null>;
 
-  findLevelByProjectId(projectId: number): Promise<Level | null>;
+  findLevelsByProjectId(projectId: number): Promise<Level[] | null>;
 
   updateLevelByProjectId(projectId: number, levelDTO: LevelDTO): Promise<Level>;
 }

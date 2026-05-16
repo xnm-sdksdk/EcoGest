@@ -1,8 +1,8 @@
-import type { Request, Response } from "express";
-import { LevelService } from "../services/levelService/levelService.js";
-import { LevelServiceImpl } from "../services/levelService/impl/levelServiceImpl.js";
-import { LevelDTO } from "../dto/levelDTO.js";
-import { logger } from "../utils/logger/logger.js";
+import type {Request, Response} from "express";
+import {LevelService} from "../services/levelService/levelService.js";
+import {LevelServiceImpl} from "../services/levelService/impl/levelServiceImpl.js";
+import {LevelDTO} from "../dto/levelDTO.js";
+import {logger} from "../utils/logger/logger.js";
 
 export class LevelController {
   private readonly levelService: LevelService;
@@ -63,7 +63,7 @@ export class LevelController {
     }
   };
 
-  createlevel = async (req: Request, res: Response): Promise<void> => {};
+  createLevel = async (req: Request, res: Response): Promise<void> => {};
 
   updateLevelById = async (req: Request, res: Response): Promise<void> => {};
 

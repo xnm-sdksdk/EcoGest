@@ -1,21 +1,38 @@
-import { LevelDTO } from "../../../dto/levelDTO.js";
+import { CreateLevelDTO, LevelDTO } from "../../../dto/levelDTO.js";
 import { Level } from "../../../entity/levelEntity.js";
 import { LevelRepository } from "../../../repository/levelRepository.js";
 import { LevelService } from "../levelService.js";
 import { logger } from "../../../utils/logger/logger.js";
+import { ProjectRepository } from "../../../repository/projectRepository.js";
 
 export class LevelServiceImpl implements LevelService {
   private readonly levelRepository: typeof LevelRepository;
+  private readonly projectRepository: typeof ProjectRepository;
 
   constructor() {
     this.levelRepository = LevelRepository;
+    this.projectRepository = ProjectRepository;
   }
 
   async findAllLevels(): Promise<Level[]> {
     return await this.levelRepository.find();
   }
 
-  async findLevelByProjectId(projectId: number): Promise<Level | null> {}
+  async findLevelsByProjectId(projectId: number): Promise<Level[] | null> {
+    const projectExists = await this.projectRepository.existsBy({
+      id: projectId,
+    });
+
+    if (!projectExists) {
+      logger.warn({ projectId }, "Invalid project ID.");
+      throw new Error(`Project with id ${projectId} not found.`);
+    }
+
+    return this.levelRepository.find({
+      where: { projects: { id: projectId } },
+      relations: ["projects", "createdBy"],
+    });
+  }
 
   async findLevelById(levelId: number): Promise<Level | null> {
     if (!levelId || levelId <= 0) {
@@ -25,7 +42,17 @@ export class LevelServiceImpl implements LevelService {
     return await this.levelRepository.findOneBy({ id: levelId });
   }
 
-  async createLevel(levelDTO: LevelDTO): Promise<Level> {}
+  async createLevel(createLevelDTO: CreateLevelDTO): Promise<Level> {
+    const level = this.levelRepository.create({
+      ...createLevelDTO,
+    });
+    if (!level) {
+      throw new Error("Error creating level.");
+    }
+    return await this.levelRepository.save(level);
+  }
+
+  async updateLevelById(levelId: number, levelDTO: LevelDTO): Promise<Level> {}
 
   async removeLevelById(levelId: number): Promise<void> {
     if (!levelId || levelId <= 0) {
@@ -39,6 +66,4 @@ export class LevelServiceImpl implements LevelService {
     projectId: number,
     levelDTO: LevelDTO,
   ): Promise<Level> {}
-
-  async updateLevelById(levelDTO: LevelDTO): Promise<Level> {}
 }
