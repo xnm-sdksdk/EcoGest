@@ -1,8 +1,8 @@
-import type { Request, Response } from "express";
-import { LevelService } from "../services/levelService/levelService.js";
-import { LevelServiceImpl } from "../services/levelService/impl/levelServiceImpl.js";
-import { CreateLevelDTO, LevelDTO, UpdateLevelDTO } from "../dto/levelDTO.js";
-import { logger } from "../utils/logger/logger.js";
+import type {Request, Response} from "express";
+import {LevelService} from "../services/levelService/levelService.js";
+import {LevelServiceImpl} from "../services/levelService/impl/levelServiceImpl.js";
+import {CreateLevelDTO, LevelDTO, UpdateLevelDTO} from "../dto/levelDTO.js";
+import {logger} from "../utils/logger/logger.js";
 
 export class LevelController {
   private readonly levelService: LevelService;
@@ -146,13 +146,32 @@ export class LevelController {
     }
   };
 
-  getLevelByProjectId = async (
-    req: Request,
-    res: Response,
-  ): Promise<void> => {};
+  getLevelByProjectId = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const projectId = Number(req.params.projectId);
+      if (Number.isNaN(projectId) || projectId <= 0) {
+        res.status(400).json({ error: "Invalid Project ID" });
+        return;
+      }
+      const result = await this.levelService.findLevelsByProjectId(projectId);
 
-  updateLevelByProjectId = async (
+      if (!result) {
+        res.status(404).json({ error: "Project not found" });
+        return;
+      }
+
+      res.status(200).json(result);
+    } catch (error: any) {
+      logger.error(
+        { err: error, projectId: req.params.id },
+        "Failed to get level by project id.",
+      );
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  /*  updateLevelByProjectId = async (
     req: Request,
     res: Response,
-  ): Promise<void> => {};
+  ): Promise<void> => {};*/
 }
