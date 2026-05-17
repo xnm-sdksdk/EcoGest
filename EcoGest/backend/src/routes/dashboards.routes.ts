@@ -1,8 +1,17 @@
 import { Router } from "express";
+import { DashboardController } from "../controller/dashboardController.js";
 
 const router = Router();
 
-router.get("/projects/:id/dashboard");
-router.get("/projects/:id/dashboard/monthly-activity");
+const dashboardController = new DashboardController();
+
+router.get(
+  "/projects/:projectId/dashboard",
+  dashboardController.getMetricsByProjectId,
+);
+router.get(
+  "/projects/:projectId/dashboard/monthly-activity",
+  dashboardController.getMonthlyMetricsByProjectId,
+);
 
 export default router;

@@ -48,6 +48,7 @@ export class RegistrationController {
 
   createRegistrationByActivityId = async () => {};
 
+  // TODO
   deleteRegistrationByToken = async () => {};
 
   deleteRegistrationById = async (
