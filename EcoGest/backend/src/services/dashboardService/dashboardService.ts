@@ -1,7 +1,7 @@
 import { DashboardDTO } from "../../dto/dashbordDTO.js";
 
 export interface DashboardService {
-  findMetricsByProjectId(projectId: string): Promise<DashboardDTO>;
+  findMetricsByProjectId(projectId: number): Promise<DashboardDTO>;
 
-  findMonthlyMetricsByProjectId(projectId: string): Promise<DashboardDTO>;
+  /*  findMonthlyMetricsByProjectId(projectId: number): Promise<DashboardDTO>;*/
 }

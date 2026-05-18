@@ -422,7 +422,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "1"
 								}
 							]
 						}
@@ -447,7 +447,7 @@
 							"variable": [
 								{
 									"key": "projectId",
-									"value": ""
+									"value": "2"
 								}
 							]
 						}
@@ -461,7 +461,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 7,\n  \"name\": \"Eco-Escola 2025/26\",\n  \"levelId\": 3,\n  \"level\": {\n    \"id\": 3,\n    \"name\": \"Ouro\",\n    \"description\": \"Nível avançado. Escola com excelência em educação ambiental.\",\n    \"minActivities\": 12,\n    \"minAreas\": 4,\n    \"order\": 3\n  },\n  \"updatedAt\": \"2026-05-16T14:40:00.000Z\"\n}",
+							"raw": "{\n  \"id\": 2,\n  \"name\": \"Eco-Escola 2025/26\",\n  \"levelId\": 1,\n  \"level\": {\n    \"id\": 1,\n    \"name\": \"Ouro\",\n    \"description\": \"Nível avançado. Escola com excelência em educação ambiental.\",\n    \"minActivities\": 12,\n    \"minAreas\": 4,\n    \"order\": 3\n  },\n  \"updatedAt\": \"2026-05-16T14:40:00.000Z\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -538,7 +538,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "1"
 								}
 							]
 						}
@@ -550,6 +550,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Bronze\",\n  \"description\": \"Nível inicial do programa Eco-Escolas. Atribuído a projetos que estão a dar os primeiros passos na implementação de práticas ambientais sustentáveis na escola.\",\n  \"minActivities\": 3,\n  \"minAreas\": 1,\n  \"order\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/levels",
 							"host": [
@@ -834,7 +843,33 @@
 		},
 		{
 			"name": "Dashboard",
-			"item": []
+			"item": [
+				{
+					"name": "Get Metrics By Project Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/:projectId/dashboard",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":projectId",
+								"dashboard"
+							],
+							"variable": [
+								{
+									"key": "projectId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Reports",

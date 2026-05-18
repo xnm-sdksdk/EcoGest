@@ -9,9 +9,12 @@ router.get(
   "/projects/:projectId/dashboard",
   dashboardController.getMetricsByProjectId,
 );
+
+/*
 router.get(
   "/projects/:projectId/dashboard/monthly-activity",
   dashboardController.getMonthlyMetricsByProjectId,
 );
+*/
 
 export default router;
