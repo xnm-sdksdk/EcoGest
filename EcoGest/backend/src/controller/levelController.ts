@@ -1,8 +1,8 @@
-import type {Request, Response} from "express";
-import {LevelService} from "../services/levelService/levelService.js";
-import {LevelServiceImpl} from "../services/levelService/impl/levelServiceImpl.js";
-import {CreateLevelDTO, LevelDTO, UpdateLevelDTO} from "../dto/levelDTO.js";
-import {logger} from "../utils/logger/logger.js";
+import type { Request, Response } from "express";
+import { LevelService } from "../services/levelService/levelService.js";
+import { LevelServiceImpl } from "../services/levelService/impl/levelServiceImpl.js";
+import { CreateLevelDTO, LevelDTO, UpdateLevelDTO } from "../dto/levelDTO.js";
+import { logger } from "../utils/logger/logger.js";
 
 export class LevelController {
   private readonly levelService: LevelService;
@@ -170,8 +170,42 @@ export class LevelController {
     }
   };
 
-  /*  updateLevelByProjectId = async (
+  updateLevelByProjectId = async (
     req: Request,
     res: Response,
-  ): Promise<void> => {};*/
+  ): Promise<void> => {
+    try {
+      const projectId = Number(req.params.projectId);
+      if (Number.isNaN(projectId) || projectId <= 0) {
+        res.status(400).json({ error: "Invalid Project ID" });
+        return;
+      }
+      const data: UpdateLevelDTO = req.body;
+
+      const updateLevel = await this.levelService.updateLevelByProjectId(
+        projectId,
+        data,
+      );
+
+      if (!updateLevel) {
+        res.status(404).json({ error: "Level not found" });
+        return;
+      }
+
+      const levelDTO: LevelDTO = {
+        id: updateLevel.id,
+        name: updateLevel.name,
+        description: updateLevel.description,
+        minActivities: updateLevel.minActivities,
+        minAreas: updateLevel.minAreas,
+        order: updateLevel.order,
+      };
+
+      logger.info({ levelDTO }, "Level updated");
+      res.status(200).json(levelDTO);
+    } catch (error: any) {
+      logger.error({ err: error }, "Failed to update level");
+      res.status(500).json({ error: error.message });
+    }
+  };
 }

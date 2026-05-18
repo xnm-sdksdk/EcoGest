@@ -11,9 +11,9 @@ router.post("/levels", levelController.createLevel);
 router.put("/levels/:id", levelController.updateLevelById);
 router.delete("/levels/:id", levelController.deleteLevelById);
 router.get("/projects/:projectId/levels", levelController.getLevelByProjectId);
-/*router.put(
+router.put(
   "/projects/:projectId/levels",
   levelController.updateLevelByProjectId,
-);*/
+);
 
 export default router;

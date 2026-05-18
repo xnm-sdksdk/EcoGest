@@ -1,5 +1,5 @@
 export interface LevelDTO {
-  id?: number;
+  id: number;
   name: string;
   description: string;
   minActivities: number;

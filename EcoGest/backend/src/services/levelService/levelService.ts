@@ -1,4 +1,4 @@
-import { LevelDTO, UpdateLevelDTO } from "../../dto/levelDTO.js";
+import { CreateLevelDTO, UpdateLevelDTO } from "../../dto/levelDTO.js";
 import { Level } from "../../entity/levelEntity.js";
 
 export interface LevelService {
@@ -6,7 +6,7 @@ export interface LevelService {
 
   findLevelById(levelId: number): Promise<Level | null>;
 
-  createLevel(levelDTO: LevelDTO): Promise<Level>;
+  createLevel(createLevelDTO: CreateLevelDTO): Promise<Level>;
 
   updateLevelById(
     levelId: number,
@@ -17,8 +17,8 @@ export interface LevelService {
 
   findLevelsByProjectId(projectId: number): Promise<Level[] | null>;
 
-  /*  updateLevelByProjectId(
+  updateLevelByProjectId(
     projectId: number,
     updateLevelDTO: UpdateLevelDTO,
-  ): Promise<Level | null>;*/
+  ): Promise<Level | null>;
 }

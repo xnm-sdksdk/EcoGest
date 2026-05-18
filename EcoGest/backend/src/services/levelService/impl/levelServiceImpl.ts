@@ -1,9 +1,9 @@
-import {CreateLevelDTO, UpdateLevelDTO} from "../../../dto/levelDTO.js";
-import {Level} from "../../../entity/levelEntity.js";
-import {LevelRepository} from "../../../repository/levelRepository.js";
-import {LevelService} from "../levelService.js";
-import {logger} from "../../../utils/logger/logger.js";
-import {ProjectRepository} from "../../../repository/projectRepository.js";
+import { CreateLevelDTO, UpdateLevelDTO } from "../../../dto/levelDTO.js";
+import { Level } from "../../../entity/levelEntity.js";
+import { LevelRepository } from "../../../repository/levelRepository.js";
+import { LevelService } from "../levelService.js";
+import { logger } from "../../../utils/logger/logger.js";
+import { ProjectRepository } from "../../../repository/projectRepository.js";
 
 export class LevelServiceImpl implements LevelService {
   private readonly levelRepository: typeof LevelRepository;
@@ -75,10 +75,20 @@ export class LevelServiceImpl implements LevelService {
     return await this.levelRepository.delete(levelId).then(() => {});
   }
 
-  /*  async updateLevelByProjectId(
+  async updateLevelByProjectId(
     projectId: number,
     updateLevelDTO: UpdateLevelDTO,
   ): Promise<Level | null> {
-    return new Promise();
-  }*/
+    const level = await this.levelRepository.findOne({
+      where: { id: projectId },
+    });
+
+    if (!level) {
+      logger.warn({ projectId }, "Level not found for the given project.");
+      return null;
+    }
+
+    Object.assign(level, updateLevelDTO);
+    return await this.levelRepository.save(level);
+  }
 }
