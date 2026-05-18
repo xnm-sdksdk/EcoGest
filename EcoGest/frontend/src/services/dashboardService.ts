@@ -1,7 +1,6 @@
-import { DashboardSummaryDTO } from 'src/types/dtos/dashboardDTO';
 import api from 'src/services/apiService';
+import { DashboardSummary } from 'src/types/dtos/dashboardDTO';
 
 export const dashboardService = {
-  findMetricsByProjectId: () =>
-    api.get<DashboardSummaryDTO>('dashboard/summary').then((r) => r.data),
+  findMetricsByProjectId: () => api.get<DashboardSummary>('dashboard/summary').then((r) => r.data),
 };

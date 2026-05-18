@@ -3,7 +3,7 @@ import api from 'src/services/apiService';
 
 export const activityService = {
   getActivityById(id: number): Promise<Activity> {
-    return api.get<Activity>(`activities/${id}`).then((r) => r.data);
+    return api.get<Activity>(`/activities/${id}`).then((r) => r.data);
   },
 
   getProjectByActivityId(projectId: number): Promise<Activity> {
@@ -11,7 +11,7 @@ export const activityService = {
   },
 
   deleteActivityById(id: number): Promise<void> {
-    return api.delete(`activities/${id}`).then(() => undefined);
+    return api.delete(`/activities/${id}`).then(() => undefined);
   },
 
   createActivity(projectId: number, activity: CreateActivity): Promise<Activity> {
@@ -19,14 +19,14 @@ export const activityService = {
   },
 
   updateActivity(id: number, activity: UpdateActivity): Promise<Activity> {
-    return api.put<Activity>(`activities/${id}`, activity).then((r) => r.data);
+    return api.put<Activity>(`/activities/${id}`, activity).then((r) => r.data);
   },
 
   approveActivityState(id: number, state: string): Promise<Activity> {
-    return api.patch<Activity>(`activities/${id}/approve`, state).then((r) => r.data);
+    return api.patch<Activity>(`/activities/${id}/approve`, state).then((r) => r.data);
   },
 
   rejectActivityState(id: number, state: string): Promise<Activity> {
-    return api.patch<Activity>(`activities/${id}/reject`, state).then((r) => r.data);
+    return api.patch<Activity>(`/activities/${id}/reject`, state).then((r) => r.data);
   },
 };

@@ -1,3 +1,3 @@
-export interface DashboardSummaryDTO {
+export interface DashboardSummary {
   totalActivities: number;
 }
