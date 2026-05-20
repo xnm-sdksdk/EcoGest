@@ -18,6 +18,7 @@ import questionsRoutes from "./routes/questions.routes.js";
 import registrationsRoutes from "./routes/registrations.routes.js";
 import dashboardsRoutes from "./routes/dashboards.routes.js";
 import executionRoutes from "./routes/executions.routes.js";
+import answersRoutes from "./routes/answers.routes.js";
 
 import { httpLogger } from "./utils/logger/logger.js";
 
@@ -50,5 +51,6 @@ app.use("/api", questionsRoutes);
 app.use("/api", registrationsRoutes);
 app.use("/api", dashboardsRoutes);
 app.use("/api", executionRoutes);
+app.use("/api", answersRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));
