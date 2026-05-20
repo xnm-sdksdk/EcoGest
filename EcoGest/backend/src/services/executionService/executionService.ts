@@ -1,18 +1,21 @@
 import { Execution } from "../../entity/executionEntity.js";
-import { ExecutionDTO } from "../../dto/executionDTO.js";
+import {
+  CreateExecutionDTO,
+  UpdateExecutionDTO,
+} from "../../dto/executionDTO.js";
 
 export interface ExecutionService {
   createExecution(
     activityId: number,
-    executionDTO: ExecutionDTO,
+    executionDTO: CreateExecutionDTO,
   ): Promise<Execution>;
 
-  deleteExecutionById(executionId: number): Promise<void | null>;
+  deleteExecutionById(executionId: number): Promise<void>;
 
   updateExecutionById(
-    execution: Execution,
-    executionDTO: ExecutionDTO,
-  ): Promise<void>;
+    executionId: number,
+    executionDTO: UpdateExecutionDTO,
+  ): Promise<Execution | null>;
 
-  findExecutionByActivityId(executionId: number): Promise<Execution | null>;
+  findExecutionByActivityId(activityId: number): Promise<Execution | null>;
 }
