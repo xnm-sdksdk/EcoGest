@@ -13,6 +13,10 @@
   "paths": {
     "/api/projects": {
       "get": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Listar projetos",
         "description": "",
         "responses": {
           "default": {
@@ -21,7 +25,20 @@
         }
       },
       "post": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Criar projeto",
         "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateProjectRequest"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -31,7 +48,19 @@
     },
     "/api/projects/{id}": {
       "get": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Obter projeto por ID",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -39,7 +68,26 @@
         }
       },
       "put": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Atualizar projeto",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateProjectRequest"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -47,7 +95,19 @@
         }
       },
       "delete": {
+        "tags": [
+          "Projects"
+        ],
+        "summary": "Eliminar projeto",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -65,8 +125,12 @@
         }
       }
     },
-    "/api/projects/{projectId}/activities": {
+    "/api/levels": {
       "get": {
+        "tags": [
+          "Levels"
+        ],
+        "summary": "Listar níveis",
         "description": "",
         "responses": {
           "default": {
@@ -75,7 +139,180 @@
         }
       },
       "post": {
+        "tags": [
+          "Levels"
+        ],
+        "summary": "Criar nível",
         "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateLevelRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/levels/{id}": {
+      "get": {
+        "tags": [
+          "Levels"
+        ],
+        "summary": "Obter nível por ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Levels"
+        ],
+        "summary": "Atualizar nível",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateLevelRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Levels"
+        ],
+        "summary": "Eliminar nível",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/projects/{projectId}/levels": {
+      "get": {
+        "tags": [
+          "Levels"
+        ],
+        "summary": "Obter nível de um projeto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Levels"
+        ],
+        "summary": "Atualizar nível de um projeto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/projects/{projectId}/activities": {
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Listar atividades de um projeto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Criar atividade num projeto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateActivityRequest"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -85,7 +322,19 @@
     },
     "/api/activities/{id}": {
       "get": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Obter atividade por ID",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -93,7 +342,26 @@
         }
       },
       "put": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Atualizar atividade",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateActivityRequest"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -101,7 +369,19 @@
         }
       },
       "delete": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Eliminar atividade",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -111,7 +391,19 @@
     },
     "/api/activities/{id}/approve": {
       "put": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Aprovar atividade",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -121,7 +413,19 @@
     },
     "/api/activities/{id}/reject": {
       "put": {
+        "tags": [
+          "Activities"
+        ],
+        "summary": "Rejeitar atividade",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -346,6 +650,304 @@
           }
         }
       }
+    },
+    "/api/projects/{id}/questionnaires": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/questionnaires/{id}": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/questionnaires/{id}/publish": {
+      "put": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/questionnaires/{questionnaireId}/questions": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Listar perguntas de um questionário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "questionnaireId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Criar pergunta num questionário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "questionnaireId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateQuestionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/questions/{id}": {
+      "put": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Atualizar pergunta",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateQuestionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Eliminar pergunta",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/activities/{activityId}/registrations": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/registrations/{token}": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/registrations/{id}/admin": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/projects/{projectId}/dashboard": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/activities/{id}/execution": {
+      "get": {
+        "tags": [
+          "Execution"
+        ],
+        "summary": "Obter execução de uma atividade",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Execution"
+        ],
+        "summary": "Criar execução para uma atividade",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateExecutionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/executions/{id}": {
+      "put": {
+        "tags": [
+          "Execution"
+        ],
+        "summary": "Atualizar execução",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateExecutionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Execution"
+        ],
+        "summary": "Eliminar execução",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -406,6 +1008,244 @@
         "content": {
           "type": "string",
           "example": "Ata atualizada da reunião"
+        }
+      }
+    },
+    "CreateExecutionRequest": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2026-05-15"
+        },
+        "location": {
+          "type": "string",
+          "example": "Pátio da escola"
+        },
+        "annotation": {
+          "type": "string",
+          "example": "Atividade executada com sucesso."
+        },
+        "createdBy": {
+          "type": "number",
+          "example": 1
+        },
+        "executedBy": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "UpdateExecutionRequest": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2026-05-16"
+        },
+        "location": {
+          "type": "string",
+          "example": "Auditório"
+        },
+        "annotation": {
+          "type": "string",
+          "example": "Anotação atualizada."
+        },
+        "executedBy": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "CreateProjectRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Compostagem Escolar"
+        },
+        "school": {
+          "type": "string",
+          "example": "Escola Secundária de Rodrigues de Freitas"
+        },
+        "schoolYear": {
+          "type": "string",
+          "example": "2025/2026"
+        },
+        "state": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "UpdateProjectRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Compostagem Escolar v2"
+        }
+      }
+    },
+    "CreateActivityRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Plantação de milho"
+        },
+        "description": {
+          "type": "string",
+          "example": "Atividade de plantanção."
+        },
+        "area": {
+          "type": "string",
+          "example": "Biodiversidade"
+        },
+        "resources": {
+          "type": "string",
+          "example": "Pás, regadores, luvas"
+        },
+        "startDate": {
+          "type": "string",
+          "example": "2026-05-15"
+        },
+        "endDate": {
+          "type": "string",
+          "example": "2026-05-15"
+        },
+        "createdBy": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "UpdateActivityRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Plantação de árvores autóctones v2"
+        },
+        "description": {
+          "type": "string",
+          "example": "Atividade de reflorestação no recinto escolar com espécies nativas da região norte de Portugal."
+        },
+        "area": {
+          "type": "string",
+          "example": "Biodiversidade"
+        },
+        "resources": {
+          "type": "string",
+          "example": "Pás, regadores, 30 árvores (carvalho, sobreiro, medronheiro), luvas"
+        },
+        "startDate": {
+          "type": "string",
+          "example": "2026-05-15"
+        },
+        "endDate": {
+          "type": "string",
+          "example": "2026-05-15"
+        },
+        "createdBy": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "CreateLevelRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Bronze"
+        },
+        "description": {
+          "type": "string",
+          "example": "Nível inicial do programa Eco-Escolas. Atribuído a projetos que estão a dar os primeiros passos na implementação de práticas ambientais sustentáveis na escola."
+        },
+        "minActivities": {
+          "type": "number",
+          "example": 3
+        },
+        "minAreas": {
+          "type": "number",
+          "example": 1
+        },
+        "order": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "UpdateLevelRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Prata"
+        },
+        "description": {
+          "type": "string",
+          "example": "Nível intermédio atualizado — escola com forte envolvimento em pelo menos duas áreas temáticas."
+        },
+        "minActivities": {
+          "type": "number",
+          "example": 6
+        },
+        "minAreas": {
+          "type": "number",
+          "example": 2
+        },
+        "order": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
+    "CreateQuestionRequest": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "example": "Qual a tua opinião sobre a reciclagem na escola?"
+        },
+        "order": {
+          "type": "number",
+          "example": 1
+        },
+        "required": {
+          "type": "boolean",
+          "example": true
+        },
+        "type": {
+          "type": "string",
+          "example": "text"
+        },
+        "createdBy": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "UpdateQuestionRequest": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "example": "Texto da pergunta atualizado"
+        },
+        "order": {
+          "type": "number",
+          "example": 1
+        },
+        "required": {
+          "type": "boolean",
+          "example": true
+        },
+        "type": {
+          "type": "string",
+          "example": "text"
         }
       }
     }
