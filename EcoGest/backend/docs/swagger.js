@@ -27,6 +27,19 @@ const doc = {
     UpdateProceedingsRequest: {
       content: "Ata atualizada da reunião",
     },
+    CreateExecutionRequest: {
+      date: "2026-05-15",
+      location: "Pátio da escola",
+      annotation: "Atividade executada com sucesso.",
+      createdBy: 1,
+      executedBy: 1,
+    },
+    UpdateExecutionRequest: {
+      date: "2026-05-16",
+      location: "Auditório",
+      annotation: "Anotação atualizada.",
+      executedBy: 1,
+    },
   },
 };
 
