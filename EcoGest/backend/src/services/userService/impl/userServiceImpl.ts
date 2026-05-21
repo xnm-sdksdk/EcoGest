@@ -1,7 +1,7 @@
 import { UserService } from "../userService.js";
 import { User } from "../../../entity/userEntity.js";
 import { UserRepository } from "../../../repository/userRepository.js";
-import { UserDTO } from "../../../dto/userDTO.js";
+import { UpdateUserDTO } from "../../../dto/userDTO.js";
 import { logger } from "../../../utils/logger/logger.js";
 
 export class UserServiceImpl implements UserService {
@@ -19,7 +19,7 @@ export class UserServiceImpl implements UserService {
     return await this.userRepository.delete(userId).then(() => {});
   }
 
-  findAll(): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
@@ -31,7 +31,19 @@ export class UserServiceImpl implements UserService {
     return await this.userRepository.findOneBy({ id: userId });
   }
 
-  updateUserById(userId: number, userDTO: UserDTO): Promise<User> {
-    return Promise.resolve(undefined);
+  async updateUserById(
+    userId: number,
+    updateUserDTO: UpdateUserDTO,
+  ): Promise<User | null> {
+    const user = await this.userRepository.findOneBy({
+      id: userId,
+    });
+    if (!user) {
+      logger.warn({ userId }, "User not found.");
+      return null;
+    }
+
+    Object.assign(user, updateUserDTO);
+    return await this.userRepository.save(user);
   }
 }

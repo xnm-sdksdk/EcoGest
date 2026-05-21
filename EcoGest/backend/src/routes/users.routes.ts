@@ -5,10 +5,9 @@ const router = Router();
 
 const userController = new UserController();
 
-/*router.get("/users/");
-router.get("/users/:id");
-router.put("/users/:id");
-*/
+router.get("/users/", userController.getUsers);
+router.get("/users/:id", userController.getUserById);
+router.put("/users/:id", userController.updateUserById);
 router.delete("/users/:id", userController.deleteUserById);
 
 export default router;

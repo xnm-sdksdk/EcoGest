@@ -1,5 +1,5 @@
 import { User } from "../../entity/userEntity.js";
-import { UserDTO } from "../../dto/userDTO.js";
+import { UpdateUserDTO } from "../../dto/userDTO.js";
 
 export interface UserService {
   findAll(): Promise<User[]>;
@@ -8,5 +8,8 @@ export interface UserService {
 
   removeUserById(userId: number): Promise<void | null>;
 
-  updateUserById(userId: number, userDTO: UserDTO): Promise<User>;
+  updateUserById(
+    userId: number,
+    updateUserDTO: UpdateUserDTO,
+  ): Promise<User | null>;
 }

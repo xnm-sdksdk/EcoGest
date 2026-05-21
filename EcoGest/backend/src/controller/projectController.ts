@@ -1,11 +1,7 @@
 import type { Request, Response } from "express";
 import { ProjectServiceImpl } from "../services/projectService/impl/projectServiceImpl.js";
 import type { ProjectService } from "../services/projectService/projectService.js";
-import {
-  CreateProjectDTO,
-  ProjectDTO,
-  UpdateProjectDTO,
-} from "../dto/projectDTO.js";
+import { CreateProjectDTO, ProjectDTO, UpdateProjectDTO } from "../dto/projectDTO.js";
 import { logger } from "../utils/logger/logger.js";
 
 export class ProjectController {
@@ -35,7 +31,6 @@ export class ProjectController {
         state: project.state,
       };
 
-      logger.info({ projectId: project.id }, "Project created");
       res.status(201).json(projectDTO);
     } catch (error: any) {
       logger.error({ err: error }, "Failed to create project");
@@ -120,7 +115,6 @@ export class ProjectController {
         state: updatedProject.state,
       };
 
-      logger.info({ projectId }, "Project updated");
       res.status(200).json(projectDTO);
     } catch (error: any) {
       logger.error(
@@ -138,8 +132,8 @@ export class ProjectController {
         res.status(400).json({ error: "Invalid Project ID" });
         return;
       }
+
       await this.projectService.removeProjectById(projectId);
-      logger.info({ projectId }, "Project deleted");
       res.status(204).send();
     } catch (error: any) {
       logger.error({ err: error }, "Failed to delete project");

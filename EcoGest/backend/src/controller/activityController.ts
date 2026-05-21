@@ -2,11 +2,7 @@ import type { Request, Response } from "express";
 import { ActivityService } from "../services/activityService/activityService.js";
 import { ActivityServiceImpl } from "../services/activityService/impl/activityServiceImpl.js";
 import { logger } from "../utils/logger/logger.js";
-import {
-  ActivityDTO,
-  CreateActivityDTO,
-  UpdateActivityDTO,
-} from "../dto/activityDTO.js";
+import { ActivityDTO, CreateActivityDTO, UpdateActivityDTO } from "../dto/activityDTO.js";
 
 export class ActivityController {
   private readonly activityService: ActivityService;
@@ -77,7 +73,6 @@ export class ActivityController {
         updatedAt: activity.updatedAt,
       };
 
-      logger.info({ activityDTO }, "Activity updated");
       res.status(200).json(activityDTO);
     } catch (error: any) {
       logger.error({ err: error }, "Failed to get all activities");
@@ -171,7 +166,6 @@ export class ActivityController {
         updatedAt: updateActivity.updatedAt,
       };
 
-      logger.info({ activityDTO }, "Activity updated");
       res.status(200).json(activityDTO);
     } catch (error: any) {
       logger.error({ err: error }, "Failed to update activity");
@@ -188,7 +182,6 @@ export class ActivityController {
       }
 
       await this.activityService.removeActivityById(activityId);
-      logger.info({ activityId }, "Activity deleted");
       res.status(204).send();
     } catch (error: any) {
       logger.error({ err: error }, "Failed to delete activity by id.");
