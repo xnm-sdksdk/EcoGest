@@ -1,11 +1,13 @@
 import { Convocation } from "../../entity/convocationEntity.js";
-import { ConvocationDTO } from "../../dto/convocationDTO.js";
+import { CreateConvocationDTO } from "../../dto/convocationDTO.js";
 
 export interface ConvocationService {
   findConvocationByMeetingId(meetingId: number): Promise<Convocation[]>;
 
-  createMeetingsConvocation(
+  createMeetingConvocation(
     meetingId: number,
-    convocationDTO: ConvocationDTO,
+    convocationDTO: CreateConvocationDTO,
   ): Promise<Convocation>;
+
+  resendMeetingConvocations(meetingId: number): Promise<Convocation[]>;
 }
