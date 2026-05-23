@@ -64,3 +64,19 @@ describe("DELETE /api/users/:id", () => {
     expect(response.status).toBe(204);
   });
 });
+
+describe("PUT /api/users/:id", () => {
+  it("should return 400 and error if the objectId provided is invalid", async () => {
+    const response = await supertest(app).put("/api/users/iojidjcoi").send({
+      name: "Test User",
+      email: "test@example.com",
+      password: "hashed_password",
+      profile: UserProfile.MEMBER,
+      active: true,
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toBeDefined();
+    expect(response.body.error).toBe("Invalid User ID");
+  });
+});
