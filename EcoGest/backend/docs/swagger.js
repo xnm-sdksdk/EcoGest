@@ -99,6 +99,16 @@ const doc = {
       required: true,
       type: "text",
     },
+
+    CreateQuestionnaireRequest: {
+      title: "Auditoria Ambiental",
+      description: "Questionário inicial de diagnóstico ambiental.",
+      createdBy: 1,
+    },
+    UpdateQuestionnaireRequest: {
+      title: "Auditoria Ambiental Atualizada",
+      description: "Descrição atualizada do questionário.",
+    },
   },
 };
 

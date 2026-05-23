@@ -115,7 +115,33 @@
         }
       }
     },
+    "/api/users/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/users/{id}": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
       "delete": {
         "description": "",
         "responses": {
@@ -653,7 +679,19 @@
     },
     "/api/projects/{id}/questionnaires": {
       "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Listar questionários de um projeto",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -661,7 +699,26 @@
         }
       },
       "post": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Criar questionário num projeto",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateQuestionnaireRequest"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -671,7 +728,19 @@
     },
     "/api/questionnaires/{id}": {
       "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Obter questionário por ID",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -679,7 +748,26 @@
         }
       },
       "put": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Atualizar questionário",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateQuestionnaireRequest"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -687,7 +775,19 @@
         }
       },
       "delete": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Eliminar questionário",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -697,7 +797,19 @@
     },
     "/api/questionnaires/{id}/publish": {
       "put": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Publicar questionário",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -942,6 +1054,34 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/questionnaires/{questionnaireId}/answers": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/questionnaires/{questionnaireId}/results": {
+      "get": {
+        "description": "",
         "responses": {
           "default": {
             "description": ""
@@ -1246,6 +1386,36 @@
         "type": {
           "type": "string",
           "example": "text"
+        }
+      }
+    },
+    "CreateQuestionnaireRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Auditoria Ambiental"
+        },
+        "description": {
+          "type": "string",
+          "example": "Questionário inicial de diagnóstico ambiental."
+        },
+        "createdBy": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "UpdateQuestionnaireRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Auditoria Ambiental Atualizada"
+        },
+        "description": {
+          "type": "string",
+          "example": "Descrição atualizada do questionário."
         }
       }
     }

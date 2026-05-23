@@ -649,7 +649,112 @@
 		},
 		{
 			"name": "Execution",
-			"item": []
+			"item": [
+				{
+					"name": "GetExecutionByActivityId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/activities/:id/execution",
+						"host": ["{{baseUrl}}"],
+						"path": ["activities", ":id", "execution"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "CreateExecution",
+					"request": {
+						"method": "POST",
+						"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+						],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"date\": \"2026-05-15\",\n  \"location\": \"Pátio da escola\",\n  \"annotation\": \"Atividade executada com sucesso.\",\n  \"createdBy\": 1,\n  \"executedBy\": 1\n}",
+						"options": {
+							"raw": {
+							"language": "json"
+							}
+						}
+						},
+						"url": {
+						"raw": "{{baseUrl}}/activities/:id/execution",
+						"host": ["{{baseUrl}}"],
+						"path": ["activities", ":id", "execution"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "UpdateExecutionById",
+					"request": {
+						"method": "PUT",
+						"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+						],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"date\": \"2026-05-16\",\n  \"location\": \"Auditório\",\n  \"annotation\": \"Anotação atualizada.\",\n  \"executedBy\": 1\n}",
+						"options": {
+							"raw": {
+							"language": "json"
+							}
+						}
+						},
+						"url": {
+						"raw": "{{baseUrl}}/executions/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["executions", ":id"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "DeleteExecutionById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/executions/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["executions", ":id"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "ExecutionPhotos",
@@ -661,7 +766,102 @@
 		},
 		{
 			"name": "Meetings",
-			"item": []
+			"item": [
+				 {
+					"name": "GetMeetingsByProjectId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/projects/:id/meetings",
+						"host": ["{{baseUrl}}"],
+						"path": ["projects", ":id", "meetings"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "CreateMeeting",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"date\": \"2026-05-15T14:00:00\",\n  \"location\": \"Sala 1\",\n  \"workOrder\": \"Planeamento Eco-Escolas\",\n  \"createdBy\": 1\n}",
+						"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+						"raw": "{{baseUrl}}/projects/:id/meetings",
+						"host": ["{{baseUrl}}"],
+						"path": ["projects", ":id", "meetings"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "GetMeetingById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "UpdateMeetingById",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"location\": \"Auditório\",\n  \"workOrder\": \"Planeamento atualizado\"\n}",
+						"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "CancelMeetingById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id/cancel",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id", "cancel"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "DeleteMeetingById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Convocations",
@@ -669,7 +869,60 @@
 		},
 		{
 			"name": "Proceedings",
-			"item": []
+			"item": [
+				{
+					"name": "GetProceedingByMeetingId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id/proceedings",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id", "proceedings"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "CreateProceeding",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"content\": \"Ata da reunião Eco-Escolas.\",\n  \"createdBy\": 1\n}",
+						"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id/proceedings",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id", "proceedings"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "UpdateProceedingById",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"content\": \"Ata atualizada da reunião Eco-Escolas.\"\n}",
+						"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+						"raw": "{{baseUrl}}/proceedings/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["proceedings", ":id"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "MeetingPhotos",
@@ -677,7 +930,102 @@
 		},
 		{
 			"name": "Questionnaires",
-			"item": []
+			"item": [
+				{
+					"name": "GetQuestionnairesByProjectId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/projects/:id/questionnaires",
+						"host": ["{{baseUrl}}"],
+						"path": ["projects", ":id", "questionnaires"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "CreateQuestionnaire",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"title\": \"Auditoria Ambiental\",\n  \"description\": \"Questionário inicial de diagnóstico ambiental.\",\n  \"createdBy\": 1\n}",
+						"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+						"raw": "{{baseUrl}}/projects/:id/questionnaires",
+						"host": ["{{baseUrl}}"],
+						"path": ["projects", ":id", "questionnaires"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "GetQuestionnaireById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/questionnaires/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["questionnaires", ":id"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "UpdateQuestionnaireById",
+					"request": {
+						"method": "PUT",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"title\": \"Auditoria Ambiental Atualizada\",\n  \"description\": \"Descrição atualizada do questionário.\"\n}",
+						"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+						"raw": "{{baseUrl}}/questionnaires/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["questionnaires", ":id"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "PublishQuestionnaireById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/questionnaires/:id/publish",
+						"host": ["{{baseUrl}}"],
+						"path": ["questionnaires", ":id", "publish"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "DeleteQuestionnaireById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/questionnaires/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["questionnaires", ":id"],
+						"variable": [{ "key": "id", "value": "1" }]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Questions",
