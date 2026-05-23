@@ -1,21 +1,54 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="row justify-around">
-      <q-card class="q-pa-lg">
-        <q-card-section>
-          <div class="text-h5 text-center">Atividades planeadas</div>
-        </q-card-section>
-      </q-card>
-      <q-card class="q-pa-lg">Atividades concluídas</q-card>
-      <q-card class="q-pa-lg">Fotos recolhidas</q-card>
-      <q-card class="q-pa-lg">Taxa de execução</q-card>
+  <q-page class="q-pa-md">
+    <div class="text-h4 q-pb-lg">Dashboard</div>
+    <div class="row q-col-gutter-md q-mb-md">
+      <div class="col-12 col-sm-3">
+        <q-card class="q-pa-lg">
+          <q-card-section>
+            <div class="text-h5 text-center q-pb-md">Atividades planeadas</div>
+            <div class="text-h5 text-center">24</div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-3">
+        <q-card class="q-pa-lg">
+          <q-card-section>Atividades concluídas</q-card-section>
+          <div class="text-h5 text-center">14</div>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-3">
+        <q-card class="q-pa-lg">
+          <q-card-section>Fotos recolhidas</q-card-section>
+          <div class="text-h5 text-center">87</div>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-3">
+        <q-card class="q-pa-lg">
+          <q-card-section>Taxa de execução</q-card-section>
+          <div class="text-h5 text-center">58%</div>
+        </q-card>
+      </div>
     </div>
-    <div class="row justify-around">
-      <q-card class="q-pa-lg">Volume de atividade mensal</q-card>
-      <q-card class="q-pa-lg">Nível do projeto</q-card>
+
+    <div class="row q-col-gutter-md q-mb-md">
+      <div class="col-12 col-sm-6">
+        <q-card class="q-pa-lg">
+          <q-card-section>Volume de atividade mensal</q-card-section>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-6">
+        <q-card class="q-pa-lg">
+          <q-card-section>Nível do projeto</q-card-section>
+        </q-card>
+      </div>
     </div>
-    <div class="row justify-around">
-      <q-card class="q-pa-lg">Ranking de membros</q-card>
+
+    <div class="row q-col-gutter-md">
+      <div class="col-12">
+        <q-card class="q-pa-lg">
+          <q-card-section>Ranking de membros</q-card-section>
+        </q-card>
+      </div>
     </div>
   </q-page>
 </template>
