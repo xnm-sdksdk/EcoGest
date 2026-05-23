@@ -1,6 +1,7 @@
-import api from 'src/services/apiService';
-import { DashboardSummary } from 'src/types/dtos/dashboardDTO';
+import { api } from 'boot/axios';
+import type { DashboardSummary } from 'src/types/dtos/dashboardDTO';
 
 export const dashboardService = {
-  findMetricsByProjectId: () => api.get<DashboardSummary>('dashboard/summary').then((r) => r.data),
+  findMetricsByProjectId: (projectId: number) =>
+    api.get<DashboardSummary>(`dashboard/${projectId}/summary`).then((r) => r.data),
 };

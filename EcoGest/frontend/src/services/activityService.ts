@@ -1,5 +1,5 @@
 import { Activity, CreateActivity, UpdateActivity } from 'src/types/dtos/activityDTO';
-import api from 'src/services/apiService';
+import { api } from 'boot/axios';
 
 export const activityService = {
   getActivityById(id: number): Promise<Activity> {

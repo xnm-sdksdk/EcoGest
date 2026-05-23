@@ -1,14 +1,14 @@
-import {DashboardService} from "../dashboardService.js";
-import {DashboardDTO} from "../../../dto/dashbordDTO.js";
-import {ProjectRepository} from "../../../repository/projectRepository.js";
-import {ActivityRepository} from "../../../repository/activityRepository.js";
-import {logger} from "../../../utils/logger/logger.js";
-import {MeetingRepository} from "../../../repository/meetingRepository.js";
-import {RegistrationRepository} from "../../../repository/registrationRepository.js";
-import {UserRepository} from "../../../repository/userRepository.js";
-import {QuestionnaireRepository} from "../../../repository/questionnaireRepository.js";
-import {MoreThan} from "typeorm";
-import {ActivityState} from "../../../entity/activityEntity.js";
+import { DashboardService } from "../dashboardService.js";
+import { DashboardDTO } from "../../../dto/dashbordDTO.js";
+import { ProjectRepository } from "../../../repository/projectRepository.js";
+import { ActivityRepository } from "../../../repository/activityRepository.js";
+import { logger } from "../../../utils/logger/logger.js";
+import { MeetingRepository } from "../../../repository/meetingRepository.js";
+import { RegistrationRepository } from "../../../repository/registrationRepository.js";
+import { UserRepository } from "../../../repository/userRepository.js";
+import { QuestionnaireRepository } from "../../../repository/questionnaireRepository.js";
+import { MoreThan } from "typeorm";
+import { ActivityState } from "../../../entity/activityEntity.js";
 
 export class DashboardServiceImpl implements DashboardService {
   private readonly projectRepository: typeof ProjectRepository;
@@ -50,7 +50,7 @@ export class DashboardServiceImpl implements DashboardService {
       totalParticipants,
       totalMeetings,
     ] = await Promise.all([
-      this.activityRepository.count({ where: { id: projectId } }),
+      this.activityRepository.count({ where: { project: { id: projectId } } }),
       this.activityRepository.count({
         where: { id: projectId, startDate: MoreThan(now) },
       }),

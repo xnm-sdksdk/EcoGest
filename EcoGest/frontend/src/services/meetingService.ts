@@ -1,4 +1,4 @@
-import api from 'src/services/apiService';
+import { api } from 'boot/axios';
 import { CreateMeeting, Meeting, UpdateMeeting } from 'src/types/dtos/meetingDTO';
 
 export const meetingService = {

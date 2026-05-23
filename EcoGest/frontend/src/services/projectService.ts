@@ -1,5 +1,5 @@
 import { CreateProject, Project, UpdateProject } from 'src/types/dtos/projectDTO';
-import api from 'src/services/apiService';
+import { api } from 'boot/axios';
 
 export const projectService = {
   getProjectById(id: number): Promise<Project> {
