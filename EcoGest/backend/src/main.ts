@@ -54,3 +54,5 @@ app.use("/api", executionRoutes);
 app.use("/api", answersRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));
+
+export { app };
