@@ -6,6 +6,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/SideBar.vue'),
     children: [{ path: '', component: () => import('pages/auth/LoginPage.vue') }],
   },
+  {
+    path: '/',
+    component: () => import('layouts/SideBar.vue'),
+    children: [{ path: '', component: () => import('pages/dashboard/DashboardPage.vue') }],
+  },
 
   // Always leave this as last one,
   // but you can also remove it
