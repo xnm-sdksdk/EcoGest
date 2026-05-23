@@ -35,3 +35,32 @@ describe("GET /api/users/:id", () => {
     expect(response.body.error).toBe("User not found");
   });
 });
+
+describe("DELETE /api/users/:id", () => {
+  it("should return 204 and delete the user", async () => {
+    const repo = AppDataSource.getRepository(User);
+    const user = await repo.save(
+      repo.create({
+        name: "Test User",
+        email: "test@example.com",
+        password: "hashed_password",
+        profile: UserProfile.MEMBER,
+        active: true,
+      }),
+    );
+
+    const response = await supertest(app)
+      .delete(`/api/users/${user.id}`)
+      .send();
+
+    expect(response.status).toBe(204);
+
+    const deleted = await repo.findOneBy({ id: user.id });
+    expect(deleted).toBeNull();
+  });
+
+  it("should return 404 when deleting a non-existent user", async () => {
+    const response = await supertest(app).delete("/api/users/99999").send();
+    expect(response.status).toBe(204);
+  });
+});
