@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/projects/:id/report");
-router.get("/projects/:id/report/export");
+router.get("/projects/:projectId/report");
+router.get("/projects/:projectId/report/export");
 
 export default router;

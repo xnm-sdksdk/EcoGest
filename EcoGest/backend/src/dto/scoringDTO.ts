@@ -1,6 +1,14 @@
 export interface ScoringDTO {
-    points: number;
-    reason: string;
-    userId: number;
-    projectId: number;
+  id: number;
+  points: number;
+  reason: string | null;
+  userId: number;
+  challengeId: number | null;
+  createdAt: Date;
+}
+
+export interface RankingDTO {
+  userId: number;
+  userName: string;
+  totalPoints: number;
 }

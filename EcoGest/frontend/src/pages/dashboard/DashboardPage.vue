@@ -20,7 +20,7 @@
         <div class="col-12 col-sm-3">
           <q-card class="q-pa-lg">
             <q-card-section>Atividades concluídas</q-card-section>
-            <div class="text-h5 text-center">14</div>
+            <div class="text-h5 text-center">{{ data?.completedActivities ?? 0 }}</div>
           </q-card>
         </div>
         <div class="col-12 col-sm-3">

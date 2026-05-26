@@ -1,16 +1,23 @@
-import { Router } from 'express';
+import { Router } from "express";
+import { GamificationController } from "../controller/gamificationController.js";
 
 const router = Router();
 
-router.get("/projects/:id/ranking");
-router.get("/projects/:id/scoring");
-router.get("/projects/:id/challenges");
+const gamificationController = new GamificationController();
+
+router.get(
+  "/projects/:projectId/ranking",
+  gamificationController.getRankingByProjectId,
+);
+router.get(
+  "/projects/:projectId/scoring",
+  gamificationController.getScoringByProjectId,
+);
+router.get("/projects/:projectId/challenges");
 router.get("/challenges/:id");
-router.post("/projects/:id/challenges");
+router.post("/projects/:projectId/challenges");
 router.put("/challenges/:id");
 router.delete("/challenges/:id");
 router.get("/challenges/:id/progress");
-
-
 
 export default router;
