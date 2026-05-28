@@ -4,8 +4,13 @@ export interface DashboardSummary {
   completedActivities: number;
   totalQuestionnaires: number;
   upcomingMeetings: number;
-  activitiesByStatus: number;
+  activitiesByStatus: ActivityStatusCount[];
   totalRegistrations: number;
   totalParticipants: number;
   totalMeetings: number;
+}
+
+export interface ActivityStatusCount {
+  state: string;
+  count: number;
 }

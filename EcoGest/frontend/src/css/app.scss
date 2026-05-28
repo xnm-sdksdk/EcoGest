@@ -1,1 +1,25 @@
 // app global css
+body,
+.q-page,
+{
+  background-color: $dark-page;
+}
+
+.q-layout,
+.q-page-container, .q-drawer {
+  background-color: $dark;
+}
+
+.q-drawer {
+  color: white;
+}
+
+.q-card {
+  background-color: $dark;
+  border-radius: 1rem;
+  border: 0.5px solid #606060;
+}
+
+.text-h5, .text-h4, .text-h3 {
+  color: white;
+}
