@@ -2,6 +2,13 @@
   <q-layout view="lHh Lpr lFf">
     <q-drawer v-model="drawer" persistent show-if-above>
       <q-scroll-area class="fit">
+        <q-item class="q-pa-lg" to="/">
+          <q-item-section>
+            <div class="text-h2">EcoGest</div>
+            <div class="text-h5">2025/2026</div></q-item-section
+          >
+        </q-item>
+        <q-separator />
         <q-list padding>
           <q-item v-ripple clickable exact to="/">
             <q-item-section avatar>
@@ -61,4 +68,8 @@ import { ref } from 'vue';
 const drawer = ref(true);
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-h5 {
+  color: $primary;
+}
+</style>
