@@ -4,9 +4,6 @@
     <div v-if="loading" class="flex flex-center q-pa-xl">
       <q-spinner size="3em" />
     </div>
-
-    <div v-else-if="error" class="text-negative">{{ error }}</div>
-
     <template v-else>
       <div class="row q-col-gutter-md q-mb-xl">
         <div class="col-12 col-sm-3">
