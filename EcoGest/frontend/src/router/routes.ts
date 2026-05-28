@@ -11,6 +11,42 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/SideBar.vue'),
     children: [{ path: '', component: () => import('pages/dashboard/DashboardPage.vue') }],
   },
+  {
+    path: '/activities',
+    component: () => import('layouts/SideBar.vue'),
+    children: [
+      { path: '/activities', component: () => import('pages/activities/ActivityPage.vue') },
+    ],
+  },
+  {
+    path: '/meetings',
+    component: () => import('layouts/SideBar.vue'),
+    children: [{ path: '/meetings', component: () => import('pages/meetings/MeetingsPage.vue') }],
+  },
+  {
+    path: '/gamification',
+    component: () => import('layouts/SideBar.vue'),
+    children: [
+      { path: '/gamification', component: () => import('pages/gamification/GamificationPage.vue') },
+    ],
+  },
+  {
+    path: '/proceedings',
+    component: () => import('layouts/SideBar.vue'),
+    children: [
+      { path: '/proceedings', component: () => import('pages/proceedings/ProceedingsPage.vue') },
+    ],
+  },
+  {
+    path: '/reports',
+    component: () => import('layouts/SideBar.vue'),
+    children: [{ path: '/reports', component: () => import('pages/report/ReportPage.vue') }],
+  },
+  {
+    path: '/settings',
+    component: () => import('layouts/SideBar.vue'),
+    children: [{ path: '/settings', component: () => import('pages/settings/SettingsPage.vue') }],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

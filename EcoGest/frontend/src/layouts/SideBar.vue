@@ -9,37 +9,37 @@
             </q-item-section>
             <q-item-section>Dashboard</q-item-section>
           </q-item>
-          <q-item v-ripple clickable to="/atividades">
+          <q-item v-ripple clickable to="/activities">
             <q-item-section avatar>
               <q-icon name="event" />
             </q-item-section>
             <q-item-section>Plano de Atividades</q-item-section>
           </q-item>
-          <q-item v-ripple clickable to="/reunioes">
+          <q-item v-ripple clickable to="/meetings">
             <q-item-section avatar>
               <q-icon name="groups" />
             </q-item-section>
             <q-item-section>Reuniões</q-item-section>
           </q-item>
-          <q-item v-ripple clickable to="/gamificacao">
+          <q-item v-ripple clickable to="/gamification">
             <q-item-section avatar>
               <q-icon name="emoji_events" />
             </q-item-section>
             <q-item-section>Gamificação</q-item-section>
           </q-item>
-          <q-item v-ripple clickable to="/auditoria">
+          <q-item v-ripple clickable to="/proceedings">
             <q-item-section avatar>
               <q-icon name="fact_check" />
             </q-item-section>
             <q-item-section>Auditoria</q-item-section>
           </q-item>
-          <q-item v-ripple clickable to="/relatorio">
+          <q-item v-ripple clickable to="/reports">
             <q-item-section avatar>
               <q-icon name="description" />
             </q-item-section>
             <q-item-section>Relatório Final</q-item-section>
           </q-item>
-          <q-item v-ripple clickable to="/definicoes">
+          <q-item v-ripple clickable to="/settings">
             <q-item-section avatar>
               <q-icon name="settings" />
             </q-item-section>
