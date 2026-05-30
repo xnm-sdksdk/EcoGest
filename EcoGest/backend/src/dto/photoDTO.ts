@@ -1,5 +1,10 @@
 export interface PhotoDTO {
-    path: string;
-    executionId?: number;
-    meetingId?: number;
+  id?: number;
+  path: string;
+  executionId?: number | undefined;
+  meetingId?: number | undefined;
+}
+
+export interface CreatePhotoDTO {
+  path: string;
 }

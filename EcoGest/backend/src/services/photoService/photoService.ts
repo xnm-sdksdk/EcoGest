@@ -1,21 +1,22 @@
 import { Photo } from "../../entity/photoEntity.js";
-import { PhotoDTO } from "../../dto/photoDTO.js";
+import { CreatePhotoDTO } from "../../dto/photoDTO.js";
 
 export interface PhotoService {
   findPhotosByExecution(executionId: number): Promise<Photo[]>;
+
   addPhotosToExecution(
     executionId: number,
-    photoDTOs: PhotoDTO[],
+    photoDTOs: CreatePhotoDTO[],
   ): Promise<Photo[]>;
 
-  removeExecutionPhoto(photoId: number): Promise<void | null>;
+  removeExecutionPhoto(photoId: number): Promise<void>;
 
   findPhotosByMeeting(meetingId: number): Promise<Photo[]>;
 
   addPhotosToMeeting(
     meetingId: number,
-    photoDTOs: PhotoDTO[],
+    photoDTOs: CreatePhotoDTO[],
   ): Promise<Photo[]>;
 
-  removeMeetingPhoto(photoId: number): Promise<void | null>;
+  removeMeetingPhoto(photoId: number): Promise<void>;
 }
