@@ -47,6 +47,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/SideBar.vue'),
     children: [{ path: '/settings', component: () => import('pages/settings/SettingsPage.vue') }],
   },
+  {
+    path: '/profile',
+    component: () => import('layouts/SideBar.vue'),
+    children: [{ path: '/profile', component: () => import('pages/profile/ProfilePage.vue') }],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

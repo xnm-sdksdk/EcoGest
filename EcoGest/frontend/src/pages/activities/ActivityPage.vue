@@ -2,7 +2,7 @@
 
 <template>
   <q-page>
-    <h1>Activity</h1>
+    <h1>Atividades</h1>
   </q-page>
 </template>
 
