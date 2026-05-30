@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h4 q-pb-lg">Dashboard</div>
+    <div class="text-h4 q-pt-lg q-pb-xl">Dashboard</div>
     <div v-if="loading" class="flex flex-center q-pa-xl">
       <q-spinner size="3em" />
     </div>
@@ -76,10 +76,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
-import { useDashboard } from 'src/composables/useDashboard';
+import {computed, onMounted} from 'vue';
+import {useDashboard} from 'src/composables/useDashboard';
 
-const { data, loading, error, fetchDashboard } = useDashboard();
+const { data, loading, fetchDashboard } = useDashboard();
 const activitiesByState = computed(() =>
   (data.value?.activitiesByStatus ?? []).reduce((sum, i) => sum + i.count, 0),
 );

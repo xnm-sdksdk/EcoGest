@@ -52,6 +52,23 @@
             </q-item-section>
             <q-item-section>Definições</q-item-section>
           </q-item>
+          <q-item v-ripple class="absolute-bottom" clickable to="/profile">
+            <q-item-section avatar>
+              <q-img
+                class="absolute-bottom"
+                src="https://cdn.quasar.dev/img/material.png"
+                style="height: 150px"
+              >
+                <div class="absolute-bottom bg-transparent">
+                  <q-avatar class="q-mb-sm" size="56px" to="/profile">
+                    <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+                  </q-avatar>
+                  <div class="text-weight-bold">Razvan Stoenescu</div>
+                  <div>@rstoenescu</div>
+                </div>
+              </q-img>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>

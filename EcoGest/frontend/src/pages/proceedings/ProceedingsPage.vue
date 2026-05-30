@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup></script>
 
-<template></template>
+<template>
+  <h1>Auditoria</h1>
+</template>
 
 <style scoped></style>
