@@ -758,7 +758,79 @@
 		},
 		{
 			"name": "ExecutionPhotos",
-			"item": []
+			"item": [
+				{
+					"name": "GetPhotosByExecutionId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/executions/:id/photos",
+						"host": ["{{baseUrl}}"],
+						"path": ["executions", ":id", "photos"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "AddPhotosToExecution",
+					"request": {
+						"method": "POST",
+						"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+						],
+						"body": {
+						"mode": "raw",
+						"raw": "[\n  {\n    \"path\": \"/uploads/executions/photo1.jpg\"\n  },\n  {\n    \"path\": \"/uploads/executions/photo2.jpg\"\n  }\n]",
+						"options": {
+							"raw": {
+							"language": "json"
+							}
+						}
+						},
+						"url": {
+						"raw": "{{baseUrl}}/executions/:id/photos",
+						"host": ["{{baseUrl}}"],
+						"path": ["executions", ":id", "photos"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "DeleteExecutionPhoto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/photos/executions/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["photos", "executions", ":id"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Registrations",
@@ -926,7 +998,79 @@
 		},
 		{
 			"name": "MeetingPhotos",
-			"item": []
+			"item": [
+				{
+					"name": "GetPhotosByMeetingId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id/photos",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id", "photos"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "AddPhotosToMeeting",
+					"request": {
+						"method": "POST",
+						"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+						],
+						"body": {
+						"mode": "raw",
+						"raw": "[\n  {\n    \"path\": \"/uploads/meetings/photo1.jpg\"\n  },\n  {\n    \"path\": \"/uploads/meetings/photo2.jpg\"\n  }\n]",
+						"options": {
+							"raw": {
+							"language": "json"
+							}
+						}
+						},
+						"url": {
+						"raw": "{{baseUrl}}/meetings/:id/photos",
+						"host": ["{{baseUrl}}"],
+						"path": ["meetings", ":id", "photos"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+					},
+					{
+					"name": "DeleteMeetingPhoto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/photos/meetings/:id",
+						"host": ["{{baseUrl}}"],
+						"path": ["photos", "meetings", ":id"],
+						"variable": [
+							{
+							"key": "id",
+							"value": "1"
+							}
+						]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Questionnaires",

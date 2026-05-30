@@ -109,6 +109,10 @@ const doc = {
       title: "Auditoria Ambiental Atualizada",
       description: "Descrição atualizada do questionário.",
     },
+
+    CreatePhotoRequest: {
+      path: "/uploads/executions/photo1.jpg",
+    },
   },
 };
 

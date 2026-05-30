@@ -953,7 +953,7 @@
         }
       }
     },
-    "/api/projects/{projectId}/dashboard": {
+    "/api/dashboard/{projectId}/summary": {
       "get": {
         "description": "",
         "responses": {
@@ -1082,6 +1082,194 @@
     "/api/questionnaires/{questionnaireId}/results": {
       "get": {
         "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/meetings/{id}/convocations": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/meetings/{id}/convocations/resend": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/executions/{id}/photos": {
+      "get": {
+        "tags": [
+          "ExecutionPhotos"
+        ],
+        "summary": "Listar fotos de uma execução",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ExecutionPhotos"
+        ],
+        "summary": "Adicionar fotos a uma execução",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "example": "/uploads/executions/photo1.jpg"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/photos/executions/{id}": {
+      "delete": {
+        "tags": [
+          "ExecutionPhotos"
+        ],
+        "summary": "Eliminar foto de uma execução",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/meetings/{id}/photos": {
+      "get": {
+        "tags": [
+          "MeetingPhotos"
+        ],
+        "summary": "Listar fotos de uma reunião",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "MeetingPhotos"
+        ],
+        "summary": "Adicionar fotos a uma reunião",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "example": "/uploads/meetings/photo1.jpg"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/photos/meetings/{id}": {
+      "delete": {
+        "tags": [
+          "MeetingPhotos"
+        ],
+        "summary": "Eliminar foto de uma reunião",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -1416,6 +1604,15 @@
         "description": {
           "type": "string",
           "example": "Descrição atualizada do questionário."
+        }
+      }
+    },
+    "CreatePhotoRequest": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "example": "/uploads/executions/photo1.jpg"
         }
       }
     }
