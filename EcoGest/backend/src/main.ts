@@ -22,6 +22,7 @@ import answersRoutes from "./routes/answers.routes.js";
 import convocationRoutes from "./routes/convocation.routes.js";
 import executionPhotosRoutes from "./routes/executionPhotos.routes.js";
 import meetingPhotosRoutes from "./routes/meetingPhotos.routes.js";
+import gamificationsRoutes from "./routes/gamifications.routes.js";
 
 import { httpLogger } from "./utils/logger/logger.js";
 
@@ -58,6 +59,7 @@ app.use("/api", answersRoutes);
 app.use("/api", convocationRoutes);
 app.use("/api", executionPhotosRoutes);
 app.use("/api", meetingPhotosRoutes);
+app.use("/api", gamificationsRoutes);
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));
 

@@ -8,7 +8,7 @@ export interface GamificationService {
   ): Promise<Scoring[] | null>;
 
   findRankingByProjectId(
-    projectId: string,
+    projectId: number,
     rankingDTO: RankingDTO,
   ): Promise<Scoring[] | null>;
 }
