@@ -1091,7 +1091,19 @@
     },
     "/api/meetings/{id}/convocations": {
       "get": {
+        "tags": [
+          "Convocations"
+        ],
+        "summary": "Listar convocações de uma reunião",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -1099,7 +1111,26 @@
         }
       },
       "post": {
+        "tags": [
+          "Convocations"
+        ],
+        "summary": "Criar convocação para uma reunião",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateConvocationRequest"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -1109,7 +1140,19 @@
     },
     "/api/meetings/{id}/convocations/resend": {
       "post": {
+        "tags": [
+          "Convocations"
+        ],
+        "summary": "Reenviar todas as convocações de uma reunião",
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -1270,6 +1313,26 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/projects/{projectId}/ranking": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/projects/{projectId}/scoring": {
+      "get": {
+        "description": "",
         "responses": {
           "default": {
             "description": ""
@@ -1613,6 +1676,19 @@
         "path": {
           "type": "string",
           "example": "/uploads/executions/photo1.jpg"
+        }
+      }
+    },
+    "CreateConvocationRequest": {
+      "type": "object",
+      "properties": {
+        "recipientId": {
+          "type": "number",
+          "example": 2
+        },
+        "createdBy": {
+          "type": "number",
+          "example": 1
         }
       }
     }

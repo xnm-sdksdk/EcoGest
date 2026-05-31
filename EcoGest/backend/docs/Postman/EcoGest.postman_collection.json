@@ -937,7 +937,79 @@
 		},
 		{
 			"name": "Convocations",
-			"item": []
+			"item": [
+				{
+					"name": "GetMeetingConvocations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/meetings/:id/convocations",
+							"host": ["{{baseUrl}}"],
+							"path": ["meetings", ":id", "convocations"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateMeetingConvocation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"recipientId\": 2,\n  \"createdBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/meetings/:id/convocations",
+							"host": ["{{baseUrl}}"],
+							"path": ["meetings", ":id", "convocations"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResendMeetingConvocations",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/meetings/:id/convocations/resend",
+							"host": ["{{baseUrl}}"],
+							"path": ["meetings", ":id", "convocations", "resend"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Proceedings",

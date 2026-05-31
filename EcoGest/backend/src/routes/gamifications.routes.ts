@@ -13,11 +13,12 @@ router.get(
   "/projects/:projectId/scoring",
   gamificationController.getScoringByProjectId,
 );
+/*
 router.get("/projects/:projectId/challenges");
 router.get("/challenges/:id");
 router.post("/projects/:projectId/challenges");
 router.put("/challenges/:id");
 router.delete("/challenges/:id");
 router.get("/challenges/:id/progress");
-
+*/
 export default router;

@@ -113,6 +113,11 @@ const doc = {
     CreatePhotoRequest: {
       path: "/uploads/executions/photo1.jpg",
     },
+
+    CreateConvocationRequest: {
+      recipientId: 2,
+      createdBy: 1,
+    },
   },
 };
 
