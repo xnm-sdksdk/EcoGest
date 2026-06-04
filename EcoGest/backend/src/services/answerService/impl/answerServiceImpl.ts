@@ -5,16 +5,19 @@ import { AnswerService } from "../answerService.js";
 import { logger } from "../../../utils/logger/logger.js";
 import { QuestionRepository } from "../../../repository/questionRepository.js";
 import { UserRepository } from "../../../repository/userRepository.js";
+import { QuestionnaireRepository } from "../../../repository/questionnaireRepository.js";
 
 export class AnswerServiceImpl implements AnswerService {
   private readonly answerRepository: typeof AnswerRepository;
   private readonly questionRepository: typeof QuestionRepository;
   private readonly userRepository: typeof UserRepository;
+  private readonly questionnaireRepository: typeof QuestionnaireRepository;
 
   constructor() {
     this.answerRepository = AnswerRepository;
     this.questionRepository = QuestionRepository;
     this.userRepository = UserRepository;
+    this.questionnaireRepository = QuestionnaireRepository;
   }
 
   async findQuestionnaireAnswers(questionnaireId: number): Promise<Answer[]> {
@@ -37,7 +40,16 @@ export class AnswerServiceImpl implements AnswerService {
 
   async findQuestionnaireAnswerResults(
     questionnaireId: number,
-  ): Promise<Answer[]> {}
+  ): Promise<Answer[]> {
+    const questionnaire = await this.questionnaireRepository.findOne({
+      where: { id: questionnaireId },
+    });
+
+    if (!questionnaire) {
+      logger.warn({ questionnaireId }, "No questionnaire found");
+      throw new Error(`Questionnaire with id ${questionnaireId} not found.`);
+    }
+  }
 
   async submitAnswers(
     questionnaireId: number,

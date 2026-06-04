@@ -45,7 +45,7 @@ export class ProjectController {
         id: project.id,
         name: project.name,
         school: project.school,
-        schoolYear: new Date().toISOString(),
+        schoolYear: project.schoolYear,
         state: project.state,
       }));
       res.status(200).json(projectsDTOs);
