@@ -82,6 +82,8 @@ export class AnswerController {
         value: answer.value,
         createdAt: answer.createdAt,
         questionId: answer.question.id,
+        userId: answer.createdBy.id,
+        updatedAt: answer.updatedAt,
       }));
 
       res.status(200).json(answersDTO);

@@ -3,15 +3,18 @@ import { Answer } from "../../../entity/answerEntity.js";
 import { AnswerRepository } from "../../../repository/answerRepository.js";
 import { AnswerService } from "../answerService.js";
 import { logger } from "../../../utils/logger/logger.js";
-import { QuestionnaireRepository } from "../../../repository/questionnaireRepository.js";
+import { QuestionRepository } from "../../../repository/questionRepository.js";
+import { UserRepository } from "../../../repository/userRepository.js";
 
 export class AnswerServiceImpl implements AnswerService {
   private readonly answerRepository: typeof AnswerRepository;
-  private readonly questionnaireRepository: typeof QuestionnaireRepository;
+  private readonly questionRepository: typeof QuestionRepository;
+  private readonly userRepository: typeof UserRepository;
 
   constructor() {
     this.answerRepository = AnswerRepository;
-    this.questionnaireRepository = QuestionnaireRepository;
+    this.questionRepository = QuestionRepository;
+    this.userRepository = UserRepository;
   }
 
   async findQuestionnaireAnswers(questionnaireId: number): Promise<Answer[]> {
@@ -36,22 +39,39 @@ export class AnswerServiceImpl implements AnswerService {
     questionnaireId: number,
   ): Promise<Answer[]> {}
 
-  // TODO change to question
   async submitAnswers(
     questionnaireId: number,
     createAnswerDTO: CreateAnswerDTO,
   ): Promise<Answer> {
-    const questionnaire = await this.questionnaireRepository.findOne({
-      id: questionnaireId,
+    const question = await this.questionRepository.findOne({
+      where: {
+        id: createAnswerDTO.questionId,
+        questionnaire: { id: questionnaireId },
+      },
+      relations: ["questionnaire"],
     });
-    if (!questionnaire) {
-      logger.warn({ questionnaireId }, "Invalid questionnaire ID.");
-      throw new Error(`Questionnaire with id ${questionnaireId} not found.`);
+    if (!question) {
+      logger.warn(
+        { questionnaireId, questionId: createAnswerDTO.questionId },
+        "Invalid question or questionnaire ID.",
+      );
+      throw new Error(
+        `Question with id ${createAnswerDTO.questionId} not found in questionnaire ${questionnaireId}.`,
+      );
+    }
+
+    const user = await this.userRepository.findOne({
+      where: { id: createAnswerDTO.createdBy },
+    });
+    if (!user) {
+      logger.warn({ userId: createAnswerDTO.createdBy }, "Invalid user ID.");
+      throw new Error(`User with id ${createAnswerDTO.createdBy} not found.`);
     }
 
     const answer = this.answerRepository.create({
-      ...createAnswerDTO,
-      questionnaire,
+      value: createAnswerDTO.value,
+      question,
+      createdBy: user,
     });
 
     return this.answerRepository.save(answer);

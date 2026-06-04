@@ -14,11 +14,3 @@ export interface CreateAnswerDTO {
   createdBy: number;
   createdAt: Date;
 }
-
-export interface UpdateAnswerDTO {
-  value?: string;
-  questionId?: number;
-  userId?: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
