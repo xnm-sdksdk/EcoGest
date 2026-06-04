@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1c157bd7-807a-4eac-93fb-870d4a7bee14",
+		"_postman_id": "533df437-4386-439f-b136-3e9d4a62a3b8",
 		"name": "EcoGest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36199399"
@@ -656,100 +656,122 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/activities/:id/execution",
-						"host": ["{{baseUrl}}"],
-						"path": ["activities", ":id", "execution"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/activities/:id/execution",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								":id",
+								"execution"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "CreateExecution",
 					"request": {
 						"method": "POST",
 						"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
 						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"date\": \"2026-05-15\",\n  \"location\": \"Pátio da escola\",\n  \"annotation\": \"Atividade executada com sucesso.\",\n  \"createdBy\": 1,\n  \"executedBy\": 1\n}",
-						"options": {
-							"raw": {
-							"language": "json"
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2026-05-15\",\n  \"location\": \"Pátio da escola\",\n  \"annotation\": \"Atividade executada com sucesso.\",\n  \"createdBy\": 1,\n  \"executedBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/activities/:id/execution",
-						"host": ["{{baseUrl}}"],
-						"path": ["activities", ":id", "execution"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/activities/:id/execution",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"activities",
+								":id",
+								"execution"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "UpdateExecutionById",
 					"request": {
 						"method": "PUT",
 						"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
 						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"date\": \"2026-05-16\",\n  \"location\": \"Auditório\",\n  \"annotation\": \"Anotação atualizada.\",\n  \"executedBy\": 1\n}",
-						"options": {
-							"raw": {
-							"language": "json"
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2026-05-16\",\n  \"location\": \"Auditório\",\n  \"annotation\": \"Anotação atualizada.\",\n  \"executedBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/executions/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["executions", ":id"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/executions/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"executions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "DeleteExecutionById",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/executions/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["executions", ":id"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/executions/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"executions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
@@ -765,67 +787,85 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/executions/:id/photos",
-						"host": ["{{baseUrl}}"],
-						"path": ["executions", ":id", "photos"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/executions/:id/photos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"executions",
+								":id",
+								"photos"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "AddPhotosToExecution",
 					"request": {
 						"method": "POST",
 						"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
 						],
 						"body": {
-						"mode": "raw",
-						"raw": "[\n  {\n    \"path\": \"/uploads/executions/photo1.jpg\"\n  },\n  {\n    \"path\": \"/uploads/executions/photo2.jpg\"\n  }\n]",
-						"options": {
-							"raw": {
-							"language": "json"
+							"mode": "raw",
+							"raw": "[\n  {\n    \"path\": \"/uploads/executions/photo1.jpg\"\n  },\n  {\n    \"path\": \"/uploads/executions/photo2.jpg\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/executions/:id/photos",
-						"host": ["{{baseUrl}}"],
-						"path": ["executions", ":id", "photos"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/executions/:id/photos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"executions",
+								":id",
+								"photos"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "DeleteExecutionPhoto",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/photos/executions/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["photos", "executions", ":id"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/photos/executions/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"photos",
+								"executions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
@@ -839,96 +879,177 @@
 		{
 			"name": "Meetings",
 			"item": [
-				 {
+				{
 					"name": "GetMeetingsByProjectId",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/projects/:id/meetings",
-						"host": ["{{baseUrl}}"],
-						"path": ["projects", ":id", "meetings"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/projects/:id/meetings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":id",
+								"meetings"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "CreateMeeting",
 					"request": {
 						"method": "POST",
-						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"date\": \"2026-05-15T14:00:00\",\n  \"location\": \"Sala 1\",\n  \"workOrder\": \"Planeamento Eco-Escolas\",\n  \"createdBy\": 1\n}",
-						"options": { "raw": { "language": "json" } }
+							"mode": "raw",
+							"raw": "{\n  \"date\": \"2026-05-15T14:00:00\",\n  \"location\": \"Sala 1\",\n  \"workOrder\": \"Planeamento Eco-Escolas\",\n  \"createdBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/projects/:id/meetings",
-						"host": ["{{baseUrl}}"],
-						"path": ["projects", ":id", "meetings"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/projects/:id/meetings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":id",
+								"meetings"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "GetMeetingById",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/meetings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "UpdateMeetingById",
 					"request": {
 						"method": "PUT",
-						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"location\": \"Auditório\",\n  \"workOrder\": \"Planeamento atualizado\"\n}",
-						"options": { "raw": { "language": "json" } }
+							"mode": "raw",
+							"raw": "{\n  \"location\": \"Auditório\",\n  \"workOrder\": \"Planeamento atualizado\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/meetings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "CancelMeetingById",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id/cancel",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id", "cancel"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/meetings/:id/cancel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"cancel"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "DeleteMeetingById",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/meetings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
@@ -945,8 +1066,14 @@
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/meetings/:id/convocations",
-							"host": ["{{baseUrl}}"],
-							"path": ["meetings", ":id", "convocations"],
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"convocations"
+							],
 							"variable": [
 								{
 									"key": "id",
@@ -978,8 +1105,14 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/meetings/:id/convocations",
-							"host": ["{{baseUrl}}"],
-							"path": ["meetings", ":id", "convocations"],
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"convocations"
+							],
 							"variable": [
 								{
 									"key": "id",
@@ -997,8 +1130,15 @@
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/meetings/:id/convocations/resend",
-							"host": ["{{baseUrl}}"],
-							"path": ["meetings", ":id", "convocations", "resend"],
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"convocations",
+								"resend"
+							],
 							"variable": [
 								{
 									"key": "id",
@@ -1020,48 +1160,98 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id/proceedings",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id", "proceedings"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/meetings/:id/proceedings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"proceedings"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "CreateProceeding",
 					"request": {
 						"method": "POST",
-						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"content\": \"Ata da reunião Eco-Escolas.\",\n  \"createdBy\": 1\n}",
-						"options": { "raw": { "language": "json" } }
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Ata da reunião Eco-Escolas.\",\n  \"createdBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id/proceedings",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id", "proceedings"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/meetings/:id/proceedings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"proceedings"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "UpdateProceedingById",
 					"request": {
 						"method": "PUT",
-						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"content\": \"Ata atualizada da reunião Eco-Escolas.\"\n}",
-						"options": { "raw": { "language": "json" } }
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Ata atualizada da reunião Eco-Escolas.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/proceedings/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["proceedings", ":id"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/proceedings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"proceedings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
@@ -1077,67 +1267,85 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id/photos",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id", "photos"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/meetings/:id/photos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"photos"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "AddPhotosToMeeting",
 					"request": {
 						"method": "POST",
 						"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
 						],
 						"body": {
-						"mode": "raw",
-						"raw": "[\n  {\n    \"path\": \"/uploads/meetings/photo1.jpg\"\n  },\n  {\n    \"path\": \"/uploads/meetings/photo2.jpg\"\n  }\n]",
-						"options": {
-							"raw": {
-							"language": "json"
+							"mode": "raw",
+							"raw": "[\n  {\n    \"path\": \"/uploads/meetings/photo1.jpg\"\n  },\n  {\n    \"path\": \"/uploads/meetings/photo2.jpg\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/meetings/:id/photos",
-						"host": ["{{baseUrl}}"],
-						"path": ["meetings", ":id", "photos"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/meetings/:id/photos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"meetings",
+								":id",
+								"photos"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "DeleteMeetingPhoto",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/photos/meetings/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["photos", "meetings", ":id"],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
+							"raw": "{{baseUrl}}/photos/meetings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"photos",
+								"meetings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
@@ -1153,90 +1361,171 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/projects/:id/questionnaires",
-						"host": ["{{baseUrl}}"],
-						"path": ["projects", ":id", "questionnaires"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/projects/:id/questionnaires",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":id",
+								"questionnaires"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "CreateQuestionnaire",
 					"request": {
 						"method": "POST",
-						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"title\": \"Auditoria Ambiental\",\n  \"description\": \"Questionário inicial de diagnóstico ambiental.\",\n  \"createdBy\": 1\n}",
-						"options": { "raw": { "language": "json" } }
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Auditoria Ambiental\",\n  \"description\": \"Questionário inicial de diagnóstico ambiental.\",\n  \"createdBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/projects/:id/questionnaires",
-						"host": ["{{baseUrl}}"],
-						"path": ["projects", ":id", "questionnaires"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/projects/:id/questionnaires",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								":id",
+								"questionnaires"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "GetQuestionnaireById",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/questionnaires/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["questionnaires", ":id"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/questionnaires/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "UpdateQuestionnaireById",
 					"request": {
 						"method": "PUT",
-						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"title\": \"Auditoria Ambiental Atualizada\",\n  \"description\": \"Descrição atualizada do questionário.\"\n}",
-						"options": { "raw": { "language": "json" } }
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Auditoria Ambiental Atualizada\",\n  \"description\": \"Descrição atualizada do questionário.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/questionnaires/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["questionnaires", ":id"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/questionnaires/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "PublishQuestionnaireById",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/questionnaires/:id/publish",
-						"host": ["{{baseUrl}}"],
-						"path": ["questionnaires", ":id", "publish"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/questionnaires/:id/publish",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":id",
+								"publish"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
-					},
-					{
+				},
+				{
 					"name": "DeleteQuestionnaireById",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-						"raw": "{{baseUrl}}/questionnaires/:id",
-						"host": ["{{baseUrl}}"],
-						"path": ["questionnaires", ":id"],
-						"variable": [{ "key": "id", "value": "1" }]
+							"raw": "{{baseUrl}}/questionnaires/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
 					},
 					"response": []
@@ -1315,7 +1604,7 @@
 							"variable": [
 								{
 									"key": "questionnaireId",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						},
@@ -1473,7 +1762,42 @@
 		},
 		{
 			"name": "Answers",
-			"item": []
+			"item": [
+				{
+					"name": "Create Answer by Questionnaire Id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"value\": \"Resposta de exemplo\",\n  \"questionId\": 1,\n  \"userId\": 1,\n  \"createdBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/questionnaires/:id/answers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":id",
+								"answers"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Gamification",
