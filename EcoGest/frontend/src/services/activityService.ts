@@ -6,8 +6,8 @@ export const activityService = {
     return api.get<Activity>(`/activities/${id}`).then((r) => r.data);
   },
 
-  getProjectByActivityId(projectId: number): Promise<Activity> {
-    return api.get<Activity>(`/projects/${projectId}/activities`).then((r) => r.data);
+  getProjectByActivityId(projectId: number): Promise<Activity[]> {
+    return api.get<Activity[]>(`/projects/${projectId}/activities`).then((r) => r.data);
   },
 
   deleteActivityById(id: number): Promise<void> {

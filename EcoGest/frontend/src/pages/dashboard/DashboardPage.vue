@@ -84,7 +84,10 @@ const activitiesByState = computed(() =>
   (data.value?.activitiesByStatus ?? []).reduce((sum, i) => sum + i.count, 0),
 );
 
+// const route = useRoute();
+
 onMounted(async () => {
+  // TODO const projectId = Number(route.params.projectId);
   void fetchDashboard(1);
 });
 </script>
