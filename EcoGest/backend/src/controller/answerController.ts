@@ -66,7 +66,7 @@ export class AnswerController {
     try {
       const questionnaireId = Number(req.params.questionnaireId);
       if (Number.isNaN(questionnaireId) || questionnaireId <= 0) {
-        res.status(400).json({ error: "Invalid Project ID" });
+        res.status(400).json({ error: "Invalid Questionnaire ID" });
         return;
       }
 
@@ -96,5 +96,39 @@ export class AnswerController {
   getAnswerResultsByQuestionnaireId = async (
     req: Request,
     res: Response,
-  ): Promise<void> => {};
+  ): Promise<void> => {
+    try {
+      const questionnaireId = Number(req.params.questionnaireId);
+      if (Number.isNaN(questionnaireId) || questionnaireId <= 0) {
+        res.status(400).json({ error: "Invalid Questionnaire ID" });
+        return;
+      }
+
+      const answers =
+        await this.answerService.findQuestionnaireAnswerResults(
+          questionnaireId,
+        );
+
+      if (!answers) {
+        res.status(404).json({ error: "Answers not found" });
+        return;
+      }
+
+      const answerDTO: AnswerDTO[] = answers.map((answer) => ({
+        id: answer.id,
+        value: answer.value,
+        createdAt: answer.createdAt,
+        questionId: answer.questionId,
+        userId: answer.userId,
+        updatedAt: answer.updatedAt,
+      }));
+      res.status(200).json(answerDTO);
+    } catch (error: any) {
+      logger.error(
+        { err: error },
+        "Failed to get answers results by questionnaire id",
+      );
+      res.status(500).json({ error: error.message });
+    }
+  };
 }

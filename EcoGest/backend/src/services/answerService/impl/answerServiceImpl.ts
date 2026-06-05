@@ -6,6 +6,7 @@ import { logger } from "../../../utils/logger/logger.js";
 import { QuestionRepository } from "../../../repository/questionRepository.js";
 import { UserRepository } from "../../../repository/userRepository.js";
 import { QuestionnaireRepository } from "../../../repository/questionnaireRepository.js";
+import { QuestionResultDTO } from "../../../dto/questionDTO.js";
 
 export class AnswerServiceImpl implements AnswerService {
   private readonly answerRepository: typeof AnswerRepository;
@@ -40,7 +41,7 @@ export class AnswerServiceImpl implements AnswerService {
 
   async findQuestionnaireAnswerResults(
     questionnaireId: number,
-  ): Promise<Answer[]> {
+  ): Promise<QuestionResultDTO[]> {
     const questionnaire = await this.questionnaireRepository.findOne({
       where: { id: questionnaireId },
     });
@@ -49,6 +50,34 @@ export class AnswerServiceImpl implements AnswerService {
       logger.warn({ questionnaireId }, "No questionnaire found");
       throw new Error(`Questionnaire with id ${questionnaireId} not found.`);
     }
+
+    const rows =
+      await this.answerRepository.findQuestionnaireAnswerResults(
+        questionnaireId,
+      );
+
+    const map = new Map<number, QuestionResultDTO>();
+    for (const row of rows as any[]) {
+      if (!map.has(row.questionId)) {
+        map.set(row.questionId, {
+          questionId: row.questionId,
+          value: row.value,
+          type: row.type,
+          totalAnswers: 0,
+          answers: [],
+        });
+      }
+      const entry = map.get(row.questionId)!;
+      if (row.value !== null) {
+        entry.totalAnswers += Number(row.totalAnswers);
+        entry.answers.push({
+          value: row.value,
+          count: Number(row.totalAnswers),
+        });
+      }
+    }
+
+    return Array.from(map.values());
   }
 
   async submitAnswers(

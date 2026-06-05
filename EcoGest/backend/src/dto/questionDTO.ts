@@ -25,3 +25,14 @@ export interface CreateQuestionDTO {
   required?: boolean;
   type: QuestionType;
 }
+
+export interface QuestionResultDTO {
+  questionId: number;
+  value: string;
+  type: QuestionType;
+  totalAnswers: number;
+  answers: {
+    value: string;
+    count: number;
+  }[];
+}

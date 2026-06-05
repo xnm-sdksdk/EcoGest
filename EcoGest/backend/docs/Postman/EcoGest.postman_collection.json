@@ -1765,6 +1765,43 @@
 			"item": [
 				{
 					"name": "Create Answer by Questionnaire Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/questionnaires/:questionnaireId/answers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":questionnaireId",
+								"answers"
+							],
+							"variable": [
+								{
+									"key": "questionnaireId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Answer by Questionnaire Id",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1778,18 +1815,55 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/questionnaires/:id/answers",
+							"raw": "{{baseUrl}}/questionnaires/:questionnaireId/answers",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"questionnaires",
-								":id",
+								":questionnaireId",
 								"answers"
 							],
 							"variable": [
 								{
-									"key": "id",
+									"key": "questionnaireId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Answer Results by Questionnaire Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \"value\": \"Resposta de exemplo\",\n  \"questionId\": 1,\n  \"userId\": 1,\n  \"createdBy\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/questionnaires/:questionnaireId/results",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaires",
+								":questionnaireId",
+								"results"
+							],
+							"variable": [
+								{
+									"key": "questionnaireId",
 									"value": "1"
 								}
 							]
