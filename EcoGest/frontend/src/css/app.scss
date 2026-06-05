@@ -24,6 +24,38 @@ body,
   color: white;
 }
 
+
+.q-select {
+  background-color: $dark;
+}
+
+.q-table {
+  background-color: $dark;
+  color: white;
+
+  thead tr th {
+    background-color: $dark;
+    color: white;
+    border-bottom: 1px solid #606060;
+  }
+
+  tbody tr td {
+    background-color: $dark;
+    color: white;
+    border-bottom: 1px solid #444444;
+  }
+
+  tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.q-table__container {
+  background-color: $dark;
+  border: 0.5px solid #606060;
+  border-radius: 1rem;
+}
+
 .q-btn {
   background-color: $primary;
   color: white;

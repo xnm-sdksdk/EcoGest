@@ -15,6 +15,17 @@
     <template v-else>
       <div class="row q-gutter-md q-mb-lg">
         <q-select
+          v-model="selectProject"
+          :options="allProjects"
+          clearable
+          dense
+          emit-value
+          label="Selecionar projeto"
+          label-color="white"
+          outlined
+          style="min-width: 180px"
+        />
+        <q-select
           v-model="selectedArea"
           :options="areaOptions"
           clearable
@@ -64,14 +75,17 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onMounted, ref} from 'vue';
-import {useActivity} from 'src/composables/useActivity';
+import { computed, onMounted, ref } from 'vue';
+import { useActivity } from 'src/composables/useActivity';
 
 // TODO const route = useRoute();
 const { data, loading, fetchActivitiesByProjectId } = useActivity();
 
+const selectProject = ref<Map<number, string>>(null);
 const selectedArea = ref<string | null>(null);
 const selectedState = ref<string | null>(null);
+
+const allProjects = [1, 'Esmad Project'];
 
 const areaOptions = ['Resíduos', 'Energia', 'Biodiversidade', 'Água'];
 const stateOptions = [
