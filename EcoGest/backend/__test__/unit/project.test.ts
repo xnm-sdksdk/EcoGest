@@ -34,3 +34,112 @@ describe("GET /api/projects", () => {
     expect(response.body.length).toBe(0);
   });
 });
+
+describe("POST /api/projects", () => {
+  it("should create a project", async () => {
+    const response = await supertest(app).post("/api/projects").send({
+      name: "Compostagem Escolar",
+      school: "Escola Secundária de Rodrigues de Freitas",
+      schoolYear: "2025/2026",
+      state: true,
+    });
+
+    expect(response.status).toBe(201);
+  });
+});
+
+describe("GET /api/projects/:id", () => {
+  it("should return 200 for GET /api/projects/:id", async () => {
+    const repo = AppDataSource.getRepository(Project);
+    const project = await repo.save({
+      name: "Test Project",
+      school: "Test School",
+      schoolYear: "2025/2026",
+      state: true,
+    });
+
+    const response = await supertest(app)
+      .get(`/api/projects/${project.id}`)
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      id: project.id,
+      name: "Test Project",
+      school: "Test School",
+      schoolYear: "2025/2026",
+      state: true,
+    });
+  });
+
+  it("should return 404 if project does not exist", async () => {
+    const response = await supertest(app).get("/api/projects/999").send();
+
+    expect(response.status).toBe(404);
+  });
+});
+
+describe("DELETE /api/projects/:id", () => {
+  it("should return 204 for DELETE /api/projects/:id", async () => {
+    const repo = AppDataSource.getRepository(Project);
+    const project = await repo.save({
+      name: "Test Project",
+      school: "Test School",
+      schoolYear: "2025/2026",
+      state: true,
+    });
+
+    const response = await supertest(app)
+      .delete(`/api/projects/${project.id}`)
+      .send();
+
+    expect(response.status).toBe(204);
+
+    const deleted = await repo.findOneBy({ id: project.id });
+    expect(deleted).toBeNull();
+  });
+
+  it("should return 404 if project does not exist", async () => {
+    const response = await supertest(app).delete("/api/projects/999").send();
+
+    expect(response.status).toBe(404);
+  });
+});
+
+describe("PUT /api/projects/:id", () => {
+  it("should return 200 and updated project", async () => {
+    const repo = AppDataSource.getRepository(Project);
+    const project = await repo.save({
+      name: "Test Project",
+      school: "Test School",
+      schoolYear: "2025/2026",
+      state: true,
+    });
+
+    const response = await supertest(app)
+      .put(`/api/projects/${project.id}`)
+      .send({
+        name: "Updated Project",
+        school: "Updated School",
+        schoolYear: "2026/2027",
+        state: false,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      id: project.id,
+      name: "Updated Project",
+      school: "Updated School",
+      schoolYear: "2026/2027",
+      state: false,
+    });
+  });
+
+  it("should return 404 if project does not exist", async () => {
+    const response = await supertest(app).put("/api/projects/999").send({
+      name: "Updated Project",
+    });
+
+    expect(response.status).toBe(404);
+  });
+});
