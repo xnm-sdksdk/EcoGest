@@ -133,6 +133,13 @@ export class ProjectController {
         return;
       }
 
+      const projectExists =
+        await this.projectService.findProjectById(projectId);
+      if (!projectExists) {
+        res.status(404).json({ error: "Project not found" });
+        return;
+      }
+
       await this.projectService.removeProjectById(projectId);
       res.status(204).send();
     } catch (error: any) {
