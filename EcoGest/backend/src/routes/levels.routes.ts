@@ -1,65 +1,104 @@
 import { Router } from "express";
 import { LevelController } from "../controller/levelController.js";
+import { UserProfile } from "../entity/userEntity.js";
+import { authorize } from "../middleware/authorize.js";
+import { authenticate } from "../middleware/authenticate.js";
 
 const router = Router();
 
 const levelController = new LevelController();
 
-router.get("/levels", (req, res, next) => {
-  /* #swagger.tags = ['Levels']
+router.get(
+  "/levels",
+  (req, res, next) => {
+    /* #swagger.tags = ['Levels']
      #swagger.summary = 'Listar níveis'
   */
-  next();
-}, levelController.getAllLevels);
+    next();
+  },
+  levelController.getAllLevels,
+);
 
-router.get("/levels/:id", (req, res, next) => {
-  /* #swagger.tags = ['Levels']
+router.get(
+  "/levels/:id",
+  (req, res, next) => {
+    /* #swagger.tags = ['Levels']
      #swagger.summary = 'Obter nível por ID'
   */
-  next();
-}, levelController.getLevelById);
+    next();
+  },
+  levelController.getLevelById,
+);
 
-router.post("/levels", (req, res, next) => {
-  /* #swagger.tags = ['Levels']
+router.post(
+  "/levels",
+  (req, res, next) => {
+    /* #swagger.tags = ['Levels']
      #swagger.summary = 'Criar nível'
      #swagger.parameters['obj'] = {
        in: 'body',
        schema: { $ref: '#/definitions/CreateLevelRequest' }
      }
   */
-  next();
-}, levelController.createLevel);
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.ADMIN),
+  levelController.createLevel,
+);
 
-router.put("/levels/:id", (req, res, next) => {
-  /* #swagger.tags = ['Levels']
+router.put(
+  "/levels/:id",
+  (req, res, next) => {
+    /* #swagger.tags = ['Levels']
      #swagger.summary = 'Atualizar nível'
      #swagger.parameters['obj'] = {
        in: 'body',
        schema: { $ref: '#/definitions/UpdateLevelRequest' }
      }
   */
-  next();
-}, levelController.updateLevelById);
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.ADMIN),
+  levelController.updateLevelById,
+);
 
-router.delete("/levels/:id", (req, res, next) => {
-  /* #swagger.tags = ['Levels']
+router.delete(
+  "/levels/:id",
+  (req, res, next) => {
+    /* #swagger.tags = ['Levels']
      #swagger.summary = 'Eliminar nível'
   */
-  next();
-}, levelController.deleteLevelById);
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.ADMIN),
+  levelController.deleteLevelById,
+);
 
-router.get("/projects/:projectId/levels", (req, res, next) => {
-  /* #swagger.tags = ['Levels']
+router.get(
+  "/projects/:projectId/levels",
+  (req, res, next) => {
+    /* #swagger.tags = ['Levels']
      #swagger.summary = 'Obter nível de um projeto'
   */
-  next();
-}, levelController.getLevelByProjectId);
+    next();
+  },
+  levelController.getLevelByProjectId,
+);
 
-router.put("/projects/:projectId/levels", (req, res, next) => {
-  /* #swagger.tags = ['Levels']
+router.put(
+  "/projects/:projectId/levels",
+  (req, res, next) => {
+    /* #swagger.tags = ['Levels']
      #swagger.summary = 'Atualizar nível de um projeto'
   */
-  next();
-}, levelController.updateLevelByProjectId);
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.COORDINATOR, UserProfile.ADMIN),
+  levelController.updateLevelByProjectId,
+);
 
 export default router;

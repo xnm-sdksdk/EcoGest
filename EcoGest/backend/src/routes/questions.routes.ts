@@ -1,43 +1,68 @@
 import { Router } from "express";
 import { QuestionController } from "../controller/questionController.js";
+import { authenticate } from "../middleware/authenticate.js";
+import { authorize } from "../middleware/authorize.js";
+import { UserProfile } from "../entity/userEntity.js";
 
 const router = Router();
 const questionController = new QuestionController();
 
-router.get("/questionnaires/:questionnaireId/questions", (req, res, next) => {
-  /* #swagger.tags = ['Questions']
+router.get(
+  "/questionnaires/:questionnaireId/questions",
+  (req, res, next) => {
+    /* #swagger.tags = ['Questions']
      #swagger.summary = 'Listar perguntas de um questionário'
   */
-  next();
-}, questionController.getQuestionsByQuestionnaireId);
+    next();
+  },
+  questionController.getQuestionsByQuestionnaireId,
+);
 
-router.post("/questionnaires/:questionnaireId/questions", (req, res, next) => {
-  /* #swagger.tags = ['Questions']
+router.post(
+  "/questionnaires/:questionnaireId/questions",
+  (req, res, next) => {
+    /* #swagger.tags = ['Questions']
      #swagger.summary = 'Criar pergunta num questionário'
      #swagger.parameters['obj'] = {
        in: 'body',
        schema: { $ref: '#/definitions/CreateQuestionRequest' }
      }
   */
-  next();
-}, questionController.createQuestionsByQuestionnaireId);
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.ADMIN, UserProfile.COORDINATOR),
+  questionController.createQuestionsByQuestionnaireId,
+);
 
-router.put("/questions/:id", (req, res, next) => {
-  /* #swagger.tags = ['Questions']
+router.put(
+  "/questions/:id",
+  (req, res, next) => {
+    /* #swagger.tags = ['Questions']
      #swagger.summary = 'Atualizar pergunta'
      #swagger.parameters['obj'] = {
        in: 'body',
        schema: { $ref: '#/definitions/UpdateQuestionRequest' }
      }
   */
-  next();
-}, questionController.updateQuestionById);
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.ADMIN, UserProfile.COORDINATOR),
+  questionController.updateQuestionById,
+);
 
-router.delete("/questions/:id", (req, res, next) => {
-  /* #swagger.tags = ['Questions']
+router.delete(
+  "/questions/:id",
+  (req, res, next) => {
+    /* #swagger.tags = ['Questions']
      #swagger.summary = 'Eliminar pergunta'
   */
-  next();
-}, questionController.deleteQuestionById);
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.ADMIN, UserProfile.COORDINATOR),
+  questionController.deleteQuestionById,
+);
 
 export default router;

@@ -77,6 +77,16 @@
 				{
 					"name": "CreateProject",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicHJvZmlsZSI6ImFkbWluIiwiaWF0IjoxNzgwNzQwNDAxLCJleHAiOjE3ODA4MjY4MDF9.iIJjg4K0WHi4l0jWf3tjnj_UfRZ2zoKD9lZY4JsIO_w",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -234,101 +244,39 @@
 		},
 		{
 			"name": "Auth",
-			"item": []
-		},
-		{
-			"name": "ProjectMembers",
 			"item": [
 				{
-					"name": "GetProjectMembers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-						"raw": "{{baseUrl}}/projects/:id/members",
-						"host": [
-							"{{baseUrl}}"
-						],
-						"path": [
-							"projects",
-							":id",
-							"members"
-						],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
-						}
-					},
-					"response": []
-					},
-					{
-					"name": "AddProjectMember",
+					"name": "Login",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
-						"mode": "raw",
-						"raw": "{\n  \"userId\": 2\n}",
-						"options": {
-							"raw": {
-							"language": "json"
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@ecogest.pt\",\n  \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						}
 						},
 						"url": {
-						"raw": "{{baseUrl}}/projects/:id/members",
-						"host": [
-							"{{baseUrl}}"
-						],
-						"path": [
-							"projects",
-							":id",
-							"members"
-						],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							}
-						]
-						}
-					},
-					"response": []
-					},
-					{
-					"name": "RemoveProjectMember",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-						"raw": "{{baseUrl}}/projects/:id/members/:userId",
-						"host": [
-							"{{baseUrl}}"
-						],
-						"path": [
-							"projects",
-							":id",
-							"members",
-							":userId"
-						],
-						"variable": [
-							{
-							"key": "id",
-							"value": "1"
-							},
-							{
-							"key": "userId",
-							"value": "2"
-							}
-						]
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ProjectMembers",
+			"item": []
 		},
 		{
 			"name": "Activities",
