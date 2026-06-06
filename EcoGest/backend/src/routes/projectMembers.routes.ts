@@ -1,9 +1,23 @@
 import { Router } from "express";
+import { ProjectMemberController } from "../controller/projectMembersController.js";
 
 const router = Router();
 
-router.get("/projects/:id/members");
-router.post("/projects/:id/members");
-router.delete("/projects/:id/members/:userId");
+const projectMemberController = new ProjectMemberController();
+
+router.get(
+  "/projects/:id/members",
+  projectMemberController.getProjectMembers,
+);
+
+router.post(
+  "/projects/:id/members",
+  projectMemberController.addProjectMember,
+);
+
+router.delete(
+  "/projects/:id/members/:userId",
+  projectMemberController.removeProjectMember,
+);
 
 export default router;

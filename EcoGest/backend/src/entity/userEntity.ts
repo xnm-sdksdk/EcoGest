@@ -34,7 +34,7 @@ export class User extends BaseEntity {
   @Column({ type: "boolean", default: true })
   active!: boolean;
 
-  @ManyToMany(() => Project)
+  @ManyToMany(() => Project, (project) => project.members)
   @JoinTable({ name: "project_members" })
   projects!: Project[];
 }

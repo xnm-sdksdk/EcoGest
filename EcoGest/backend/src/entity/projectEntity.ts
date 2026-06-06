@@ -1,9 +1,10 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
 import { Level } from "./levelEntity.js";
 import { Meeting } from "./meetingEntity.js";
 import { Questionnaire } from "./questionnaireEntity.js";
 import { Challenge } from "./challengeEntity.js";
+import { User } from "./userEntity.js";
 
 @Entity()
 export class Project extends BaseEntity {
@@ -31,4 +32,7 @@ export class Project extends BaseEntity {
 
   @OneToMany(() => Challenge, (challenge) => challenge.project)
   challenges!: Challenge[];
+
+  @ManyToMany(() => User, (user) => user.projects)
+  members!: User[];
 }
