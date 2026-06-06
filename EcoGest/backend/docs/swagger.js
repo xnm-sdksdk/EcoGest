@@ -8,6 +8,14 @@ const doc = {
   },
   host: "localhost:8080",
   schemes: ["http"],
+  securityDefinitions: {
+    bearerAuth: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header",
+      description: "Bearer Token"
+    }
+  },
   definitions: {
     CreateMeetingRequest: {
       date: "2026-05-10T14:30:00",
@@ -117,6 +125,10 @@ const doc = {
     CreateConvocationRequest: {
       recipientId: 2,
       createdBy: 1,
+    },
+
+    ProjectMemberRequest: {
+      userId: 2,
     },
   },
 };
