@@ -61,3 +61,15 @@ body,
   color: white;
 }
 
+.q-field__native,
+.q-field__input {
+  color: white;
+}
+
+.q-field--outlined .q-field__control {
+  border-color: #606060;
+}
+
+.q-field--outlined:hover .q-field__control {
+  border-color: white;
+}

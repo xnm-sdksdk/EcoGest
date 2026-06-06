@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center bg-grey-2">
+  <q-page class="flex flex-center">
     <q-card class="q-pa-lg" style="width: 600px">
       <q-card-section>
         <div class="text-h5 text-center">EcoGest</div>
@@ -9,17 +9,30 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form class="q-gutter-md" @submit="''">
+        <q-form class="q-gutter-md" @submit.prevent="handleLogin()">
           <q-input
             v-model="email"
             label="E-mail"
+            label-color="white"
             outlined
             placeholder="nome@esmad.ipp.pt"
             type="email"
           />
-          <q-input v-model="password" label="Password" outlined type="password" />
+          <q-input
+            v-model="password"
+            label="Password"
+            label-color="white"
+            outlined
+            type="password"
+          />
 
-          <q-btn class="full-width" color="primary" label="Entrar" type="submit" />
+          <q-btn
+            :loading="loading"
+            class="full-width"
+            color="primary"
+            label="Entrar"
+            type="submit"
+          />
 
           <div class="text-center">
             <router-link class="text-primary" to="/recover-password">
@@ -33,18 +46,30 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'; /*import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
+import { useAuthStore } from 'stores/auth';
 
 const router = useRouter();
-const $q = useQuasar();*/
-/*import { useRouter } from 'vue-router';
-import { useQuasar } from 'quasar';
+const $q = useQuasar();
+const auth = useAuthStore();
 
-const router = useRouter();
-const $q = useQuasar();*/
 const email = ref('');
 const password = ref('');
+const loading = ref(false);
+
+async function handleLogin() {
+  loading.value = true;
+  const success = await auth.login(email.value, password.value);
+  loading.value = false;
+
+  if (success) {
+    await router.push('/');
+  } else {
+    $q.notify({ type: 'negative', message: 'Credenciais inválidas' });
+  }
+}
 </script>
 
 <style scoped></style>
