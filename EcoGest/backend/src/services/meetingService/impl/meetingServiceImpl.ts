@@ -109,14 +109,19 @@ export class MeetingServiceImpl implements MeetingService {
   }
 
   async cancelMeetingById(meetingId: number): Promise<Meeting | null> {
-    const meeting = await this.meetingRepository.findOneBy({ id: meetingId });
+    const meeting = await this.meetingRepository.findOne({
+      where: { id: meetingId },
+      relations: {
+        createdBy: true,
+      },
+    });
 
     if (!meeting) {
-      logger.warn({ meetingId }, "Meeting not found.");
       return null;
     }
 
     meeting.state = MeetingState.CANCELED;
+
     return await this.meetingRepository.save(meeting);
   }
 }
