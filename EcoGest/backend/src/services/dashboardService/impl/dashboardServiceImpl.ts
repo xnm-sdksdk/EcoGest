@@ -50,25 +50,27 @@ export class DashboardServiceImpl implements DashboardService {
       totalParticipants,
       totalMeetings,
     ] = await Promise.all([
-      this.activityRepository.count({ where: { project: { id: projectId } } }),
       this.activityRepository.count({
-        where: { id: projectId, startDate: MoreThan(now) },
+        where: { project: { id: projectId } },
       }),
       this.activityRepository.count({
-        where: { id: projectId, state: ActivityState.COMPLETED },
+        where: { project: { id: projectId }, startDate: MoreThan(now) },
       }),
-      this.questionnaireRepository.count({ where: { id: projectId } }),
+      this.activityRepository.count({
+        where: { project: { id: projectId }, state: ActivityState.COMPLETED },
+      }),
+      this.questionnaireRepository.count({
+        where: { project: { id: projectId } },
+      }),
       this.meetingRepository.count({
-        where: { id: projectId, date: MoreThan(now) },
+        where: { project: { id: projectId }, date: MoreThan(now) },
       }),
       this.activityRepository.countByStatusForProject(projectId),
       this.registrationRepository.countByProject(projectId),
       this.registrationRepository.countDistinctUsersByProject(projectId),
-      this.meetingRepository.count({ where: { id: projectId } }),
-      /*
-      this.activityRepository.sumPointsForProject(projectId),
-      this.userRepository.findTopByProjectPoints(projectId, 5),
-      this.questionnaireRepository.countResponsesByProject(projectId),*/
+      this.meetingRepository.count({
+        where: { project: { id: projectId } },
+      }),
     ]);
 
     return {
