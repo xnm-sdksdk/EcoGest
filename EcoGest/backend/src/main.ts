@@ -27,6 +27,7 @@ import projectMembersRoutes from "./routes/projectMembers.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 
 import { httpLogger } from "./utils/logger/logger.js";
+import { AppDataSource } from "./config/data-source.js";
 
 const PORT = 8080;
 const app = express();
@@ -64,6 +65,8 @@ app.use("/api", meetingPhotosRoutes);
 app.use("/api", gamificationsRoutes);
 app.use("/api", projectMembersRoutes);
 app.use("/api", authRoutes);
+
+await AppDataSource.initialize();
 
 app.listen(PORT, () => console.log(`EcoGest API running on port ${PORT}`));
 

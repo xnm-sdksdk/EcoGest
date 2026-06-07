@@ -9,6 +9,7 @@ export interface ActivityService {
   createActivity(
     projectId: number,
     createActivityDTO: CreateActivityDTO,
+    createdBy: number,
   ): Promise<Activity>;
 
   updateActivityById(
