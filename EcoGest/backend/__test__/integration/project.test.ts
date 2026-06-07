@@ -3,6 +3,7 @@ import { app } from "../../src/main";
 import { AppDataSource } from "../../src/config/data-source";
 import { describe, expect, it } from "vitest";
 import { Project } from "../../src/entity/projectEntity";
+import { testToken } from "../setup";
 
 describe("GET /api/projects", () => {
   it("should return 200 for GET /api/projects", async () => {
@@ -13,7 +14,10 @@ describe("GET /api/projects", () => {
       schoolYear: "2025/2026",
       state: true,
     });
-    const response = await supertest(app).get("/api/projects").send();
+    const response = await supertest(app)
+      .get("/api/projects")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send();
     console.log(response.body[0]);
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
@@ -37,12 +41,15 @@ describe("GET /api/projects", () => {
 
 describe("POST /api/projects", () => {
   it("should create a project", async () => {
-    const response = await supertest(app).post("/api/projects").send({
-      name: "Compostagem Escolar",
-      school: "Escola Secundária de Rodrigues de Freitas",
-      schoolYear: "2025/2026",
-      state: true,
-    });
+    const response = await supertest(app)
+      .post("/api/projects")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send({
+        name: "Compostagem Escolar",
+        school: "Escola Secundária de Rodrigues de Freitas",
+        schoolYear: "2025/2026",
+        state: true,
+      });
 
     expect(response.status).toBe(201);
   });
@@ -60,6 +67,7 @@ describe("GET /api/projects/:id", () => {
 
     const response = await supertest(app)
       .get(`/api/projects/${project.id}`)
+      .set("Authorization", `Bearer ${testToken}`)
       .send();
 
     expect(response.status).toBe(200);
@@ -91,6 +99,7 @@ describe("DELETE /api/projects/:id", () => {
 
     const response = await supertest(app)
       .delete(`/api/projects/${project.id}`)
+      .set("Authorization", `Bearer ${testToken}`)
       .send();
 
     expect(response.status).toBe(204);
@@ -100,7 +109,10 @@ describe("DELETE /api/projects/:id", () => {
   });
 
   it("should return 404 if project does not exist", async () => {
-    const response = await supertest(app).delete("/api/projects/999").send();
+    const response = await supertest(app)
+      .delete("/api/projects/999")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send();
 
     expect(response.status).toBe(404);
   });
@@ -118,6 +130,7 @@ describe("PUT /api/projects/:id", () => {
 
     const response = await supertest(app)
       .put(`/api/projects/${project.id}`)
+      .set("Authorization", `Bearer ${testToken}`)
       .send({
         name: "Updated Project",
         school: "Updated School",
@@ -136,9 +149,12 @@ describe("PUT /api/projects/:id", () => {
   });
 
   it("should return 404 if project does not exist", async () => {
-    const response = await supertest(app).put("/api/projects/999").send({
-      name: "Updated Project",
-    });
+    const response = await supertest(app)
+      .put("/api/projects/999")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send({
+        name: "Updated Project",
+      });
 
     expect(response.status).toBe(404);
   });

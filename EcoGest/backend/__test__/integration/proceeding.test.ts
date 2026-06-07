@@ -8,6 +8,7 @@ import { User, UserProfile } from "../../src/entity/userEntity";
 import { Project } from "../../src/entity/projectEntity";
 import { Meeting } from "../../src/entity/meetingEntity";
 import { Proceedings } from "../../src/entity/proceedingsEntity";
+import { testToken } from "../setup";
 
 async function createMeetingWithUser() {
   const userRepo = AppDataSource.getRepository(User);
@@ -93,6 +94,7 @@ describe("POST /api/meetings/:id/proceedings", () => {
 
     const response = await supertest(app)
       .post(`/api/meetings/${meeting.id}/proceedings`)
+      .set("Authorization", `Bearer ${testToken}`)
       .send({
         content: "Ata criada por teste",
         createdBy: user.id,
@@ -105,6 +107,7 @@ describe("POST /api/meetings/:id/proceedings", () => {
   it("should return 400 for invalid meeting id", async () => {
     const response = await supertest(app)
       .post("/api/meetings/abc/proceedings")
+      .set("Authorization", `Bearer ${testToken}`)
       .send({
         content: "Ata criada por teste",
         createdBy: 1,
@@ -119,6 +122,7 @@ describe("POST /api/meetings/:id/proceedings", () => {
 
     const response = await supertest(app)
       .post(`/api/meetings/${meeting.id}/proceedings`)
+      .set("Authorization", `Bearer ${testToken}`)
       .send({
         createdBy: user.id,
       });
@@ -143,6 +147,7 @@ describe("PUT /api/proceedings/:id", () => {
 
     const response = await supertest(app)
       .put(`/api/proceedings/${proceeding.id}`)
+      .set("Authorization", `Bearer ${testToken}`)
       .send({
         content: "Ata atualizada",
       });
@@ -154,6 +159,7 @@ describe("PUT /api/proceedings/:id", () => {
   it("should return 404 when proceedings do not exist", async () => {
     const response = await supertest(app)
       .put("/api/proceedings/99999")
+      .set("Authorization", `Bearer ${testToken}`)
       .send({
         content: "Ata atualizada",
       });
@@ -164,6 +170,7 @@ describe("PUT /api/proceedings/:id", () => {
   it("should return 400 for invalid proceedings id", async () => {
     const response = await supertest(app)
       .put("/api/proceedings/abc")
+      .set("Authorization", `Bearer ${testToken}`)
       .send({
         content: "Ata atualizada",
       });
