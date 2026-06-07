@@ -141,11 +141,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue';
-import { useActivity } from 'src/composables/useActivity';
-import { useProject } from 'src/composables/useProject';
-import { useQuasar } from 'quasar';
-import { activityService } from 'src/services/activityService';
+import {computed, onMounted, ref, watch} from 'vue';
+import {useActivity} from 'src/composables/useActivity';
+import {useProject} from 'src/composables/useProject';
+import {useQuasar} from 'quasar';
+import {activityService} from 'src/services/activityService';
 
 const { data: activities, loading, fetchActivitiesByProjectId } = useActivity();
 const { data: projects, fetchProjects } = useProject();
@@ -226,6 +226,11 @@ async function submitActivity() {
 
   if (!projectId) {
     $q.notify({ type: 'warning', message: 'Seleciona um projeto' });
+    return;
+  }
+
+  if (newActivity.value.endDate < newActivity.value.startDate) {
+    $q.notify({ type: 'warning', message: 'A data de fim não pode ser anterior à data de início' });
     return;
   }
 
