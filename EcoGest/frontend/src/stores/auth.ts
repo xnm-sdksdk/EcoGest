@@ -12,7 +12,8 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await authService.login(email, password);
       token.value = response.token;
       user.value = response.user;
-      localStorage.setItem('token', token.value);
+      localStorage.setItem('token', token.value!);
+      localStorage.setItem('user', JSON.stringify(response.user));
       return true;
     } catch {
       return false;
@@ -23,13 +24,14 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null;
     token.value = null;
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   function loadFromStorage() {
-    const stored = localStorage.getItem('token');
-    if (stored) {
-      token.value = stored;
-    }
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    if (storedToken) token.value = storedToken;
+    if (storedUser) user.value = JSON.parse(storedUser);
   }
 
   const isAuthenticated = () => !!token.value;

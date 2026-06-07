@@ -52,22 +52,35 @@
             </q-item-section>
             <q-item-section>Definições</q-item-section>
           </q-item>
-          <q-item v-ripple class="absolute-bottom" clickable to="/profile">
-            <q-item-section avatar>
-              <q-img
-                class="absolute-bottom"
-                src="https://cdn.quasar.dev/img/material.png"
-                style="height: 150px"
-              >
+          <q-separator class="q-mt-xl" style="margin-top: 200px" />
+          <q-item v-if="userAuth.user" v-ripple clickable to="/profile">
+            <q-item-section avatar style="height: 170px; width: 260px">
+              <q-img style="height: 200px">
                 <div class="absolute-bottom bg-transparent">
-                  <q-avatar class="q-mb-sm" size="56px" to="/profile">
+                  <q-avatar class="q-mb-sm" size="56px">
                     <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
                   </q-avatar>
-                  <div class="text-weight-bold">Razvan Stoenescu</div>
-                  <div>@rstoenescu</div>
+                  <div class="text-weight-bold text-h6 q-mb-sm">{{ userAuth.user.name }}</div>
+                  <div class="text-h6 q-mb-sm">{{ userAuth.user.email }}</div>
                 </div>
               </q-img>
             </q-item-section>
+          </q-item>
+          <q-item
+            v-if="userAuth.user"
+            clickable
+            @click="
+              userAuth.logout();
+              $router.push('/login');
+            "
+          >
+            <q-item-section avatar><q-icon name="logout" /></q-item-section>
+            <q-item-section>Logout</q-item-section>
+          </q-item>
+
+          <q-item v-if="!userAuth.user" clickable to="/login">
+            <q-item-section avatar><q-icon name="login" /></q-item-section>
+            <q-item-section>Login</q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -80,9 +93,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useAuthStore } from 'stores/auth';
 
+const userAuth = useAuthStore();
 const drawer = ref(true);
+
+onMounted(() => {
+  userAuth.loadFromStorage();
+});
 </script>
 
 <style scoped>
