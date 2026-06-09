@@ -6,7 +6,7 @@ export const meetingService = {
     return api.get<Meeting>(`/meetings/${id}`).then((r) => r.data);
   },
 
-  getProjectByMeetingId(projectId: number): Promise<Meeting> {
+  getMeetingByProjectId(projectId: number): Promise<Meeting> {
     return api.get<Meeting>(`/projects/${projectId}/meetings`).then((r) => r.data);
   },
 
