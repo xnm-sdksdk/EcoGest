@@ -1,9 +1,9 @@
-import {CreateActivityDTO, UpdateActivityDTO,} from "../../../dto/activityDTO.js";
-import {Activity, ActivityState} from "../../../entity/activityEntity.js";
-import {ActivityRepository} from "../../../repository/activityRepository.js";
-import {ProjectRepository} from "../../../repository/projectRepository.js";
-import {ActivityService} from "../activityService.js";
-import {logger} from "../../../utils/logger/logger.js";
+import { CreateActivityDTO, UpdateActivityDTO } from "../../../dto/activityDTO.js";
+import { Activity, ActivityState } from "../../../entity/activityEntity.js";
+import { ActivityRepository } from "../../../repository/activityRepository.js";
+import { ProjectRepository } from "../../../repository/projectRepository.js";
+import { ActivityService } from "../activityService.js";
+import { logger } from "../../../utils/logger/logger.js";
 
 export class ActivityServiceImpl implements ActivityService {
   private readonly activityRepository: typeof ActivityRepository;
@@ -38,6 +38,7 @@ export class ActivityServiceImpl implements ActivityService {
   async createActivity(
     projectId: number,
     createActivityDTO: CreateActivityDTO,
+    createdBy: number,
   ): Promise<Activity> {
     const project = await this.projectRepository.findOneBy({ id: projectId });
     if (!project) {
@@ -49,6 +50,7 @@ export class ActivityServiceImpl implements ActivityService {
       ...createActivityDTO,
       project,
       state: ActivityState.PENDING,
+      createdBy: { id: createdBy } as any,
     });
     return this.activityRepository.save(activity);
   }

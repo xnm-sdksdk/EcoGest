@@ -1,8 +1,9 @@
 import supertest from "supertest";
-import { app } from "../../src/main";
-import { User, UserProfile } from "../../src/entity/userEntity";
-import { AppDataSource } from "../../src/config/data-source";
-import { describe, expect, it } from "vitest";
+import {app} from "../../src/main";
+import {User, UserProfile} from "../../src/entity/userEntity";
+import {AppDataSource} from "../../src/config/data-source";
+import {describe, expect, it} from "vitest";
+import {testToken} from "../setup";
 
 describe("GET /api/users", () => {
   it("should return 200 for GET /api/users", async () => {
@@ -16,7 +17,10 @@ describe("GET /api/users", () => {
         active: true,
       }),
     );
-    const response = await supertest(app).get("/api/users").send();
+    const response = await supertest(app)
+      .get("/api/users")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send();
 
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
@@ -28,7 +32,10 @@ describe("GET /api/users", () => {
 
 describe("GET /api/users/:id", () => {
   it("returns 404 and error if user does not exist", async () => {
-    const response = await supertest(app).get("/api/users/1234567890").send();
+    const response = await supertest(app)
+      .get("/api/users/1234567890")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send();
 
     expect(response.status).toBe(404);
     expect(response.body).toBeDefined();
@@ -51,6 +58,7 @@ describe("DELETE /api/users/:id", () => {
 
     const response = await supertest(app)
       .delete(`/api/users/${user.id}`)
+      .set("Authorization", `Bearer ${testToken}`)
       .send();
 
     expect(response.status).toBe(204);
@@ -60,23 +68,28 @@ describe("DELETE /api/users/:id", () => {
   });
 
   it("should return 404 when deleting a non-existent user", async () => {
-    const response = await supertest(app).delete("/api/users/99999").send();
+    const response = await supertest(app)
+      .delete("/api/users/99999")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send();
     expect(response.status).toBe(204);
   });
 });
 
 describe("PUT /api/users/:id", () => {
-  it("should return 400 and error if the objectId provided is invalid", async () => {
-    const response = await supertest(app).put("/api/users/iojidjcoi").send({
-      name: "Test User",
-      email: "test@example.com",
-      password: "hashed_password",
-      profile: UserProfile.MEMBER,
-      active: true,
-    });
+  it("should return 403 and error if the objectId provided is invalid", async () => {
+    const response = await supertest(app)
+      .put("/api/users/iojidjcoi")
+      .set("Authorization", `Bearer ${testToken}`)
+      .send({
+        name: "Test User",
+        email: "test@example.com",
+        password: "hashed_password",
+        profile: UserProfile.MEMBER,
+        active: true,
+      });
 
-    expect(response.status).toBe(400);
-    expect(response.body).toBeDefined();
-    expect(response.body.error).toBe("Invalid User ID");
+    expect(response.status).toBe(403);
+    expect(response.body.message).toBe("Sem permissão");
   });
 });

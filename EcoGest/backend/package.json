@@ -8,7 +8,8 @@
     "swagger": "node docs/swagger.js",
     "start": "node src/server.js",
     "test": "vitest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "seed": "tsx --env-file=.env src/config/seed.ts"
   },
   "keywords": [],
   "author": "",

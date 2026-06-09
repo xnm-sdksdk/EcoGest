@@ -2,18 +2,18 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-interface Config {
+interface ConfigEnv {
   port: number;
   nodeEnv: string;
   jwtSecret: string;
   jwtExpiresIn: string;
 }
 
-const config: Config = {
+const configEnv: ConfigEnv = {
   port: Number(process.env.PORT) || 3000,
   nodeEnv: process.env.NODE_ENV || "development",
   jwtSecret: process.env.JWT_SECRET || "",
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || "",
 };
 
-export default config;
+export default configEnv;

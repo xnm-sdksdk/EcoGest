@@ -20,8 +20,6 @@ export interface CreateActivityDTO {
   resources: string[];
   startDate: Date;
   endDate: Date;
-  createdBy: number;
-  state: ActivityState;
 }
 
 export interface UpdateActivityDTO {

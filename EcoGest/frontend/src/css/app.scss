@@ -17,7 +17,7 @@ body,
 .q-card {
   background-color: $dark;
   border-radius: 1rem;
-  border: 0.5px solid #606060;
+  border: 1px solid #606060;
 }
 
 .text-h5, .text-h4, .text-h3 {
@@ -25,8 +25,10 @@ body,
 }
 
 
-.q-select {
+.q-select, .q-input {
   background-color: $dark;
+  border-radius: 1rem;
+  border: 1px solid #606060;
 }
 
 .q-table {
@@ -62,7 +64,9 @@ body,
 }
 
 .q-field__native,
-.q-field__input {
+.q-field__input,
+.q-table__control,
+.q-field__append {
   color: white;
 }
 

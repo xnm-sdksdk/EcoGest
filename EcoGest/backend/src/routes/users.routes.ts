@@ -3,7 +3,7 @@ import { UserController } from "../controller/userController.js";
 import { authorize } from "../middleware/authorize.js";
 import { authenticate } from "../middleware/authenticate.js";
 import { UserProfile } from "../entity/userEntity.js";
-import { authorizeOwner } from "../middleware/authorizeOwner.js";
+import { authorizeOwnerOrAdmin } from "../middleware/authorizeOwner.js";
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.get("/users/:id", userController.getUserById);
 router.put(
   "/users/:id",
   authenticate,
-  authorizeOwner,
+  authorizeOwnerOrAdmin,
   authorize(UserProfile.ADMIN),
   userController.updateUserById,
 );

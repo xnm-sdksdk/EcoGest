@@ -2,7 +2,12 @@ import type { Request, Response } from "express";
 import { ActivityService } from "../services/activityService/activityService.js";
 import { ActivityServiceImpl } from "../services/activityService/impl/activityServiceImpl.js";
 import { logger } from "../utils/logger/logger.js";
-import { ActivityDTO, CreateActivityDTO, UpdateActivityDTO } from "../dto/activityDTO.js";
+import {
+  ActivityDTO,
+  CreateActivityDTO,
+  UpdateActivityDTO,
+} from "../dto/activityDTO.js";
+import { AuthenticatedRequest } from "../dto/authDTO.js";
 
 export class ActivityController {
   private readonly activityService: ActivityService;
@@ -80,7 +85,10 @@ export class ActivityController {
     }
   };
 
-  createActivity = async (req: Request, res: Response): Promise<void> => {
+  createActivity = async (
+    req: AuthenticatedRequest,
+    res: Response,
+  ): Promise<void> => {
     try {
       const projectId = Number(req.params.projectId);
       if (Number.isNaN(projectId) || projectId <= 0) {
@@ -103,9 +111,11 @@ export class ActivityController {
         return;
       }
 
+      const createdBy = req.user!.id;
       const activity = await this.activityService.createActivity(
         projectId,
         data,
+        createdBy,
       );
 
       if (!activity) {

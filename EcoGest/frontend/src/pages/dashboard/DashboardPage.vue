@@ -5,6 +5,22 @@
       <q-spinner size="3em" />
     </div>
     <template v-else>
+      <div class="row q-col q-mb-lg">
+        <q-select
+          v-model="selectProject"
+          :options="projects"
+          clearable
+          dense
+          emit-value
+          label="Selecionar projeto"
+          label-color="white"
+          map-options
+          option-label="name"
+          option-value="id"
+          outlined
+          style="min-width: 180px"
+        />
+      </div>
       <div class="row q-col-gutter-md q-mb-xl">
         <div class="col-12 col-sm-3">
           <q-card class="q-pa-lg">
@@ -76,19 +92,27 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onMounted} from 'vue';
-import {useDashboard} from 'src/composables/useDashboard';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useDashboard } from 'src/composables/useDashboard';
+import { useProject } from 'src/composables/useProject';
 
+const { data: projects, fetchProjects } = useProject();
 const { data, loading, fetchDashboard } = useDashboard();
+
+const selectProject = ref<number | null>(null);
+
 const activitiesByState = computed(() =>
   (data.value?.activitiesByStatus ?? []).reduce((sum, i) => sum + i.count, 0),
 );
-
-// const route = useRoute();
+watch(selectProject, (newId) => {
+  if (newId) void fetchDashboard(newId);
+});
 
 onMounted(async () => {
-  // TODO const projectId = Number(route.params.projectId);
-  void fetchDashboard(1);
+  await fetchProjects();
+  if (projects.value.length > 0) {
+    selectProject.value = projects.value[0]!.id;
+  }
 });
 </script>
 
