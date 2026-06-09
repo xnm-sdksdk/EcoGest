@@ -1729,6 +1729,105 @@
         }
       }
     },
+    "/api/activities/{id}/participants": {
+      "get": {
+        "tags": [
+          "Activity Participants"
+        ],
+        "summary": "Listar participantes de uma atividade",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Activity Participants"
+        ],
+        "summary": "Adicionar participante a uma atividade",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/activities/{id}/participants/{userId}": {
+      "delete": {
+        "tags": [
+          "Activity Participants"
+        ],
+        "summary": "Remover participante de uma atividade",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/api/auth/login": {
       "post": {
         "description": "",
@@ -2092,6 +2191,15 @@
       }
     },
     "ProjectMemberRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
+    "ActivityParticipantRequest": {
       "type": "object",
       "properties": {
         "userId": {

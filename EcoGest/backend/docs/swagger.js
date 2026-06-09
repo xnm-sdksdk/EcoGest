@@ -130,6 +130,10 @@ const doc = {
     ProjectMemberRequest: {
       userId: 2,
     },
+
+    ActivityParticipantRequest: {
+      userId: 2,
+    },
   },
 };
 
