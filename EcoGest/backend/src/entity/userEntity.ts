@@ -1,6 +1,7 @@
 import {Column, Entity, JoinTable, ManyToMany} from "typeorm";
 import {BaseEntity} from "./baseEntity.js";
 import {Project} from "./projectEntity.js";
+import { Activity } from "./activityEntity.js";
 
 export enum UserProfile {
   // Admin: Gestor técnico da plataforma, sendo responsável pela criação do projeto anual, registo do coordenador e realização de backups.
@@ -37,4 +38,7 @@ export class User extends BaseEntity {
   @ManyToMany(() => Project, (project) => project.members)
   @JoinTable({ name: "project_members" })
   projects!: Project[];
+
+  @ManyToMany(() => Activity, (activity) => activity.participants)
+  activities!: Activity[];
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, JoinTable, ManyToMany } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
 import { Project } from "./projectEntity.js";
 import { User } from "./userEntity.js";
@@ -56,4 +56,8 @@ export class Activity extends BaseEntity {
     nullable: true,
   })
   execution!: Execution | null;
+
+  @ManyToMany(() => User, (user) => user.activities)
+  @JoinTable({ name: "activity_participants" })
+  participants!: User[];
 }

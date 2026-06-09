@@ -495,7 +495,62 @@
 		},
 		{
 			"name": "ActivityParticipants",
-			"item": []
+			"item": [
+				{
+					"name": "Get Activity Participants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+						"raw": "{{baseUrl}}/activities/1/participants",
+						"host": ["{{baseUrl}}"],
+						"path": ["activities", "1", "participants"]
+						}
+					}
+					},
+					{
+					"name": "Add Activity Participant",
+					"request": {
+						"method": "POST",
+						"header": [
+						{
+							"key": "Authorization",
+							"value": "Bearer {{token}}"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+						],
+						"body": {
+						"mode": "raw",
+						"raw": "{\n  \"userId\": 2\n}"
+						},
+						"url": {
+						"raw": "{{baseUrl}}/activities/1/participants",
+						"host": ["{{baseUrl}}"],
+						"path": ["activities", "1", "participants"]
+						}
+					}
+					},
+					{
+					"name": "Remove Activity Participant",
+					"request": {
+						"method": "DELETE",
+						"header": [
+						{
+							"key": "Authorization",
+							"value": "Bearer {{token}}"
+						}
+						],
+						"url": {
+						"raw": "{{baseUrl}}/activities/1/participants/2",
+						"host": ["{{baseUrl}}"],
+						"path": ["activities", "1", "participants", "2"]
+						}
+					}
+				}
+			]
 		},
 		{
 			"name": "Levels",
