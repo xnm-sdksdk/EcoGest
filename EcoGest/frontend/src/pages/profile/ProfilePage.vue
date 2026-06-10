@@ -49,12 +49,23 @@
           </q-card>
         </div>
         <div class="col-12 col-sm-8">
-          <q-card bordered flat style="max-width: 600px">
+          <q-card bordered class="q-mb-lg" flat style="max-width: 600px">
             <div class="text-h5 q-pa-md">Projetos do Utilizador</div>
             <div class="q-pa-md" style="max-width: 350px">
-              <q-list v-for="project in userProjects" :key="project.id" bordered separator>
-                <q-item v-ripple clickable>
+              <q-list bordered separator>
+                <q-item v-for="project in userProjects" :key="project.id" v-ripple clickable>
                   <q-item-section class="text-h7">{{ project.name }}</q-item-section>
+                  <q-item-section class="text-h7">{{ project.schoolYear }}</q-item-section>
+                </q-item>
+              </q-list>
+            </div>
+          </q-card>
+          <q-card bordered flat style="max-width: 600px">
+            <div class="text-h5 q-pa-md">Atividades do Utilizador</div>
+            <div class="q-pa-md" style="max-width: 350px">
+              <q-list bordered separator>
+                <q-item v-for="activity in userActivities" :key="activity.id" v-ripple clickable>
+                  <q-item-section class="text-h7">{{ activity.name }}</q-item-section>
                 </q-item>
               </q-list>
             </div>
@@ -67,16 +78,16 @@
 
 <script lang="ts" setup>
 import { useUser } from 'src/composables/useUser';
-import { useQuasar } from 'quasar';
 import { computed, onMounted } from 'vue';
 import { useAuthStore } from 'stores/auth';
 
 const { data: users, loading, fetchUserById } = useUser();
-const $q = useQuasar();
+//const $q = useQuasar();
 
 const authUser = useAuthStore();
 
 const userProjects = computed(() => users.value?.projects ?? []);
+const userActivities = computed(() => users.value?.activities ?? []);
 
 onMounted(async () => {
   if (authUser.user?.id) {

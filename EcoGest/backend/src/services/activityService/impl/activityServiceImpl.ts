@@ -4,14 +4,17 @@ import { ActivityRepository } from "../../../repository/activityRepository.js";
 import { ProjectRepository } from "../../../repository/projectRepository.js";
 import { ActivityService } from "../activityService.js";
 import { logger } from "../../../utils/logger/logger.js";
+import { UserRepository } from "../../../repository/userRepository.js";
 
 export class ActivityServiceImpl implements ActivityService {
   private readonly activityRepository: typeof ActivityRepository;
   private readonly projectRepository: typeof ProjectRepository;
+  private readonly userRepository: typeof UserRepository;
 
   constructor() {
     this.activityRepository = ActivityRepository;
     this.projectRepository = ProjectRepository;
+    this.userRepository = UserRepository;
   }
 
   async findActivitiesByProjectId(projectId: number): Promise<Activity[]> {
@@ -46,11 +49,15 @@ export class ActivityServiceImpl implements ActivityService {
       throw new Error(`Project with id ${projectId} not found.`);
     }
 
+    const user = await this.userRepository.findOneBy({ id: createdBy });
+    if (!user) throw new Error("User not found.");
+
     const activity = this.activityRepository.create({
       ...createActivityDTO,
       project,
       state: ActivityState.PENDING,
       createdBy: { id: createdBy } as any,
+      participants: [user],
     });
     return this.activityRepository.save(activity);
   }
