@@ -26,13 +26,15 @@
             type="password"
           />
 
-          <q-btn
-            :loading="loading"
-            class="full-width"
-            color="primary"
-            label="Entrar"
-            type="submit"
-          />
+          <div>
+            <q-btn
+              :loading="loading"
+              class="full-width"
+              color="primary"
+              label="Entrar"
+              type="submit"
+            />
+          </div>
 
           <div class="text-center">
             <router-link class="text-primary" to="/recover-password">
