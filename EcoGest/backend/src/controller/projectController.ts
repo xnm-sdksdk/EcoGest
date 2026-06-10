@@ -3,6 +3,7 @@ import { ProjectServiceImpl } from "../services/projectService/impl/projectServi
 import type { ProjectService } from "../services/projectService/projectService.js";
 import { CreateProjectDTO, ProjectDTO, UpdateProjectDTO } from "../dto/projectDTO.js";
 import { logger } from "../utils/logger/logger.js";
+import { AuthenticatedRequest } from "../dto/authDTO.js";
 
 export class ProjectController {
   private readonly projectService: ProjectService;
@@ -11,7 +12,10 @@ export class ProjectController {
     this.projectService = new ProjectServiceImpl();
   }
 
-  createProject = async (req: Request, res: Response): Promise<void> => {
+  createProject = async (
+    req: AuthenticatedRequest,
+    res: Response,
+  ): Promise<void> => {
     try {
       const data: CreateProjectDTO = req.body;
       if (!data.name || !data.school || !data.schoolYear || !data.state) {
@@ -21,7 +25,10 @@ export class ProjectController {
         return;
       }
 
-      const project = await this.projectService.createProject(data);
+      const project = await this.projectService.createProject(
+        data,
+        req.user!.id,
+      );
 
       const projectDTO: ProjectDTO = {
         id: project.id,

@@ -43,6 +43,12 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/report/ReportPage.vue') }],
   },
   {
+    path: '/audits',
+    component: () => import('layouts/SideBar.vue'),
+    meta: { requiresAuth: true },
+    children: [{ path: '', component: () => import('pages/audit/AuditPage.vue') }],
+  },
+  {
     path: '/settings',
     component: () => import('layouts/SideBar.vue'),
     meta: { requiresAuth: true },

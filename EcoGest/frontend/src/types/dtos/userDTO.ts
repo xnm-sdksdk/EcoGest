@@ -13,6 +13,19 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  profile: UserProfile;
+  role: UserProfile;
   active: boolean;
+  projects?: ProjectUser[];
+  activities?: ActivityUser[];
+}
+
+export interface ProjectUser {
+  id: number;
+  name: string;
+  schoolYear: string;
+}
+
+export interface ActivityUser {
+  id: number;
+  name: string;
 }

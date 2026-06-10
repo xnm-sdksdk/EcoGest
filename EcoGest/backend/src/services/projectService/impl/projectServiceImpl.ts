@@ -3,21 +3,29 @@ import { Project } from "../../../entity/projectEntity.js";
 import { ProjectRepository } from "../../../repository/projectRepository.js";
 import { ProjectService } from "../projectService.js";
 import { logger } from "../../../utils/logger/logger.js";
+import { UserRepository } from "../../../repository/userRepository.js";
 
 export class ProjectServiceImpl implements ProjectService {
   private readonly projectRepository: typeof ProjectRepository;
-
+  private readonly userRepository: typeof UserRepository;
   constructor() {
     this.projectRepository = ProjectRepository;
+    this.userRepository = UserRepository;
   }
 
-  async createProject(createProjectDTO: CreateProjectDTO): Promise<Project> {
+  async createProject(
+    createProjectDTO: CreateProjectDTO,
+    userId: number,
+  ): Promise<Project> {
     const project = this.projectRepository.create({
       ...createProjectDTO,
     });
-    if (!project) {
-      throw new Error("Error creating project.");
-    }
+
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) throw new Error("User not found.");
+
+    project.members = [user];
+
     return await this.projectRepository.save(project);
   }
 

@@ -50,6 +50,12 @@ export class UserController {
         email: user.email,
         role: user.profile,
         active: user.active,
+        projects: user.projects?.map((p) => ({
+          id: p.id,
+          name: p.name,
+          schoolYear: p.schoolYear,
+        })),
+        activities: user.activities?.map((a) => ({ id: a.id, name: a.name })),
       };
 
       res.status(200).json(userDTO);

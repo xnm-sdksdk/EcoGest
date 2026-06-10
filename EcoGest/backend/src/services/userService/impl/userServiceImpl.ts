@@ -28,7 +28,10 @@ export class UserServiceImpl implements UserService {
       logger.warn({ userId }, "Invalid user ID");
       throw new Error("Invalid user ID.");
     }
-    return await this.userRepository.findOneBy({ id: userId });
+    return await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ["projects", "activities"],
+    });
   }
 
   async updateUserById(

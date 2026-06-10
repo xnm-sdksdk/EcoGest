@@ -40,6 +40,12 @@
             </q-item-section>
             <q-item-section>Auditoria</q-item-section>
           </q-item>
+          <q-item v-ripple clickable to="/audits">
+            <q-item-section avatar>
+              <q-icon name="assignment" />
+            </q-item-section>
+            <q-item-section>Questionários</q-item-section>
+          </q-item>
           <q-item v-ripple clickable to="/reports">
             <q-item-section avatar>
               <q-icon name="description" />
