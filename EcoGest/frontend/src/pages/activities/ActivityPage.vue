@@ -141,11 +141,11 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, onMounted, ref, watch} from 'vue';
-import {useActivity} from 'src/composables/useActivity';
-import {useProject} from 'src/composables/useProject';
-import {useQuasar} from 'quasar';
-import {activityService} from 'src/services/activityService';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useActivity } from 'src/composables/useActivity';
+import { useProject } from 'src/composables/useProject';
+import { useQuasar } from 'quasar';
+import { activityService } from 'src/services/activityService';
 
 const { data: activities, loading, fetchActivitiesByProjectId } = useActivity();
 const { data: projects, fetchProjects } = useProject();
@@ -186,6 +186,7 @@ const columns = [
   { name: 'state', label: 'Estado', field: 'state', align: 'left' as const },
   { name: 'startDate', label: 'Data início', field: 'startDate', align: 'left' as const },
   { name: 'endDate', label: 'Data fim', field: 'endDate', align: 'left' as const },
+  { name: 'actions', label: 'Ações', field: 'actions', align: 'center' as const, sortable: false },
 ];
 
 const stateLabel: Record<string, string> = {
@@ -218,7 +219,7 @@ async function createActivity() {
 
 async function submitActivity() {
   if (!newActivity.value.name || !newActivity.value.area) {
-    $q.notify({ type: 'warning', message: 'Preenche os campos obrigatórios' });
+    $q.notify({ type: 'warning', message: 'Preencha os campos obrigatórios' });
     return;
   }
 

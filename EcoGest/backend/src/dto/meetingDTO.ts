@@ -2,6 +2,7 @@ import { MeetingState } from "../entity/meetingEntity.js";
 
 export interface MeetingDTO {
   id?: number;
+  title: string;
   date: Date;
   location: string;
   workOrder?: string | null;
@@ -11,6 +12,7 @@ export interface MeetingDTO {
 }
 
 export interface CreateMeetingDTO {
+  title: string;
   date: Date;
   location: string;
   workOrder?: string | null;

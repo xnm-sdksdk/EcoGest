@@ -1,12 +1,9 @@
 import type { Request, Response } from "express";
 import { MeetingService } from "../services/meetingService/meetingService.js";
 import { MeetingServiceImpl } from "../services/meetingService/impl/meetingServiceImpl.js";
-import {
-  CreateMeetingDTO,
-  MeetingDTO,
-  UpdateMeetingDTO,
-} from "../dto/meetingDTO.js";
+import { CreateMeetingDTO, MeetingDTO, UpdateMeetingDTO } from "../dto/meetingDTO.js";
 import { logger } from "../utils/logger/logger.js";
+import { AuthenticatedRequest } from "../dto/authDTO.js";
 
 export class MeetingController {
   private readonly meetingService: MeetingService;
@@ -29,6 +26,7 @@ export class MeetingController {
 
       const meetingsDTO: MeetingDTO[] = meetings.map((meeting) => ({
         id: meeting.id,
+        title: meeting.title,
         date: meeting.date,
         location: meeting.location,
         workOrder: meeting.workOrder,
@@ -62,6 +60,7 @@ export class MeetingController {
 
       const meetingDTO: MeetingDTO = {
         id: meeting.id,
+        title: meeting.title,
         date: meeting.date,
         location: meeting.location,
         workOrder: meeting.workOrder,
@@ -77,7 +76,10 @@ export class MeetingController {
     }
   };
 
-  createMeeting = async (req: Request, res: Response): Promise<void> => {
+  createMeeting = async (
+    req: AuthenticatedRequest,
+    res: Response,
+  ): Promise<void> => {
     try {
       const projectId = Number(req.params.id);
 
@@ -88,17 +90,22 @@ export class MeetingController {
 
       const data: CreateMeetingDTO = req.body;
 
-      if (!data.date || !data.location || !data.createdBy) {
+      if (!data.date || !data.location) {
         res.status(400).json({
-          error: "Missing required fields: date, location, createdBy",
+          error: "Missing required fields: date, location",
         });
         return;
       }
-
-      const meeting = await this.meetingService.createMeeting(projectId, data);
+      const createdBy = req.user!.id;
+      const meeting = await this.meetingService.createMeeting(
+        projectId,
+        data,
+        createdBy,
+      );
 
       const meetingDTO: MeetingDTO = {
         id: meeting.id,
+        title: meeting.title,
         date: meeting.date,
         location: meeting.location,
         workOrder: meeting.workOrder,
@@ -138,6 +145,7 @@ export class MeetingController {
 
       const meetingDTO: MeetingDTO = {
         id: updatedMeeting.id,
+        title: updatedMeeting.title,
         date: updatedMeeting.date,
         location: updatedMeeting.location,
         workOrder: updatedMeeting.workOrder,
@@ -191,6 +199,7 @@ export class MeetingController {
 
       const meetingDTO: MeetingDTO = {
         id: meeting.id,
+        title: meeting.title,
         date: meeting.date,
         location: meeting.location,
         workOrder: meeting.workOrder,

@@ -1,11 +1,24 @@
-import { ref } from 'vue';
-import { Meeting } from 'src/types/dtos/meetingDTO';
-import { meetingService } from 'src/services/meetingService';
+import {ref} from 'vue';
+import {Meeting} from 'src/types/dtos/meetingDTO';
+import {meetingService} from 'src/services/meetingService';
 
 export function useMeeting() {
   const data = ref<Meeting[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
+
+  async function fetchMeetingByProjectId(projectId: number) {
+    loading.value = true;
+    error.value = null;
+    try {
+      data.value = await meetingService.getMeetingByProjectId(projectId);
+    } catch (e) {
+      error.value = 'Erro ao carregar reuniões';
+      console.error(e);
+    } finally {
+      loading.value = false;
+    }
+  }
 
   async function fetchMeetingById(id: number) {
     loading.value = true;
@@ -21,5 +34,5 @@ export function useMeeting() {
     }
   }
 
-  return { data, loading, error, fetchMeetingById };
+  return { data, loading, error, fetchMeetingById, fetchMeetingByProjectId };
 }

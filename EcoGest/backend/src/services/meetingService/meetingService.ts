@@ -9,6 +9,7 @@ export interface MeetingService {
   createMeeting(
     projectId: number,
     meetingDTO: CreateMeetingDTO,
+    userId: number,
   ): Promise<Meeting>;
 
   updateMeetingById(

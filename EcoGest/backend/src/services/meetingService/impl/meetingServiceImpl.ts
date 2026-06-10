@@ -3,10 +3,7 @@ import { Meeting, MeetingState } from "../../../entity/meetingEntity.js";
 import { MeetingRepository } from "../../../repository/meetingRepository.js";
 import { ProjectRepository } from "../../../repository/projectRepository.js";
 import { UserRepository } from "../../../repository/userRepository.js";
-import {
-  CreateMeetingDTO,
-  UpdateMeetingDTO,
-} from "../../../dto/meetingDTO.js";
+import { CreateMeetingDTO, UpdateMeetingDTO } from "../../../dto/meetingDTO.js";
 import { logger } from "../../../utils/logger/logger.js";
 
 export class MeetingServiceImpl implements MeetingService {
@@ -21,7 +18,9 @@ export class MeetingServiceImpl implements MeetingService {
   }
 
   async findMeetingsByProjectId(projectId: number): Promise<Meeting[]> {
-    const projectExists = await this.projectRepository.existsBy({ id: projectId });
+    const projectExists = await this.projectRepository.existsBy({
+      id: projectId,
+    });
 
     if (!projectExists) {
       logger.warn({ projectId }, "Invalid project ID.");
@@ -55,6 +54,7 @@ export class MeetingServiceImpl implements MeetingService {
   async createMeeting(
     projectId: number,
     meetingDTO: CreateMeetingDTO,
+    _userId: number,
   ): Promise<Meeting> {
     const project = await this.projectRepository.findOneBy({ id: projectId });
 
@@ -73,6 +73,7 @@ export class MeetingServiceImpl implements MeetingService {
     }
 
     const meeting = this.meetingRepository.create({
+      title: meetingDTO.title,
       date: meetingDTO.date,
       location: meetingDTO.location,
       workOrder: meetingDTO.workOrder ?? null,

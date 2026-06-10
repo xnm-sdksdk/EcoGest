@@ -21,6 +21,9 @@ export enum MeetingState {
 
 @Entity()
 export class Meeting extends BaseEntity {
+  @Column({ type: "varchar" })
+  title!: string;
+
   @Column({ type: "timestamp" })
   date!: Date;
 
