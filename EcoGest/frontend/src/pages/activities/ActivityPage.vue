@@ -72,6 +72,11 @@
             />
           </q-td>
         </template>
+        <template #body-cell-actions="props">
+          <q-td :props="props">
+            <q-btn color="white" dense flat icon="delete" @click="confirmDelete(props.row.id)" />
+          </q-td>
+        </template>
       </q-table>
     </template>
   </q-page>
@@ -138,6 +143,22 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="deleteModal">
+    <q-card style="width: 30rem">
+      <q-card-section>
+        <div class="text-h5">Apagar Atividade</div>
+      </q-card-section>
+
+      <q-card-section class="q-gutter-md">
+        <div class="text-h6">Tem a certeza que quer apagar a atividade?</div>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" @click="openModal = false" />
+        <q-btn :loading="submit" color="positive" label="Apagar" @click="deleteActivity()" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -154,7 +175,9 @@ const $q = useQuasar();
 const selectProject = ref<number | null>(null);
 const selectedArea = ref<string | null>(null);
 const selectedState = ref<string | null>(null);
+const activityToDelete = ref<number | null>(null);
 const openModal = ref<boolean>(false);
+const deleteModal = ref<boolean>(false);
 const submit = ref(false);
 
 const newActivity = ref({
@@ -256,6 +279,25 @@ async function submitActivity() {
     $q.notify({ type: 'negative', message: 'Erro ao criar atividade' });
   } finally {
     submit.value = false;
+  }
+}
+
+async function confirmDelete(activityId: number) {
+  activityToDelete.value = activityId;
+  deleteModal.value = true;
+}
+
+async function deleteActivity() {
+  if (!activityToDelete.value) return;
+  try {
+    await activityService.deleteActivityById(activityToDelete.value);
+    $q.notify({ type: 'positive', message: 'Atividade eliminada com sucesso' });
+    if (selectProject.value) void fetchActivitiesByProjectId(selectProject.value);
+  } catch {
+    $q.notify({ type: 'negative', message: 'Erro ao eliminar atividade' });
+  } finally {
+    deleteModal.value = false;
+    activityToDelete.value = null;
   }
 }
 
