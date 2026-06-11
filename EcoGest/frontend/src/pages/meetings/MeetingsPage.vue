@@ -47,76 +47,96 @@
             />
           </q-td>
         </template>
+        <template #body-cell-actions="props">
+          <q-td :props="props">
+            <q-btn color="white" dense flat icon="delete" @click="confirmDelete(props.row.id)" />
+          </q-td>
+        </template>
       </q-table>
     </template>
-
-    <q-dialog v-model="openModal">
-      <q-card style="width: 30rem">
-        <q-card-section>
-          <div class="text-h5">Criar Reunião</div>
-        </q-card-section>
-
-        <q-card-section class="q-gutter-md">
-          <q-input
-            v-model="newMeeting.title"
-            label="Título da Reunião"
-            label-color="white"
-            outlined
-          />
-          <q-input
-            v-model="newMeeting.description"
-            label="Descrição"
-            label-color="white"
-            outlined
-            type="textarea"
-          />
-
-          <q-input
-            v-model="newMeeting.location"
-            label="Localização da Reunião"
-            label-color="white"
-            outlined
-          />
-
-          <q-input v-model="displayDate" label="Data e Hora" label-color="white" outlined readonly>
-            <template #append>
-              <q-icon class="cursor-pointer" color="white" name="event">
-                <q-popup-proxy cover transition-hide="scale" transition-show="scale">
-                  <q-date v-model="datepart" mask="YYYY-MM-DD">
-                    <div class="row items-center justify-end">
-                      <q-btn v-close-popup color="white" flat label="Fechar" />
-                    </div>
-                  </q-date>
-                </q-popup-proxy>
-              </q-icon>
-              <q-icon class="cursor-pointer" color="white" name="access_time">
-                <q-popup-proxy cover transition-hide="scale" transition-show="scale">
-                  <q-time v-model="timepart" mask="HH:mm">
-                    <div class="row items-center justify-end">
-                      <q-btn v-close-popup color="white" flat label="Fechar" />
-                    </div>
-                  </q-time>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-
-          <q-input
-            v-model="newMeeting.agenda"
-            label="Agenda"
-            label-color="white"
-            outlined
-            type="textarea"
-          />
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="Cancelar" @click="openModal = false" />
-          <q-btn :loading="submit" color="positive" label="Criar" @click="submitMeeting" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </q-page>
+  <q-dialog v-model="openModal">
+    <q-card style="width: 30rem">
+      <q-card-section>
+        <div class="text-h5">Criar Reunião</div>
+      </q-card-section>
+
+      <q-card-section class="q-gutter-md">
+        <q-input
+          v-model="newMeeting.title"
+          label="Título da Reunião"
+          label-color="white"
+          outlined
+        />
+        <q-input
+          v-model="newMeeting.description"
+          label="Descrição"
+          label-color="white"
+          outlined
+          type="textarea"
+        />
+
+        <q-input
+          v-model="newMeeting.location"
+          label="Localização da Reunião"
+          label-color="white"
+          outlined
+        />
+
+        <q-input v-model="displayDate" label="Data e Hora" label-color="white" outlined readonly>
+          <template #append>
+            <q-icon class="cursor-pointer" color="white" name="event">
+              <q-popup-proxy cover transition-hide="scale" transition-show="scale">
+                <q-date v-model="datepart" mask="YYYY-MM-DD">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup color="white" flat label="Fechar" />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+            <q-icon class="cursor-pointer" color="white" name="access_time">
+              <q-popup-proxy cover transition-hide="scale" transition-show="scale">
+                <q-time v-model="timepart" mask="HH:mm">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup color="white" flat label="Fechar" />
+                  </div>
+                </q-time>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+
+        <q-input
+          v-model="newMeeting.agenda"
+          label="Agenda"
+          label-color="white"
+          outlined
+          type="textarea"
+        />
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" @click="openModal = false" />
+        <q-btn :loading="submit" color="positive" label="Criar" @click="submitMeeting" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="deleteModal">
+    <q-card style="width: 30rem">
+      <q-card-section>
+        <div class="text-h5">Apagar Reunião</div>
+      </q-card-section>
+
+      <q-card-section class="q-gutter-md">
+        <div class="text-h6">Tem a certeza que quer apagar a reunião?</div>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" @click="openModal = false" />
+        <q-btn :loading="submit" color="positive" label="Apagar" @click="deleteMeeting()" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -136,6 +156,8 @@ const { data: projects, fetchProjects } = useProject();
 const $q = useQuasar();
 const datepart = ref('');
 const timepart = ref('');
+const deleteModal = ref<boolean>(false);
+const meetingToDelete = ref<number | null>(null);
 
 const displayDate = computed(() => {
   if (datepart.value && timepart.value) return `${datepart.value} ${timepart.value}`;
@@ -214,6 +236,25 @@ async function submitMeeting() {
     $q.notify({ type: 'negative', message: 'Erro ao criar reunião' });
   } finally {
     submit.value = false;
+  }
+}
+
+async function confirmDelete(meetingId: number) {
+  meetingToDelete.value = meetingId;
+  deleteModal.value = true;
+}
+
+async function deleteMeeting() {
+  if (!meetingToDelete.value) return;
+  try {
+    await meetingService.deleteMeetingsById(meetingToDelete.value);
+    $q.notify({ type: 'positive', message: 'Reunião eliminada com sucesso' });
+    if (selectProject.value) void fetchMeetingByProjectId(selectProject.value);
+  } catch {
+    $q.notify({ type: 'negative', message: 'Erro ao eliminar reunião' });
+  } finally {
+    deleteModal.value = false;
+    meetingToDelete.value = null;
   }
 }
 
