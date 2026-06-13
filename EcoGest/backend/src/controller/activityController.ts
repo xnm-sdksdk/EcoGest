@@ -2,11 +2,7 @@ import type { Request, Response } from "express";
 import { ActivityService } from "../services/activityService/activityService.js";
 import { ActivityServiceImpl } from "../services/activityService/impl/activityServiceImpl.js";
 import { logger } from "../utils/logger/logger.js";
-import {
-  ActivityDTO,
-  CreateActivityDTO,
-  UpdateActivityDTO,
-} from "../dto/activityDTO.js";
+import { ActivityDTO, CreateActivityDTO, UpdateActivityDTO } from "../dto/activityDTO.js";
 import { AuthenticatedRequest } from "../dto/authDTO.js";
 
 export class ActivityController {
@@ -267,6 +263,42 @@ export class ActivityController {
       res.status(200).json(activityDTO);
     } catch (error: any) {
       logger.error({ err: error }, "Failed to reject activity");
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+  completeActivityById = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const activityId = Number(req.params.id);
+      if (Number.isNaN(activityId) || activityId <= 0) {
+        res.status(400).json({ error: "Invalid Activity ID" });
+        return;
+      }
+
+      const activity =
+        await this.activityService.completeActivityById(activityId);
+      if (!activity) {
+        res.status(404).json({ error: "Activity not found" });
+        return;
+      }
+
+      const activityDTO: ActivityDTO = {
+        id: activity.id,
+        name: activity.name,
+        description: activity.description,
+        area: activity.area,
+        resources: activity.resources,
+        startDate: activity.startDate,
+        endDate: activity.endDate,
+        state: activity.state,
+        createdBy: activity.createdBy,
+        updatedAt: activity.updatedAt,
+      };
+
+      logger.info({ activityId }, "Activity completed");
+      res.status(200).json(activityDTO);
+    } catch (error: any) {
+      logger.error({ err: error }, "Failed to complete activity");
       res.status(500).json({ error: error.message });
     }
   };

@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="row justify-between items-center q-pt-lg q-pb-xl q-pr-lg">
       <div class="text-h4">Dashboard</div>
-      <q-btn color="positive" unelevated @click="createProject()">
+      <q-btn :disable="!manageProjects" color="positive" unelevated @click="createProject()">
         <q-icon left name="add" />
         Novo Projeto
       </q-btn>
@@ -129,9 +129,11 @@ import { useDashboard } from 'src/composables/useDashboard';
 import { useProject } from 'src/composables/useProject';
 import { useQuasar } from 'quasar';
 import { projectService } from 'src/services/projectService';
+import { useAuthStore } from 'stores/auth';
 
 const { data: projects, fetchProjects } = useProject();
 const { data, loading, fetchDashboard } = useDashboard();
+const authStore = useAuthStore();
 
 const selectProject = ref<number | null>(null);
 const $q = useQuasar();
@@ -188,6 +190,10 @@ async function submitProject() {
   }
 }
 
+const manageProjects = computed(() =>
+  ['admin', 'coordinator'].includes(authStore.user?.profile ?? ''),
+);
+
 onMounted(async () => {
   await fetchProjects();
   if (projects.value.length > 0) {
@@ -195,5 +201,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped></style>

@@ -5,16 +5,19 @@ import { ProjectRepository } from "../../../repository/projectRepository.js";
 import { ActivityService } from "../activityService.js";
 import { logger } from "../../../utils/logger/logger.js";
 import { UserRepository } from "../../../repository/userRepository.js";
+import { GamificationRepository } from "../../../repository/gamificationRepository.js";
 
 export class ActivityServiceImpl implements ActivityService {
   private readonly activityRepository: typeof ActivityRepository;
   private readonly projectRepository: typeof ProjectRepository;
   private readonly userRepository: typeof UserRepository;
+  private readonly gamificationRepository: typeof GamificationRepository;
 
   constructor() {
     this.activityRepository = ActivityRepository;
     this.projectRepository = ProjectRepository;
     this.userRepository = UserRepository;
+    this.gamificationRepository = GamificationRepository;
   }
 
   async findActivitiesByProjectId(projectId: number): Promise<Activity[]> {
@@ -104,7 +107,7 @@ export class ActivityServiceImpl implements ActivityService {
         `Activity is not pending (current state: ${activity.state}).`,
       );
     }
-
+    activity.state = ActivityState.APPROVED;
     return await this.activityRepository.save(activity);
   }
 
@@ -129,5 +132,32 @@ export class ActivityServiceImpl implements ActivityService {
 
     activity.state = ActivityState.CANCELED;
     return await this.activityRepository.save(activity);
+  }
+
+  async completeActivityById(activityId: number): Promise<Activity | null> {
+    const activity = await this.activityRepository.findOne({
+      where: { id: activityId },
+      relations: { participants: true, project: true },
+    });
+
+    if (!activity) {
+      logger.warn({ activityId }, "Invalid activity ID.");
+      return null;
+    }
+
+    activity.state = ActivityState.COMPLETED;
+    await this.activityRepository.save(activity);
+
+    for (const participant of activity.participants) {
+      await this.gamificationRepository.save({
+        points: 50,
+        reason: `Atividade "${activity.name}" concluída`,
+        user: participant,
+        project: activity.project,
+        challenge: null,
+        createdBy: null,
+      });
+    }
+    return activity;
   }
 }

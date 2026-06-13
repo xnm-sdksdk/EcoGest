@@ -22,4 +22,6 @@ export interface ActivityService {
   approveActivityById(activityId: number): Promise<Activity | null>;
 
   rejectActivityById(activityId: number): Promise<Activity | null>;
+
+  completeActivityById(activityId: number): Promise<Activity | null>;
 }

@@ -1,5 +1,5 @@
-import {api} from 'boot/axios';
-import {CreateMeeting, Meeting, UpdateMeeting} from 'src/types/dtos/meetingDTO';
+import { api } from 'boot/axios';
+import { CreateMeeting, Meeting, UpdateMeeting } from 'src/types/dtos/meetingDTO';
 
 export const meetingService = {
   getMeetingById(id: number): Promise<Meeting> {
@@ -19,10 +19,10 @@ export const meetingService = {
   },
 
   updateMeeting(id: number, meeting: UpdateMeeting): Promise<Meeting> {
-    return api.put<Meeting>(`/meettings/${id}`, meeting).then((r) => r.data);
+    return api.put<Meeting>(`/meetings/${id}`, meeting).then((r) => r.data);
   },
 
   cancelMeeting(id: number, meeting: UpdateMeeting): Promise<Meeting> {
-    return api.put<Meeting>(`/meettings/${id}/cancel`, meeting).then((r) => r.data);
+    return api.put<Meeting>(`/meetings/${id}/cancel`, meeting).then((r) => r.data);
   },
 };

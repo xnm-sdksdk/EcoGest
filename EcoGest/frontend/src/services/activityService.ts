@@ -22,11 +22,15 @@ export const activityService = {
     return api.put<Activity>(`/activities/${id}`, activity).then((r) => r.data);
   },
 
-  approveActivityState(id: number, state: string): Promise<Activity> {
-    return api.patch<Activity>(`/activities/${id}/approve`, state).then((r) => r.data);
+  approveActivityState(id: number): Promise<Activity> {
+    return api.put<Activity>(`/activities/${id}/approve`).then((r) => r.data);
   },
 
-  rejectActivityState(id: number, state: string): Promise<Activity> {
-    return api.patch<Activity>(`/activities/${id}/reject`, state).then((r) => r.data);
+  rejectActivityState(id: number): Promise<Activity> {
+    return api.put<Activity>(`/activities/${id}/reject`).then((r) => r.data);
+  },
+
+  completeActivityState(id: number): Promise<Activity> {
+    return api.put<Activity>(`/activities/${id}/complete`).then((r) => r.data);
   },
 };

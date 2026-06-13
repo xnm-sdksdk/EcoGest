@@ -113,4 +113,17 @@ router.put(
   activityController.rejectActivityById,
 );
 
+router.put(
+  "/activities/:id/complete",
+  (req, res, next) => {
+    /* #swagger.tags = ['Activities']
+     #swagger.summary = 'Rejeitar atividade'
+  */
+    next();
+  },
+  authenticate,
+  authorize(UserProfile.ADMIN, UserProfile.COORDINATOR),
+  activityController.completeActivityById,
+);
+
 export default router;

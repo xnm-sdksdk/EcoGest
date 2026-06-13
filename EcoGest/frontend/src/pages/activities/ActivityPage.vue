@@ -74,7 +74,54 @@
         </template>
         <template #body-cell-actions="props">
           <q-td :props="props">
-            <q-btn color="white" dense flat icon="delete" @click="confirmDelete(props.row.id)" />
+            <q-btn
+              class="q-ml-xs"
+              color="white"
+              dense
+              flat
+              icon="edit"
+              @click="editActivity(props.row.id)"
+              ><q-tooltip>{{ 'Editar Atividade' }} </q-tooltip></q-btn
+            >
+            <q-btn
+              :disable="!manageActivities"
+              class="q-mx-md"
+              color="white"
+              dense
+              flat
+              icon="delete"
+              @click="confirmDelete(props.row.id)"
+              ><q-tooltip>{{ 'Apagar Atividade' }} </q-tooltip></q-btn
+            >
+            <q-btn
+              class="q-mr-md"
+              color="white"
+              dense
+              flat
+              icon="person_add"
+              @click="registerActivity(props.row.id)"
+              ><q-tooltip>{{ 'Inscrever na Atividade' }} </q-tooltip></q-btn
+            >
+            <q-btn
+              :disable="
+                props.row.state === 'completed' ||
+                (props.row.state === 'canceled' && !manageActivities)
+              "
+              color="white"
+              dense
+              flat
+              icon="check_circle"
+              @click="changeActivityState(props.row)"
+              ><q-tooltip>
+                {{
+                  props.row.state === 'pending'
+                    ? 'Aprovar atividade'
+                    : props.row.state === 'approved'
+                      ? 'Concluir atividade'
+                      : 'Atividade concluída'
+                }}
+              </q-tooltip></q-btn
+            >
           </q-td>
         </template>
       </q-table>
@@ -83,7 +130,7 @@
   <q-dialog v-model="openModal">
     <q-card style="width: 30rem">
       <q-card-section>
-        <div class="text-h5">Criar Atividade</div>
+        <div class="text-h5">{{ isEditing ? 'Editar Atividade' : 'Criar Atividade' }}</div>
       </q-card-section>
 
       <q-card-section class="q-gutter-md">
@@ -139,7 +186,12 @@
 
       <q-card-actions align="right">
         <q-btn flat label="Cancelar" @click="openModal = false" />
-        <q-btn :loading="submit" color="positive" label="Criar" @click="submitActivity" />
+        <q-btn
+          :label="isEditing ? 'Guardar' : 'Criar'"
+          :loading="submit"
+          color="positive"
+          @click="submitActivity"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -159,17 +211,65 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+
+  <q-dialog v-model="participantsModal">
+    <q-card style="width: 30rem">
+      <q-card-section>
+        <div class="text-h5">Participantes</div>
+      </q-card-section>
+
+      <q-card-section>
+        <div v-if="participants.length === 0" class="text-grey">Sem participantes inscritos.</div>
+        <q-chip
+          v-for="p in participants"
+          :key="p.id"
+          color="primary"
+          removable
+          text-color="white"
+          @remove="removeParticipant(p.id)"
+        >
+          {{ p.name }}
+        </q-chip>
+      </q-card-section>
+
+      <q-card-section>
+        <q-select
+          v-model="selectedUserId"
+          :options="allUsers"
+          emit-value
+          label="Adicionar participante"
+          label-color="white"
+          map-options
+          option-label="name"
+          option-value="id"
+          outlined
+        />
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Fechar" @click="participantsModal = false" />
+        <q-btn color="positive" label="Inscrever" @click="addParticipant" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue';
-import { useActivity } from 'src/composables/useActivity';
-import { useProject } from 'src/composables/useProject';
-import { useQuasar } from 'quasar';
-import { activityService } from 'src/services/activityService';
+import {computed, onMounted, ref, watch} from 'vue';
+import {useActivity} from 'src/composables/useActivity';
+import {useProject} from 'src/composables/useProject';
+import {useQuasar} from 'quasar';
+import {activityService} from 'src/services/activityService';
+import {Activity} from 'src/types/dtos/activityDTO';
+import {User} from 'src/types/dtos/userDTO';
+import {useUser} from 'src/composables/useUser';
+import {activityParticipantsService} from 'src/services/activityParticipantsService';
+import {useAuthStore} from 'stores/auth';
 
 const { data: activities, loading, fetchActivitiesByProjectId } = useActivity();
 const { data: projects, fetchProjects } = useProject();
+const { users: allUsers, fetchUsers } = useUser();
+const authStore = useAuthStore();
 const $q = useQuasar();
 
 const selectProject = ref<number | null>(null);
@@ -179,8 +279,14 @@ const activityToDelete = ref<number | null>(null);
 const openModal = ref<boolean>(false);
 const deleteModal = ref<boolean>(false);
 const submit = ref(false);
+const isEditing = ref(false);
+const participantsModal = ref(false);
+const selectedActivityId = ref<number | null>(null);
+const participants = ref<User[]>([]);
+const selectedUserId = ref<number | null>(null);
 
 const newActivity = ref({
+  id: 0,
   name: '',
   description: '',
   area: '',
@@ -215,13 +321,17 @@ const columns = [
 const stateLabel: Record<string, string> = {
   pending: 'Planeada',
   in_progress: 'Em curso',
+  approved: 'Aprovada',
   completed: 'Concluída',
+  canceled: 'Cancelada',
 };
 
 const stateColor: Record<string, string> = {
-  pending: 'blue',
-  in_progress: 'teal',
+  pending: 'orange',
+  in_progress: 'blue',
+  approved: 'green',
   completed: 'grey',
+  canceled: 'red',
 };
 
 const filteredActivities = computed(() => {
@@ -237,6 +347,16 @@ watch(selectProject, (newId) => {
 });
 
 async function createActivity() {
+  isEditing.value = false;
+  newActivity.value = {
+    id: 0,
+    name: '',
+    description: '',
+    area: '',
+    resources: [],
+    startDate: '',
+    endDate: '',
+  };
   openModal.value = true;
 }
 
@@ -247,36 +367,31 @@ async function submitActivity() {
   }
 
   const projectId = selectProject.value;
-
   if (!projectId) {
     $q.notify({ type: 'warning', message: 'Seleciona um projeto' });
     return;
   }
 
-  if (newActivity.value.endDate < newActivity.value.startDate) {
-    $q.notify({ type: 'warning', message: 'A data de fim não pode ser anterior à data de início' });
-    return;
-  }
-
   submit.value = true;
   try {
-    await activityService.createActivity(projectId, {
-      ...newActivity.value,
-      projectId,
-    });
-    $q.notify({ type: 'positive', message: 'Atividade criada com sucesso' });
+    if (isEditing.value) {
+      await activityService.updateActivity(newActivity.value.id, {
+        name: newActivity.value.name,
+        description: newActivity.value.description,
+        area: newActivity.value.area,
+        resources: newActivity.value.resources,
+        startDate: newActivity.value.startDate,
+        endDate: newActivity.value.endDate,
+      });
+      $q.notify({ type: 'positive', message: 'Atividade atualizada com sucesso' });
+    } else {
+      await activityService.createActivity(projectId, { ...newActivity.value, projectId });
+      $q.notify({ type: 'positive', message: 'Atividade criada com sucesso' });
+    }
     openModal.value = false;
-    newActivity.value = {
-      name: '',
-      description: '',
-      area: '',
-      resources: [],
-      startDate: '',
-      endDate: '',
-    };
     void fetchActivitiesByProjectId(projectId);
   } catch {
-    $q.notify({ type: 'negative', message: 'Erro ao criar atividade' });
+    $q.notify({ type: 'negative', message: 'Erro ao guardar atividade' });
   } finally {
     submit.value = false;
   }
@@ -301,6 +416,80 @@ async function deleteActivity() {
   }
 }
 
+async function changeActivityState(activity: Activity) {
+  try {
+    if (activity.state === 'pending') {
+      await activityService.approveActivityState(activity.id);
+    } else if (activity.state === 'approved') {
+      await activityService.completeActivityState(activity.id);
+    } else {
+      return;
+    }
+    $q.notify({ type: 'positive', message: 'Estado atualizado' });
+    if (selectProject.value) void fetchActivitiesByProjectId(selectProject.value);
+  } catch {
+    $q.notify({ type: 'negative', message: 'Erro ao atualizar estado' });
+  }
+}
+
+async function editActivity(activityId: number) {
+  const activity = activities.value.find((a) => a.id === activityId);
+  if (!activity) return;
+  isEditing.value = true;
+
+  newActivity.value = {
+    id: activity.id,
+    name: activity.name,
+    description: activity.description,
+    area: activity.area,
+    resources: Array.isArray(activity.resources) ? [...activity.resources] : [],
+    startDate: activity.startDate,
+    endDate: activity.endDate,
+  };
+  openModal.value = true;
+}
+
+async function registerActivity(activityId: number) {
+  selectedActivityId.value = activityId;
+  participants.value = await activityParticipantsService.getActivityParticipants(activityId);
+  await fetchUsers();
+  participantsModal.value = true;
+}
+
+async function addParticipant() {
+  if (!selectedUserId.value || !selectedActivityId.value) return;
+  try {
+    await activityParticipantsService.addActivityParticipant(
+      selectedActivityId.value,
+      selectedUserId.value,
+    );
+    participants.value = await activityParticipantsService.getActivityParticipants(
+      selectedActivityId.value,
+    );
+    selectedUserId.value = null;
+    $q.notify({ type: 'positive', message: 'Participante inscrito com sucesso' });
+  } catch {
+    $q.notify({ type: 'negative', message: 'Erro ao inscrever participante' });
+  }
+}
+
+async function removeParticipant(userId: number) {
+  if (!selectedActivityId.value) return;
+  try {
+    await activityParticipantsService.removeActivityParticipant(selectedActivityId.value, userId);
+    participants.value = await activityParticipantsService.getActivityParticipants(
+      selectedActivityId.value,
+    );
+    $q.notify({ type: 'positive', message: 'Participante removido com sucesso' });
+  } catch {
+    $q.notify({ type: 'negative', message: 'Erro ao remover participante' });
+  }
+}
+
+const manageActivities = computed(() =>
+  ['admin', 'coordinator'].includes(authStore.user?.profile ?? ''),
+);
+
 onMounted(async () => {
   await fetchProjects();
   if (projects?.value?.length > 0) {
@@ -308,5 +497,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped></style>

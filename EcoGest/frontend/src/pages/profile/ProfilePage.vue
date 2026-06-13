@@ -2,6 +2,10 @@
   <q-page class="q-pa-md">
     <div class="row justify-between items-center q-pt-lg q-pb-xl q-pr-lg">
       <div class="text-h4">Perfil</div>
+      <q-btn color="positive" unelevated @click="editProfile()">
+        <q-icon left name="edit" />
+        Editar Perfil
+      </q-btn>
     </div>
 
     <div v-if="loading" class="flex flex-center q-pa-xl">
@@ -74,20 +78,83 @@
       </div>
     </template>
   </q-page>
+  <q-dialog v-model="openModal">
+    <q-card style="width: 30rem">
+      <q-card-section>
+        <div class="text-h5">Editar Perfil</div>
+      </q-card-section>
+
+      <q-card-section class="q-gutter-md">
+        <q-input v-model="editProfileRef.name" label="Nome" label-color="white" outlined />
+        <q-input v-model="editProfileRef.email" label="Email" label-color="white" outlined />
+        <q-input
+          v-model="editProfileRef.password"
+          label="Nova Password"
+          label-color="white"
+          outlined
+          type="password"
+        />
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" @click="openModal = false" />
+        <q-btn :loading="submit" color="positive" label="Guardar" @click="saveEditedProfile()" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts" setup>
 import { useUser } from 'src/composables/useUser';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useAuthStore } from 'stores/auth';
+import { useQuasar } from 'quasar';
 
-const { data: users, loading, fetchUserById } = useUser();
-//const $q = useQuasar();
+const { data: users, loading, fetchUserById, updateUser } = useUser();
 
 const authUser = useAuthStore();
-
+const openModal = ref<boolean>(false);
+const $q = useQuasar();
 const userProjects = computed(() => users.value?.projects ?? []);
 const userActivities = computed(() => users.value?.activities ?? []);
+const submit = ref(false);
+
+const editProfileRef = ref({
+  name: '',
+  email: '',
+  password: '',
+});
+
+async function editProfile() {
+  editProfileRef.value = {
+    name: users.value?.name ?? '',
+    email: users.value?.email ?? '',
+    password: '',
+  };
+  openModal.value = true;
+}
+
+async function saveEditedProfile() {
+  if (!authUser.user?.id) return;
+  submit.value = true;
+  try {
+    const payload: { name?: string; email?: string; password?: string } = {
+      name: editProfileRef.value.name,
+      email: editProfileRef.value.email,
+    };
+    if (editProfileRef.value.password) {
+      payload.password = editProfileRef.value.password;
+    }
+    await updateUser(authUser.user.id, payload);
+    openModal.value = false;
+    $q.notify({ type: 'positive', message: 'Perfil atualizado' });
+    await fetchUserById(authUser.user.id);
+  } catch {
+    $q.notify({ type: 'negative', message: 'Erro ao atualizar perfil' });
+  } finally {
+    submit.value = false;
+  }
+}
 
 onMounted(async () => {
   if (authUser.user?.id) {
@@ -95,5 +162,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped></style>

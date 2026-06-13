@@ -26,7 +26,6 @@ export interface CreateMeeting {
   date: string;
   location?: string;
   agenda?: string;
-  projectId: number;
 }
 
 export interface UpdateMeeting {

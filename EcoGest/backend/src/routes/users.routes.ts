@@ -15,7 +15,6 @@ router.put(
   "/users/:id",
   authenticate,
   authorizeOwnerOrAdmin,
-  authorize(UserProfile.ADMIN),
   userController.updateUserById,
 );
 router.delete(

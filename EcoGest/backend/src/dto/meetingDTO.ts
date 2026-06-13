@@ -20,6 +20,7 @@ export interface CreateMeetingDTO {
 }
 
 export interface UpdateMeetingDTO {
+  title?: string;
   date?: Date;
   location?: string;
   workOrder?: string | null;

@@ -1840,109 +1840,50 @@
     }
   },
   "definitions": {
-    "CreateMeetingRequest": {
+    "LoginRequest": {
       "type": "object",
       "properties": {
-        "date": {
+        "email": {
           "type": "string",
-          "example": "2026-05-10T14:30:00"
+          "example": "admin@ecogest.pt"
         },
-        "location": {
+        "password": {
           "type": "string",
-          "example": "Sala 1"
-        },
-        "workOrder": {
-          "type": "string",
-          "example": "Planeamento Eco-Escolas"
-        },
-        "createdBy": {
-          "type": "number",
-          "example": 1
+          "example": "password123"
         }
       }
     },
-    "UpdateMeetingRequest": {
+    "CreateUserRequest": {
       "type": "object",
       "properties": {
-        "location": {
+        "name": {
           "type": "string",
-          "example": "Auditório"
+          "example": "João Silva"
         },
-        "workOrder": {
+        "email": {
           "type": "string",
-          "example": "Planeamento atualizado"
+          "example": "joao@ecogest.pt"
         },
-        "state": {
+        "password": {
           "type": "string",
-          "example": "scheduled"
+          "example": "password123"
+        },
+        "profile": {
+          "type": "string",
+          "example": "MEMBER"
         }
       }
     },
-    "CreateProceedingsRequest": {
+    "UpdateUserRequest": {
       "type": "object",
       "properties": {
-        "content": {
+        "name": {
           "type": "string",
-          "example": "Ata da reunião"
+          "example": "João Silva Atualizado"
         },
-        "createdBy": {
-          "type": "number",
-          "example": 1
-        }
-      }
-    },
-    "UpdateProceedingsRequest": {
-      "type": "object",
-      "properties": {
-        "content": {
+        "email": {
           "type": "string",
-          "example": "Ata atualizada da reunião"
-        }
-      }
-    },
-    "CreateExecutionRequest": {
-      "type": "object",
-      "properties": {
-        "date": {
-          "type": "string",
-          "example": "2026-05-15"
-        },
-        "location": {
-          "type": "string",
-          "example": "Pátio da escola"
-        },
-        "annotation": {
-          "type": "string",
-          "example": "Atividade executada com sucesso."
-        },
-        "createdBy": {
-          "type": "number",
-          "example": 1
-        },
-        "executedBy": {
-          "type": "number",
-          "example": 1
-        }
-      }
-    },
-    "UpdateExecutionRequest": {
-      "type": "object",
-      "properties": {
-        "date": {
-          "type": "string",
-          "example": "2026-05-16"
-        },
-        "location": {
-          "type": "string",
-          "example": "Auditório"
-        },
-        "annotation": {
-          "type": "string",
-          "example": "Anotação atualizada."
-        },
-        "executedBy": {
-          "type": "number",
-          "example": 1
+          "example": "joao@ecogest.pt"
         }
       }
     },
@@ -1976,6 +1917,15 @@
         }
       }
     },
+    "ProjectMemberRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
     "CreateActivityRequest": {
       "type": "object",
       "properties": {
@@ -1985,7 +1935,7 @@
         },
         "description": {
           "type": "string",
-          "example": "Atividade de plantanção."
+          "example": "Atividade de plantação."
         },
         "area": {
           "type": "string",
@@ -2002,10 +1952,6 @@
         "endDate": {
           "type": "string",
           "example": "2026-05-15"
-        },
-        "createdBy": {
-          "type": "number",
-          "example": 1
         }
       }
     },
@@ -2018,7 +1964,7 @@
         },
         "description": {
           "type": "string",
-          "example": "Atividade de reflorestação no recinto escolar com espécies nativas da região norte de Portugal."
+          "example": "Atividade de reflorestação."
         },
         "area": {
           "type": "string",
@@ -2026,7 +1972,7 @@
         },
         "resources": {
           "type": "string",
-          "example": "Pás, regadores, 30 árvores (carvalho, sobreiro, medronheiro), luvas"
+          "example": "Pás, regadores, luvas"
         },
         "startDate": {
           "type": "string",
@@ -2035,60 +1981,153 @@
         "endDate": {
           "type": "string",
           "example": "2026-05-15"
+        }
+      }
+    },
+    "ActivityParticipantRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
+    "CreateExecutionRequest": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2026-05-15"
         },
-        "createdBy": {
+        "location": {
+          "type": "string",
+          "example": "Pátio da escola"
+        },
+        "annotation": {
+          "type": "string",
+          "example": "Atividade executada com sucesso."
+        },
+        "executedBy": {
           "type": "number",
           "example": 1
         }
       }
     },
-    "CreateLevelRequest": {
+    "UpdateExecutionRequest": {
       "type": "object",
       "properties": {
-        "name": {
+        "date": {
           "type": "string",
-          "example": "Bronze"
+          "example": "2026-05-16"
         },
-        "description": {
+        "location": {
           "type": "string",
-          "example": "Nível inicial do programa Eco-Escolas. Atribuído a projetos que estão a dar os primeiros passos na implementação de práticas ambientais sustentáveis na escola."
+          "example": "Auditório"
         },
-        "minActivities": {
-          "type": "number",
-          "example": 3
+        "annotation": {
+          "type": "string",
+          "example": "Anotação atualizada."
         },
-        "minAreas": {
-          "type": "number",
-          "example": 1
-        },
-        "order": {
+        "executedBy": {
           "type": "number",
           "example": 1
         }
       }
     },
-    "UpdateLevelRequest": {
+    "CreatePhotoRequest": {
       "type": "object",
       "properties": {
-        "name": {
+        "path": {
           "type": "string",
-          "example": "Prata"
+          "example": "/uploads/executions/photo1.jpg"
+        }
+      }
+    },
+    "CreateMeetingRequest": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2026-05-10T14:30:00"
+        },
+        "location": {
+          "type": "string",
+          "example": "Sala 1"
+        },
+        "workOrder": {
+          "type": "string",
+          "example": "Planeamento Eco-Escolas"
+        }
+      }
+    },
+    "UpdateMeetingRequest": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "example": "Auditório"
+        },
+        "workOrder": {
+          "type": "string",
+          "example": "Planeamento atualizado"
+        },
+        "state": {
+          "type": "string",
+          "example": "scheduled"
+        }
+      }
+    },
+    "CreateConvocationRequest": {
+      "type": "object",
+      "properties": {
+        "recipientId": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
+    "CreateProceedingsRequest": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "example": "Ata da reunião"
+        }
+      }
+    },
+    "UpdateProceedingsRequest": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "example": "Ata atualizada da reunião"
+        }
+      }
+    },
+    "CreateQuestionnaireRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Auditoria Ambiental"
         },
         "description": {
           "type": "string",
-          "example": "Nível intermédio atualizado — escola com forte envolvimento em pelo menos duas áreas temáticas."
+          "example": "Questionário inicial de diagnóstico ambiental."
+        }
+      }
+    },
+    "UpdateQuestionnaireRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Auditoria Ambiental Atualizada"
         },
-        "minActivities": {
-          "type": "number",
-          "example": 6
-        },
-        "minAreas": {
-          "type": "number",
-          "example": 2
-        },
-        "order": {
-          "type": "number",
-          "example": 2
+        "description": {
+          "type": "string",
+          "example": "Descrição atualizada do questionário."
         }
       }
     },
@@ -2110,10 +2149,6 @@
         "type": {
           "type": "string",
           "example": "text"
-        },
-        "createdBy": {
-          "type": "number",
-          "example": 1
         }
       }
     },
@@ -2138,73 +2173,91 @@
         }
       }
     },
-    "CreateQuestionnaireRequest": {
+    "SubmitAnswersRequest": {
       "type": "object",
       "properties": {
-        "title": {
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "questionId": {
+                "type": "number",
+                "example": 1
+              },
+              "value": {
+                "type": "string",
+                "example": "Muito importante"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CreateLevelRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
           "type": "string",
-          "example": "Auditoria Ambiental"
+          "example": "Bronze"
         },
         "description": {
           "type": "string",
-          "example": "Questionário inicial de diagnóstico ambiental."
+          "example": "Nível inicial do programa Eco-Escolas."
         },
-        "createdBy": {
+        "minActivities": {
+          "type": "number",
+          "example": 3
+        },
+        "minAreas": {
+          "type": "number",
+          "example": 1
+        },
+        "order": {
           "type": "number",
           "example": 1
         }
       }
     },
-    "UpdateQuestionnaireRequest": {
+    "UpdateLevelRequest": {
       "type": "object",
       "properties": {
-        "title": {
+        "name": {
           "type": "string",
-          "example": "Auditoria Ambiental Atualizada"
+          "example": "Prata"
         },
         "description": {
           "type": "string",
-          "example": "Descrição atualizada do questionário."
-        }
-      }
-    },
-    "CreatePhotoRequest": {
-      "type": "object",
-      "properties": {
-        "path": {
-          "type": "string",
-          "example": "/uploads/executions/photo1.jpg"
-        }
-      }
-    },
-    "CreateConvocationRequest": {
-      "type": "object",
-      "properties": {
-        "recipientId": {
+          "example": "Nível intermédio."
+        },
+        "minActivities": {
+          "type": "number",
+          "example": 6
+        },
+        "minAreas": {
           "type": "number",
           "example": 2
         },
-        "createdBy": {
+        "order": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
+    "CreateScoringRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
           "type": "number",
           "example": 1
-        }
-      }
-    },
-    "ProjectMemberRequest": {
-      "type": "object",
-      "properties": {
-        "userId": {
+        },
+        "points": {
           "type": "number",
-          "example": 2
-        }
-      }
-    },
-    "ActivityParticipantRequest": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "type": "number",
-          "example": 2
+          "example": 50
+        },
+        "reason": {
+          "type": "string",
+          "example": "Atividade concluída"
         }
       }
     }

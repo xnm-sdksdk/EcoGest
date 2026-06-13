@@ -150,7 +150,7 @@ export class MeetingController {
         location: updatedMeeting.location,
         workOrder: updatedMeeting.workOrder,
         state: updatedMeeting.state,
-        createdBy: updatedMeeting.createdBy.id,
+        createdBy: updatedMeeting.createdBy?.id,
         updatedAt: updatedMeeting.updatedAt,
       };
 

@@ -12,11 +12,25 @@ export class GamificationController {
 
   getRankingByProjectId = async (req: Request, res: Response) => {
     try {
+      const projectId = Number(req.params.projectId);
+      const ranking =
+        await this.gamificationService.findRankingByProjectId(projectId);
+      res.status(200).json(ranking);
     } catch (error: any) {
-      logger.error({ err: error }, "Error fetching ranking By Project Id");
+      logger.error({ err: error }, "Error fetching ranking by projectId");
       res.status(500).json({ error: error.message });
     }
   };
 
-  getScoringByProjectId = async (req: Request, res: Response) => {};
+  getScoringByProjectId = async (req: Request, res: Response) => {
+    try {
+      const projectId = Number(req.params.projectId);
+      const scoring =
+        await this.gamificationService.findScoringByProjectId(projectId);
+      res.status(200).json(scoring);
+    } catch (error: any) {
+      logger.error({ err: error }, "Error fetching scoring by projectId");
+      res.status(500).json({ error: error.message });
+    }
+  };
 }

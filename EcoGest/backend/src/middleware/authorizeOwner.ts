@@ -15,7 +15,7 @@ export const authorizeOwnerOrAdmin = (
   const isOwner = req.user.id === Number(req.params.id);
   const isAdmin = req.user.profile === UserProfile.ADMIN;
 
-  if (!isOwner || !isAdmin) {
+  if (!isOwner && !isAdmin) {
     res.status(403).json({ message: "Sem permissão" });
     return;
   }

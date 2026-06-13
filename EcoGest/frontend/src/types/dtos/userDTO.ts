@@ -29,3 +29,9 @@ export interface ActivityUser {
   id: number;
   name: string;
 }
+
+export interface UpdateUser {
+  name?: string;
+  email?: string;
+  password?: string;
+}

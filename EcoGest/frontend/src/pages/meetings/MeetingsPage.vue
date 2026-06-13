@@ -2,7 +2,12 @@
   <q-page class="q-pa-md">
     <div class="row justify-between items-center q-pt-lg q-pb-xl q-pr-lg">
       <div class="text-h4">Reuniões</div>
-      <q-btn color="positive" unelevated @click="createMeeting()">
+      <q-btn
+        :disable="!manageMeetings && authStore.user?.profile !== 'secretariat'"
+        color="positive"
+        unelevated
+        @click="createMeeting()"
+      >
         <q-icon left name="add" />
         Nova Reunião
       </q-btn>
@@ -49,7 +54,29 @@
         </template>
         <template #body-cell-actions="props">
           <q-td :props="props">
-            <q-btn color="white" dense flat icon="delete" @click="confirmDelete(props.row.id)" />
+            <q-btn
+              :disable="!manageMeetings && authStore.user?.profile !== 'secretariat'"
+              class="q-ml-xs"
+              color="white"
+              dense
+              flat
+              icon="edit"
+              @click="editMeeting(props.row.id)"
+              ><q-tooltip>{{ 'Editar Reunião' }} </q-tooltip></q-btn
+            >
+            <q-btn
+              :disable="!manageMeetings"
+              class="q-mx-md"
+              color="white"
+              dense
+              flat
+              icon="delete"
+              @click="confirmDelete(props.row.id)"
+              ><q-tooltip>{{ 'Apagar Reunião' }} </q-tooltip></q-btn
+            >
+            <q-btn :disable="true" color="white" dense flat icon="person_add"
+              ><q-tooltip>{{ 'Inscrever na Reunião' }} </q-tooltip></q-btn
+            >
           </q-td>
         </template>
       </q-table>
@@ -58,7 +85,7 @@
   <q-dialog v-model="openModal">
     <q-card style="width: 30rem">
       <q-card-section>
-        <div class="text-h5">Criar Reunião</div>
+        <div class="text-h5">{{ isEditing ? 'Editar Reunião' : 'Criar Reunião' }}</div>
       </q-card-section>
 
       <q-card-section class="q-gutter-md">
@@ -117,7 +144,12 @@
 
       <q-card-actions align="right">
         <q-btn flat label="Cancelar" @click="openModal = false" />
-        <q-btn :loading="submit" color="positive" label="Criar" @click="submitMeeting" />
+        <q-btn
+          :label="isEditing ? 'Guardar' : 'Criar'"
+          :loading="submit"
+          color="positive"
+          @click="submitMeeting"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -140,11 +172,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useMeeting } from 'src/composables/useMeeting';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useProject } from 'src/composables/useProject';
-import { useQuasar } from 'quasar';
-import { meetingService } from 'src/services/meetingService';
+import {useMeeting} from 'src/composables/useMeeting';
+import {computed, onMounted, ref, watch} from 'vue';
+import {useProject} from 'src/composables/useProject';
+import {useQuasar} from 'quasar';
+import {meetingService} from 'src/services/meetingService';
+import {useAuthStore} from 'stores/auth';
 
 const selectProject = ref<number | null>(null);
 
@@ -153,11 +186,14 @@ const submit = ref(false);
 
 const { data: meetings, loading, fetchMeetingByProjectId } = useMeeting();
 const { data: projects, fetchProjects } = useProject();
+const authStore = useAuthStore();
+
 const $q = useQuasar();
 const datepart = ref('');
 const timepart = ref('');
 const deleteModal = ref<boolean>(false);
 const meetingToDelete = ref<number | null>(null);
+const isEditing = ref(false);
 
 const displayDate = computed(() => {
   if (datepart.value && timepart.value) return `${datepart.value} ${timepart.value}`;
@@ -166,12 +202,12 @@ const displayDate = computed(() => {
 });
 
 const newMeeting = ref({
+  id: 0,
   title: '',
   description: '',
   date: '',
   location: '',
   agenda: '',
-  projectId: 0,
 });
 
 const stateLabel: Record<string, string> = {
@@ -201,6 +237,17 @@ const filteredMeetings = computed(() => {
 });
 
 async function createMeeting() {
+  isEditing.value = false;
+  newMeeting.value = {
+    id: 0,
+    title: '',
+    description: '',
+    date: '',
+    location: '',
+    agenda: '',
+  };
+  datepart.value = '';
+  timepart.value = '';
   openModal.value = true;
 }
 
@@ -220,17 +267,20 @@ async function submitMeeting() {
   submit.value = true;
 
   try {
-    await meetingService.createMeeting(projectId, { ...newMeeting.value, projectId });
-    $q.notify({ type: 'positive', message: 'Reunião criada com sucesso' });
+    if (isEditing.value) {
+      await meetingService.updateMeeting(newMeeting.value.id, {
+        title: newMeeting.value.title,
+        description: newMeeting.value.description,
+        date: newMeeting.value.date,
+        location: newMeeting.value.location,
+        agenda: newMeeting.value.agenda,
+      });
+      $q.notify({ type: 'positive', message: 'Reunião atualizada com sucesso' });
+    } else {
+      await meetingService.createMeeting(projectId, { ...newMeeting.value });
+      $q.notify({ type: 'positive', message: 'Reunião criada com sucesso' });
+    }
     openModal.value = false;
-    newMeeting.value = {
-      title: '',
-      description: '',
-      date: '',
-      location: '',
-      agenda: '',
-      projectId: projectId,
-    };
     void fetchMeetingByProjectId(projectId);
   } catch {
     $q.notify({ type: 'negative', message: 'Erro ao criar reunião' });
@@ -258,6 +308,27 @@ async function deleteMeeting() {
   }
 }
 
+async function editMeeting(meetingId: number) {
+  const meeting = meetings.value.find((m) => m.id === meetingId);
+  if (!meeting) return;
+
+  isEditing.value = true;
+
+  newMeeting.value = {
+    id: meeting.id,
+    title: meeting.title,
+    description: meeting.description ?? '',
+    date: meeting.date,
+    location: meeting.location ?? '',
+    agenda: meeting.agenda ?? '',
+  };
+  openModal.value = true;
+}
+
+const manageMeetings = computed(() =>
+  ['admin', 'coordinator'].includes(authStore.user?.profile ?? ''),
+);
+
 watch(selectProject, (newId) => {
   if (newId) void fetchMeetingByProjectId(newId);
 });
@@ -274,5 +345,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped></style>

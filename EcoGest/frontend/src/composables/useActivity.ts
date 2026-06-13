@@ -20,5 +20,25 @@ export function useActivity() {
     }
   }
 
-  return { data, loading, error, fetchActivitiesByProjectId };
+  async function approveActivity(id: number) {
+    await activityService.approveActivityState(id);
+  }
+
+  async function rejectActivity(id: number) {
+    await activityService.rejectActivityState(id);
+  }
+
+  async function completeActivity(id: number) {
+    await activityService.completeActivityState(id);
+  }
+
+  return {
+    data,
+    loading,
+    error,
+    fetchActivitiesByProjectId,
+    approveActivity,
+    rejectActivity,
+    completeActivity,
+  };
 }

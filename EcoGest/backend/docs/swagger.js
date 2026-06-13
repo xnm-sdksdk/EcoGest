@@ -13,42 +13,23 @@ const doc = {
       type: "apiKey",
       name: "Authorization",
       in: "header",
-      description: "Bearer Token"
-    }
+      description: "Bearer Token",
+    },
   },
   definitions: {
-    CreateMeetingRequest: {
-      date: "2026-05-10T14:30:00",
-      location: "Sala 1",
-      workOrder: "Planeamento Eco-Escolas",
-      createdBy: 1,
+    LoginRequest: {
+      email: "admin@ecogest.pt",
+      password: "password123",
     },
-    UpdateMeetingRequest: {
-      location: "Auditório",
-      workOrder: "Planeamento atualizado",
-      state: "scheduled",
+    CreateUserRequest: {
+      name: "João Silva",
+      email: "joao@ecogest.pt",
+      password: "password123",
+      profile: "MEMBER",
     },
-
-    CreateProceedingsRequest: {
-      content: "Ata da reunião",
-      createdBy: 1,
-    },
-    UpdateProceedingsRequest: {
-      content: "Ata atualizada da reunião",
-    },
-    
-    CreateExecutionRequest: {
-      date: "2026-05-15",
-      location: "Pátio da escola",
-      annotation: "Atividade executada com sucesso.",
-      createdBy: 1,
-      executedBy: 1,
-    },
-    UpdateExecutionRequest: {
-      date: "2026-05-16",
-      location: "Auditório",
-      annotation: "Anotação atualizada.",
-      executedBy: 1,
+    UpdateUserRequest: {
+      name: "João Silva Atualizado",
+      email: "joao@ecogest.pt",
     },
     CreateProjectRequest: {
       name: "Compostagem Escolar",
@@ -59,47 +40,75 @@ const doc = {
     UpdateProjectRequest: {
       name: "Compostagem Escolar v2",
     },
-
+    ProjectMemberRequest: {
+      userId: 2,
+    },
     CreateActivityRequest: {
       name: "Plantação de milho",
-      description: "Atividade de plantanção.",
+      description: "Atividade de plantação.",
       area: "Biodiversidade",
       resources: "Pás, regadores, luvas",
       startDate: "2026-05-15",
       endDate: "2026-05-15",
-      createdBy: 1,
     },
     UpdateActivityRequest: {
       name: "Plantação de árvores autóctones v2",
-      description: "Atividade de reflorestação no recinto escolar com espécies nativas da região norte de Portugal.",
+      description: "Atividade de reflorestação.",
       area: "Biodiversidade",
-      resources: "Pás, regadores, 30 árvores (carvalho, sobreiro, medronheiro), luvas",
+      resources: "Pás, regadores, luvas",
       startDate: "2026-05-15",
       endDate: "2026-05-15",
-      createdBy: 1,
     },
-
-    CreateLevelRequest: {
-      name: "Bronze",
-      description: "Nível inicial do programa Eco-Escolas. Atribuído a projetos que estão a dar os primeiros passos na implementação de práticas ambientais sustentáveis na escola.",
-      minActivities: 3,
-      minAreas: 1,
-      order: 1,
+    ActivityParticipantRequest: {
+      userId: 2,
     },
-    UpdateLevelRequest: {
-      name: "Prata",
-      description: "Nível intermédio atualizado — escola com forte envolvimento em pelo menos duas áreas temáticas.",
-      minActivities: 6,
-      minAreas: 2,
-      order: 2,
+    CreateExecutionRequest: {
+      date: "2026-05-15",
+      location: "Pátio da escola",
+      annotation: "Atividade executada com sucesso.",
+      executedBy: 1,
     },
-
+    UpdateExecutionRequest: {
+      date: "2026-05-16",
+      location: "Auditório",
+      annotation: "Anotação atualizada.",
+      executedBy: 1,
+    },
+    CreatePhotoRequest: {
+      path: "/uploads/executions/photo1.jpg",
+    },
+    CreateMeetingRequest: {
+      date: "2026-05-10T14:30:00",
+      location: "Sala 1",
+      workOrder: "Planeamento Eco-Escolas",
+    },
+    UpdateMeetingRequest: {
+      location: "Auditório",
+      workOrder: "Planeamento atualizado",
+      state: "scheduled",
+    },
+    CreateConvocationRequest: {
+      recipientId: 2,
+    },
+    CreateProceedingsRequest: {
+      content: "Ata da reunião",
+    },
+    UpdateProceedingsRequest: {
+      content: "Ata atualizada da reunião",
+    },
+    CreateQuestionnaireRequest: {
+      title: "Auditoria Ambiental",
+      description: "Questionário inicial de diagnóstico ambiental.",
+    },
+    UpdateQuestionnaireRequest: {
+      title: "Auditoria Ambiental Atualizada",
+      description: "Descrição atualizada do questionário.",
+    },
     CreateQuestionRequest: {
       value: "Qual a tua opinião sobre a reciclagem na escola?",
       order: 1,
       required: true,
       type: "text",
-      createdBy: 1,
     },
     UpdateQuestionRequest: {
       value: "Texto da pergunta atualizado",
@@ -107,32 +116,27 @@ const doc = {
       required: true,
       type: "text",
     },
-
-    CreateQuestionnaireRequest: {
-      title: "Auditoria Ambiental",
-      description: "Questionário inicial de diagnóstico ambiental.",
-      createdBy: 1,
+    SubmitAnswersRequest: {
+      answers: [{ questionId: 1, value: "Muito importante" }],
     },
-    UpdateQuestionnaireRequest: {
-      title: "Auditoria Ambiental Atualizada",
-      description: "Descrição atualizada do questionário.",
+    CreateLevelRequest: {
+      name: "Bronze",
+      description: "Nível inicial do programa Eco-Escolas.",
+      minActivities: 3,
+      minAreas: 1,
+      order: 1,
     },
-
-    CreatePhotoRequest: {
-      path: "/uploads/executions/photo1.jpg",
+    UpdateLevelRequest: {
+      name: "Prata",
+      description: "Nível intermédio.",
+      minActivities: 6,
+      minAreas: 2,
+      order: 2,
     },
-
-    CreateConvocationRequest: {
-      recipientId: 2,
-      createdBy: 1,
-    },
-
-    ProjectMemberRequest: {
-      userId: 2,
-    },
-
-    ActivityParticipantRequest: {
-      userId: 2,
+    CreateScoringRequest: {
+      userId: 1,
+      points: 50,
+      reason: "Atividade concluída",
     },
   },
 };
