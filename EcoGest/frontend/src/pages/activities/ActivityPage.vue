@@ -235,7 +235,7 @@
       <q-card-section>
         <q-select
           v-model="selectedUserId"
-          :options="allUsers"
+          :options="availableUsers"
           emit-value
           label="Adicionar participante"
           label-color="white"
@@ -488,6 +488,10 @@ async function removeParticipant(userId: number) {
 
 const manageActivities = computed(() =>
   ['admin', 'coordinator'].includes(authStore.user?.profile ?? ''),
+);
+
+const availableUsers = computed(() =>
+  allUsers.value.filter((u) => !participants.value.some((p) => p.id === u.id)),
 );
 
 onMounted(async () => {
