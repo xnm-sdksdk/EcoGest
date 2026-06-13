@@ -109,6 +109,7 @@
                 props.row.state === 'completed' ||
                 (props.row.state === 'canceled' && !manageActivities)
               "
+              class="q-mr-md"
               color="white"
               dense
               flat
@@ -124,6 +125,22 @@
                 }}
               </q-tooltip></q-btn
             >
+            <q-btn
+              :disable="props.row.state === 'pending' || props.row.state === 'canceled'"
+              color="white"
+              dense
+              flat
+              icon="info"
+              @click="openActivity(props.row.id)"
+            >
+              <q-tooltip>
+                {{
+                  props.row.state === 'pending' || props.row.state === 'canceled'
+                    ? 'Atividade não disponível para execução'
+                    : 'Registar Execução'
+                }}
+              </q-tooltip>
+            </q-btn>
           </q-td>
         </template>
       </q-table>
@@ -254,6 +271,43 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+
+  <q-dialog v-model="executionModal">
+    <q-card style="width: 30rem">
+      <q-card-section>
+        <div class="text-h5">
+          {{ executionExists ? 'Execução da Atividade' : 'Criar Execução da Atividade' }}
+        </div>
+      </q-card-section>
+      <q-card-section class="q-gutter-md">
+        <q-input
+          v-model="newExecution.date"
+          label="Data Real"
+          label-color="white"
+          mask="####-##-##"
+          outlined
+          placeholder="AAAA-MM-DD"
+        />
+        <q-input v-model="newExecution.location" label="Local" label-color="white" outlined />
+        <q-input
+          v-model="newExecution.annotation"
+          label="Anotações"
+          label-color="white"
+          outlined
+          type="textarea"
+        />
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" @click="executionModal = false" />
+        <q-btn
+          :label="executionExists ? 'Guardar' : 'Registar'"
+          :loading="submit"
+          color="positive"
+          @click="submitExecution"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -267,10 +321,13 @@ import {User} from 'src/types/dtos/userDTO';
 import {useUser} from 'src/composables/useUser';
 import {activityParticipantsService} from 'src/services/activityParticipantsService';
 import {useAuthStore} from 'stores/auth';
+import {useExecution} from 'src/composables/useExecution';
+import {executionService} from 'src/services/executionService';
 
 const { data: activities, loading, fetchActivitiesByProjectId } = useActivity();
 const { data: projects, fetchProjects } = useProject();
 const { users: allUsers, fetchUsers } = useUser();
+const { execution, fetchExecution } = useExecution();
 const authStore = useAuthStore();
 const $q = useQuasar();
 
@@ -286,6 +343,8 @@ const participantsModal = ref(false);
 const selectedActivityId = ref<number | null>(null);
 const participants = ref<User[]>([]);
 const selectedUserId = ref<number | null>(null);
+const executionModal = ref<boolean>(false);
+const executionExists = ref<boolean>(false);
 
 const newActivity = ref({
   id: 0,
@@ -295,6 +354,12 @@ const newActivity = ref({
   resources: [] as string[],
   startDate: '',
   endDate: '',
+});
+
+const newExecution = ref({
+  date: '',
+  location: '',
+  annotation: '',
 });
 
 const areaOptions = ['Resíduos', 'Energia', 'Biodiversidade', 'Água'];
@@ -491,6 +556,40 @@ async function removeParticipant(userId: number) {
     $q.notify({ type: 'positive', message: 'Participante removido com sucesso' });
   } catch {
     $q.notify({ type: 'negative', message: 'Erro ao remover participante' });
+  }
+}
+
+async function openActivity(activityId: number) {
+  selectedActivityId.value = activityId;
+  executionExists.value = false;
+  newExecution.value = { date: '', location: '', annotation: '' };
+  executionModal.value = true;
+  await fetchExecution(activityId);
+  executionExists.value = execution.value !== null;
+  if (execution.value) {
+    newExecution.value = {
+      date: String(execution.value.date),
+      location: execution.value.location ?? '',
+      annotation: execution.value.annotation ?? '',
+    };
+  }
+}
+
+async function submitExecution() {
+  if (!selectedActivityId.value) return;
+  submit.value = true;
+  try {
+    if (executionExists.value && execution.value) {
+      await executionService.updateExecution(execution.value.id, newExecution.value);
+    } else {
+      await executionService.createExecution(selectedActivityId.value, newExecution.value);
+    }
+    $q.notify({ type: 'positive', message: 'Execução guardada com sucesso' });
+    executionModal.value = false;
+  } catch {
+    $q.notify({ type: 'negative', message: 'Erro ao guardar execução' });
+  } finally {
+    submit.value = false;
   }
 }
 

@@ -8,6 +8,7 @@ export interface ExecutionService {
   createExecution(
     activityId: number,
     executionDTO: CreateExecutionDTO,
+    createdId: number,
   ): Promise<Execution>;
 
   deleteExecutionById(executionId: number): Promise<void>;

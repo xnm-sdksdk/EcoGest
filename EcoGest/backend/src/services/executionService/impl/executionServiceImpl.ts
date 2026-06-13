@@ -23,8 +23,11 @@ export class ExecutionServiceImpl implements ExecutionService {
   async createExecution(
     activityId: number,
     executionDTO: CreateExecutionDTO,
+    _createdBy: number,
   ): Promise<Execution> {
-    const activity = await this.activityRepository.findOneBy({ id: activityId });
+    const activity = await this.activityRepository.findOneBy({
+      id: activityId,
+    });
 
     if (!activity) {
       logger.warn({ activityId }, "Activity not found.");
@@ -57,7 +60,10 @@ export class ExecutionServiceImpl implements ExecutionService {
       });
 
       if (!executedBy) {
-        logger.warn({ userId: executionDTO.executedBy }, "Executed by user not found.");
+        logger.warn(
+          { userId: executionDTO.executedBy },
+          "Executed by user not found.",
+        );
         throw new Error(`User with id ${executionDTO.executedBy} not found.`);
       }
     }
@@ -74,7 +80,9 @@ export class ExecutionServiceImpl implements ExecutionService {
     return await this.executionRepository.save(execution);
   }
 
-  async findExecutionByActivityId(activityId: number): Promise<Execution | null> {
+  async findExecutionByActivityId(
+    activityId: number,
+  ): Promise<Execution | null> {
     if (!activityId || activityId <= 0) {
       logger.warn({ activityId }, "Invalid Activity ID.");
       throw new Error(`Invalid Activity ID: ${activityId}`);
@@ -118,7 +126,10 @@ export class ExecutionServiceImpl implements ExecutionService {
         });
 
         if (!executedBy) {
-          logger.warn({ userId: executionDTO.executedBy }, "Executed by user not found.");
+          logger.warn(
+            { userId: executionDTO.executedBy },
+            "Executed by user not found.",
+          );
           throw new Error(`User with id ${executionDTO.executedBy} not found.`);
         }
 

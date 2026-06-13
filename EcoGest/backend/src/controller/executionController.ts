@@ -1,12 +1,9 @@
-import type { Request, Response } from "express";
-import type { ExecutionService } from "../services/executionService/executionService.js";
-import { ExecutionServiceImpl } from "../services/executionService/impl/executionServiceImpl.js";
-import {
-  CreateExecutionDTO,
-  ExecutionDTO,
-  UpdateExecutionDTO,
-} from "../dto/executionDTO.js";
-import { logger } from "../utils/logger/logger.js";
+import type {Request, Response} from "express";
+import type {ExecutionService} from "../services/executionService/executionService.js";
+import {ExecutionServiceImpl} from "../services/executionService/impl/executionServiceImpl.js";
+import {CreateExecutionDTO, ExecutionDTO, UpdateExecutionDTO,} from "../dto/executionDTO.js";
+import {logger} from "../utils/logger/logger.js";
+import {AuthenticatedRequest} from "../dto/authDTO.js";
 
 export class ExecutionController {
   private readonly executionService: ExecutionService;
@@ -53,7 +50,10 @@ export class ExecutionController {
     }
   };
 
-  createExecution = async (req: Request, res: Response): Promise<void> => {
+  createExecution = async (
+    req: AuthenticatedRequest,
+    res: Response,
+  ): Promise<void> => {
     try {
       const activityId = Number(req.params.id);
 
@@ -64,16 +64,18 @@ export class ExecutionController {
 
       const data: CreateExecutionDTO = req.body;
 
-      if (!data.date || !data.createdBy) {
+      if (!data.date) {
         res.status(400).json({
           error: "Missing required fields: date, createdBy",
         });
         return;
       }
+      const createdBy = req.user!.id;
 
       const execution = await this.executionService.createExecution(
         activityId,
         data,
+        createdBy,
       );
 
       const executionDTO: ExecutionDTO = {
@@ -95,10 +97,7 @@ export class ExecutionController {
     }
   };
 
-  updateExecutionById = async (
-    req: Request,
-    res: Response,
-  ): Promise<void> => {
+  updateExecutionById = async (req: Request, res: Response): Promise<void> => {
     try {
       const executionId = Number(req.params.id);
 
@@ -109,8 +108,10 @@ export class ExecutionController {
 
       const data: UpdateExecutionDTO = req.body;
 
-      const updatedExecution =
-        await this.executionService.updateExecutionById(executionId, data);
+      const updatedExecution = await this.executionService.updateExecutionById(
+        executionId,
+        data,
+      );
 
       if (!updatedExecution) {
         res.status(404).json({ error: "Execution not found" });
@@ -136,10 +137,7 @@ export class ExecutionController {
     }
   };
 
-  deleteExecutionById = async (
-    req: Request,
-    res: Response,
-  ): Promise<void> => {
+  deleteExecutionById = async (req: Request, res: Response): Promise<void> => {
     try {
       const executionId = Number(req.params.id);
 
