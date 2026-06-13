@@ -14,9 +14,20 @@
         :rows="users"
         :rows-per-page-options="[10, 20, 50]"
         bordered
+        class="text-white"
         flat
+        no-data-label="Sem utilizadores para mostrar"
         row-key="id"
       >
+        <template #body-cell-role="props">
+          <q-td :props="props">
+            <q-badge
+              :color="profileColor[props.value] ?? 'grey'"
+              :label="profileLabel[props.value] ?? props.value"
+              class="q-pa-xs"
+            />
+          </q-td>
+        </template>
         <template #body-cell-actions="props">
           <q-td :props="props">
             <q-btn color="white" dense flat icon="delete" @click="confirmDelete(props.row.id)">
@@ -62,6 +73,20 @@ const columns = [
   { name: 'role', label: 'Perfil', field: 'role', align: 'left' as const },
   { name: 'actions', label: 'Ações', field: 'actions', align: 'center' as const, sortable: false },
 ];
+
+const profileLabel: Record<string, string> = {
+  admin: 'Administrador',
+  coordinator: 'Coordenador',
+  secretariat: 'Secretariado',
+  member: 'Membro',
+};
+
+const profileColor: Record<string, string> = {
+  admin: 'red',
+  coordinator: 'orange',
+  secretariat: 'blue',
+  member: 'green',
+};
 
 const { deleteUser, fetchUsers, loading, users } = useUser();
 

@@ -40,7 +40,9 @@
         :rows="filteredMeetings"
         :rows-per-page-options="[10, 20, 50]"
         bordered
+        class="text-white"
         flat
+        no-data-label="Sem reuniões para mostrar"
         row-key="id"
       >
         <template #body-cell-state="props">
@@ -172,12 +174,12 @@
 </template>
 
 <script lang="ts" setup>
-import {useMeeting} from 'src/composables/useMeeting';
-import {computed, onMounted, ref, watch} from 'vue';
-import {useProject} from 'src/composables/useProject';
-import {useQuasar} from 'quasar';
-import {meetingService} from 'src/services/meetingService';
-import {useAuthStore} from 'stores/auth';
+import { useMeeting } from 'src/composables/useMeeting';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useProject } from 'src/composables/useProject';
+import { useQuasar } from 'quasar';
+import { meetingService } from 'src/services/meetingService';
+import { useAuthStore } from 'stores/auth';
 
 const selectProject = ref<number | null>(null);
 

@@ -30,8 +30,10 @@
           :columns="scoringColumns"
           :rows="filteredScoring"
           bordered
+          class="text-white"
           flat
           hide-bottom
+          no-data-label="Sem pontuação para mostrar"
           row-key="name"
           title="Pontuação"
         />
@@ -41,8 +43,10 @@
           :columns="rankingColumns"
           :rows="filteredRanking"
           bordered
+          class="text-white"
           flat
           hide-bottom
+          no-data-label="Sem ranking para mostrar"
           row-key="name"
           title="Ranking"
         >

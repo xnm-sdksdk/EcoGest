@@ -60,7 +60,9 @@
         :rows="filteredActivities"
         :rows-per-page-options="[10, 20, 50]"
         bordered
+        class="text-white"
         flat
+        no-data-label="Sem atividades para mostrar"
         row-key="id"
       >
         <template #body-cell-state="props">
