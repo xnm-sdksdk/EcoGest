@@ -52,7 +52,7 @@
             </q-item-section>
             <q-item-section>Relatório Final</q-item-section>
           </q-item>
-          <q-item v-ripple clickable to="/settings">
+          <q-item v-if="userAuth.user?.profile === 'admin'" v-ripple clickable to="/settings">
             <q-item-section avatar>
               <q-icon name="settings" />
             </q-item-section>
