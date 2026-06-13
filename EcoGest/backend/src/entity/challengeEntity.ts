@@ -28,7 +28,7 @@ export class Challenge extends BaseEntity {
   @OneToMany(() => Progress, (progress) => progress.challenge)
   progress!: Progress[];
 
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => User, { nullable: false, onDelete: "CASCADE" })
   @JoinColumn({ name: "createdBy" })
   createdBy!: User;
 }

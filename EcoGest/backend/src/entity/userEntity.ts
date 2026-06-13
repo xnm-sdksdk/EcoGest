@@ -1,6 +1,6 @@
-import {Column, Entity, JoinTable, ManyToMany} from "typeorm";
-import {BaseEntity} from "./baseEntity.js";
-import {Project} from "./projectEntity.js";
+import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
+import { BaseEntity } from "./baseEntity.js";
+import { Project } from "./projectEntity.js";
 import { Activity } from "./activityEntity.js";
 
 export enum UserProfile {
@@ -39,6 +39,8 @@ export class User extends BaseEntity {
   @JoinTable({ name: "project_members" })
   projects!: Project[];
 
-  @ManyToMany(() => Activity, (activity) => activity.participants)
+  @ManyToMany(() => Activity, (activity) => activity.participants, {
+    onDelete: "CASCADE",
+  })
   activities!: Activity[];
 }

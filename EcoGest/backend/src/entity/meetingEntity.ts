@@ -44,7 +44,7 @@ export class Meeting extends BaseEntity {
   @JoinColumn({ name: "projectId" })
   project!: Project;
 
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => User, { nullable: false, onDelete: "CASCADE" })
   @JoinColumn({ name: "createdBy" })
   createdBy!: User;
 

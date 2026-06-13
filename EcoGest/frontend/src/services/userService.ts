@@ -11,4 +11,7 @@ export const userService = {
   updateUser(id: number, data: UpdateUser): Promise<User> {
     return api.put<User>(`/users/${id}`, data).then((r) => r.data);
   },
+  deleteUser(id: number): Promise<void> {
+    return api.delete(`/users/${id}`).then(() => undefined);
+  },
 };

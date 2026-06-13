@@ -5,7 +5,7 @@ import { Meeting } from "./meetingEntity.js";
 
 @Entity()
 export class Proceedings extends BaseEntity {
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => User, { nullable: false, onDelete: "CASCADE" })
   @JoinColumn({ name: "createdBy" })
   createdBy!: User;
 

@@ -1,8 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity } from "./baseEntity.js";
-import { User } from "./userEntity.js";
-import { Project } from "./projectEntity.js";
-import { Challenge } from "./challengeEntity.js";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
+import {BaseEntity} from "./baseEntity.js";
+import {User} from "./userEntity.js";
+import {Project} from "./projectEntity.js";
+import {Challenge} from "./challengeEntity.js";
 
 @Entity()
 export class Scoring extends BaseEntity {
@@ -12,7 +12,7 @@ export class Scoring extends BaseEntity {
   @Column({ type: "text" })
   reason!: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn({ name: "userId" })
   user!: User;
 

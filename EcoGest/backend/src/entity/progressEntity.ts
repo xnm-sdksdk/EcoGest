@@ -19,7 +19,7 @@ export class Progress extends BaseEntity {
   @JoinColumn({ name: "challengeId" })
   challenge!: Challenge;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn({ name: "userId" })
   user!: User;
 }

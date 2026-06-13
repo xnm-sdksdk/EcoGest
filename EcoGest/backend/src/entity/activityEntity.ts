@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, JoinTable, ManyToMany } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity.js";
 import { Project } from "./projectEntity.js";
 import { User } from "./userEntity.js";
@@ -45,9 +45,9 @@ export class Activity extends BaseEntity {
   @JoinColumn({ name: "projectId" })
   project!: Project;
 
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => User, { nullable: false, onDelete: "CASCADE" })
   @JoinColumn({ name: "createdBy" })
-  createdBy!: number;
+  createdBy!: User;
 
   @OneToMany(() => Registration, (registration) => registration.activity)
   registrations!: Registration[];
@@ -57,7 +57,7 @@ export class Activity extends BaseEntity {
   })
   execution!: Execution | null;
 
-  @ManyToMany(() => User, (user) => user.activities)
+  @ManyToMany(() => User, (user) => user.activities, { onDelete: "CASCADE" })
   @JoinTable({ name: "activity_participants" })
   participants!: User[];
 }

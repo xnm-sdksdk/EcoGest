@@ -1,7 +1,7 @@
-import {Column, Entity, JoinColumn, ManyToOne, Unique} from "typeorm";
-import {BaseEntity} from "./baseEntity.js";
-import {Meeting} from "./meetingEntity.js";
-import {User} from "./userEntity.js";
+import { Column, Entity, JoinColumn, ManyToOne, Unique } from "typeorm";
+import { BaseEntity } from "./baseEntity.js";
+import { Meeting } from "./meetingEntity.js";
+import { User } from "./userEntity.js";
 
 export enum ConvocationState {
   PENDING = "pending",
@@ -44,7 +44,7 @@ export class Convocation extends BaseEntity {
   @JoinColumn({ name: "recipientId" })
   recipient!: User;
 
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => User, { nullable: false, onDelete: "CASCADE" })
   @JoinColumn({ name: "createdBy" })
   createdBy!: User;
 }

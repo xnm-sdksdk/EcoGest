@@ -47,5 +47,19 @@ export function useUser() {
     }
   }
 
-  return { data, loading, error, fetchUserById, fetchUsers, users, updateUser };
+  async function deleteUser(id: number) {
+    loading.value = true;
+    error.value = null;
+    try {
+      await userService.deleteUser(id);
+      users.value = users.value.filter((u) => u.id !== id);
+    } catch (e) {
+      error.value = 'Erro ao eliminar utilizador';
+      console.error(e);
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  return { data, loading, error, users, fetchUserById, fetchUsers, updateUser, deleteUser };
 }

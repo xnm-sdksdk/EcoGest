@@ -1,8 +1,8 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany} from "typeorm";
-import {BaseEntity} from "./baseEntity.js";
-import {User} from "./userEntity.js";
-import {Questionnaire} from "./questionnaireEntity.js";
-import {Answer} from "./answerEntity.js";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { BaseEntity } from "./baseEntity.js";
+import { User } from "./userEntity.js";
+import { Questionnaire } from "./questionnaireEntity.js";
+import { Answer } from "./answerEntity.js";
 
 export enum QuestionType {
   TEXT = "text",
@@ -28,7 +28,7 @@ export class Question extends BaseEntity {
   @JoinColumn({ name: "questionnaireId" })
   questionnaire!: Questionnaire;
 
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => User, { nullable: false, onDelete: "CASCADE" })
   @JoinColumn({ name: "createdBy" })
   createdBy!: User;
 
