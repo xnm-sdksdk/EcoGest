@@ -315,6 +315,12 @@ const columns = [
   { name: 'state', label: 'Estado', field: 'state', align: 'left' as const },
   { name: 'startDate', label: 'Data início', field: 'startDate', align: 'left' as const },
   { name: 'endDate', label: 'Data fim', field: 'endDate', align: 'left' as const },
+  {
+    name: 'participantsCount',
+    label: 'Participantes',
+    field: 'participantsCount',
+    align: 'center' as const,
+  },
   { name: 'actions', label: 'Ações', field: 'actions', align: 'center' as const, sortable: false },
 ];
 

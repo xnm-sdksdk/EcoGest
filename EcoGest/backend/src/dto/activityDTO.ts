@@ -11,6 +11,7 @@ export interface ActivityDTO {
   createdBy: number;
   state: ActivityState;
   updatedAt: Date;
+  participantsCount?: number;
 }
 
 export interface CreateActivityDTO {

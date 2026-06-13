@@ -38,6 +38,7 @@ export class ActivityController {
         createdBy: activity.createdBy,
         state: activity.state,
         updatedAt: activity.updatedAt,
+        participantsCount: activity.participants?.length ?? 0,
       }));
       res.status(200).json(activitiesDTO);
     } catch (error: any) {

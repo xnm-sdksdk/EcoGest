@@ -30,6 +30,7 @@ export class ActivityServiceImpl implements ActivityService {
     }
     return this.activityRepository.find({
       where: { project: { id: projectId } },
+      relations: { participants: true },
     });
   }
 

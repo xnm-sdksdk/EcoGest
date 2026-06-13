@@ -20,6 +20,7 @@ export interface Activity {
   createdBy: number;
   createdAt?: string;
   updatedAt?: string;
+  participantsCount?: number;
 }
 
 export interface CreateActivity {
