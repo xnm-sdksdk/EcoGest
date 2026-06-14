@@ -15,6 +15,12 @@ export const testToken = jwt.sign(
   },
 );
 
+export const memberToken = jwt.sign(
+  { id: 2, profile: "member" },
+  configEnv.jwtSecret,
+  { expiresIn: "1h" },
+);
+
 beforeAll(async () => {
   if (!AppDataSource.isInitialized) {
     await AppDataSource.initialize();

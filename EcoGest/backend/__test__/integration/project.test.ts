@@ -4,6 +4,7 @@ import { AppDataSource } from "../../src/config/data-source";
 import { describe, expect, it } from "vitest";
 import { Project } from "../../src/entity/projectEntity";
 import { testToken } from "../setup";
+import { User, UserProfile } from "../../src/entity/userEntity";
 
 describe("GET /api/projects", () => {
   it("should return 200 for GET /api/projects", async () => {
@@ -41,6 +42,17 @@ describe("GET /api/projects", () => {
 
 describe("POST /api/projects", () => {
   it("should create a project", async () => {
+    const userRepo = AppDataSource.getRepository(User);
+    await userRepo.save(
+      userRepo.create({
+        name: "Admin",
+        email: "admin@ecogest.pt",
+        password: "hashed_password",
+        profile: UserProfile.ADMIN,
+        active: true,
+      }),
+    );
+
     const response = await supertest(app)
       .post("/api/projects")
       .set("Authorization", `Bearer ${testToken}`)
@@ -52,6 +64,8 @@ describe("POST /api/projects", () => {
       });
 
     expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("id");
+    expect(response.body.name).toBe("Compostagem Escolar");
   });
 });
 

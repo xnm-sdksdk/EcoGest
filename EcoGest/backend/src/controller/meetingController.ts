@@ -37,6 +37,10 @@ export class MeetingController {
 
       res.status(200).json(meetingsDTO);
     } catch (error: any) {
+      if (error.message?.includes("not found")) {
+        res.status(404).json({ error: error.message });
+        return;
+      }
       logger.error({ err: error }, "Failed to get project meetings");
       res.status(500).json({ error: error.message });
     }

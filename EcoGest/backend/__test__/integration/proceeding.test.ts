@@ -36,6 +36,7 @@ async function createMeetingWithUser() {
 
   const meeting = await meetingRepo.save(
     meetingRepo.create({
+      title: "Reunião de teste",
       date: new Date(),
       location: "Sala 1",
       workOrder: "Planeamento",

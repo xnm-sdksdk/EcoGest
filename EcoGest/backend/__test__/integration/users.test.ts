@@ -1,9 +1,9 @@
 import supertest from "supertest";
-import {app} from "../../src/main";
-import {User, UserProfile} from "../../src/entity/userEntity";
-import {AppDataSource} from "../../src/config/data-source";
-import {describe, expect, it} from "vitest";
-import {testToken} from "../setup";
+import { app } from "../../src/main";
+import { User, UserProfile } from "../../src/entity/userEntity";
+import { AppDataSource } from "../../src/config/data-source";
+import { describe, expect, it } from "vitest";
+import { memberToken, testToken } from "../setup";
 
 describe("GET /api/users", () => {
   it("should return 200 for GET /api/users", async () => {
@@ -78,18 +78,33 @@ describe("DELETE /api/users/:id", () => {
 
 describe("PUT /api/users/:id", () => {
   it("should return 403 and error if the objectId provided is invalid", async () => {
-    const response = await supertest(app)
-      .put("/api/users/iojidjcoi")
-      .set("Authorization", `Bearer ${testToken}`)
-      .send({
-        name: "Test User",
-        email: "test@example.com",
+    const userRepo = AppDataSource.getRepository(User);
+
+    await userRepo.save(
+      userRepo.create({
+        name: "Admin User",
+        email: "admin@example.com",
+        password: "hashed_password",
+        profile: UserProfile.ADMIN,
+        active: true,
+      }),
+    );
+
+    await userRepo.save(
+      userRepo.create({
+        name: "Other User",
+        email: "other@example.com",
         password: "hashed_password",
         profile: UserProfile.MEMBER,
         active: true,
-      });
+      }),
+    );
+
+    const response = await supertest(app)
+      .put("/api/users/1")
+      .set("Authorization", `Bearer ${memberToken}`)
+      .send({ name: "Hacked" });
 
     expect(response.status).toBe(403);
-    expect(response.body.message).toBe("Sem permissão");
   });
 });

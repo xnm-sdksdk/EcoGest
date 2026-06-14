@@ -35,13 +35,17 @@ export class ActivityController {
         resources: activity.resources,
         startDate: activity.startDate,
         endDate: activity.endDate,
-        createdBy: activity.createdBy,
+        createdBy: activity.createdBy.id,
         state: activity.state,
         updatedAt: activity.updatedAt,
         participantsCount: activity.participants?.length ?? 0,
       }));
       res.status(200).json(activitiesDTO);
     } catch (error: any) {
+      if (error.message?.includes("not found")) {
+        res.status(404).json({ error: error.message });
+        return;
+      }
       logger.error({ err: error }, "Failed to get all activities");
       res.status(500).json({ error: error.message });
     }
@@ -70,7 +74,7 @@ export class ActivityController {
         resources: activity.resources,
         startDate: activity.startDate,
         endDate: activity.endDate,
-        createdBy: activity.createdBy,
+        createdBy: activity.createdBy.id,
         state: activity.state,
         updatedAt: activity.updatedAt,
       };
@@ -128,13 +132,17 @@ export class ActivityController {
         resources: activity.resources,
         startDate: activity.startDate,
         endDate: activity.endDate,
-        createdBy: activity.createdBy,
+        createdBy: activity.createdBy.id,
         state: activity.state,
         updatedAt: activity.updatedAt,
       };
       logger.info({ activityId: activity.id, projectId }, "Activity created");
       res.status(201).json(activityDTO);
     } catch (error: any) {
+      if (error.message?.includes("not found")) {
+        res.status(404).json({ error: error.message });
+        return;
+      }
       logger.error({ err: error }, "Failed to create activity");
       res.status(500).json({ error: error.message });
     }
@@ -168,7 +176,7 @@ export class ActivityController {
         resources: updateActivity.resources,
         startDate: updateActivity.startDate,
         endDate: updateActivity.endDate,
-        createdBy: updateActivity.createdBy,
+        createdBy: updateActivity.createdBy.id,
         state: updateActivity.state,
         updatedAt: updateActivity.updatedAt,
       };
@@ -191,6 +199,10 @@ export class ActivityController {
       await this.activityService.removeActivityById(activityId);
       res.status(204).send();
     } catch (error: any) {
+      if (error.message?.includes("not found")) {
+        res.status(404).json({ error: error.message });
+        return;
+      }
       logger.error({ err: error }, "Failed to delete activity by id.");
       res.status(500).json({ error: error.message });
     }
@@ -220,7 +232,7 @@ export class ActivityController {
         startDate: activity.startDate,
         endDate: activity.endDate,
         state: activity.state,
-        createdBy: activity.createdBy,
+        createdBy: activity.createdBy.id,
         updatedAt: activity.updatedAt,
       };
 
@@ -256,7 +268,7 @@ export class ActivityController {
         startDate: activity.startDate,
         endDate: activity.endDate,
         state: activity.state,
-        createdBy: activity.createdBy,
+        createdBy: activity.createdBy.id,
         updatedAt: activity.updatedAt,
       };
 
@@ -292,7 +304,7 @@ export class ActivityController {
         startDate: activity.startDate,
         endDate: activity.endDate,
         state: activity.state,
-        createdBy: activity.createdBy,
+        createdBy: activity.createdBy.id,
         updatedAt: activity.updatedAt,
       };
 

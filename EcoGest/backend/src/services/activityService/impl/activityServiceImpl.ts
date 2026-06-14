@@ -28,9 +28,10 @@ export class ActivityServiceImpl implements ActivityService {
       logger.warn({ projectId }, "Invalid project ID.");
       throw new Error(`Project with id ${projectId} not found.`);
     }
+
     return this.activityRepository.find({
       where: { project: { id: projectId } },
-      relations: { participants: true },
+      relations: { participants: true, createdBy: true },
     });
   }
 
@@ -39,7 +40,11 @@ export class ActivityServiceImpl implements ActivityService {
       logger.warn({ activityId }, "Invalid activity ID.");
       throw new Error(`Activity with id ${activityId} not found.`);
     }
-    return await this.activityRepository.findOneBy({ id: activityId });
+
+    return await this.activityRepository.findOne({
+      where: { id: activityId },
+      relations: { createdBy: true },
+    });
   }
 
   async createActivity(
@@ -83,16 +88,19 @@ export class ActivityServiceImpl implements ActivityService {
   }
 
   async removeActivityById(activityId: number): Promise<void> {
-    if (!activityId) {
-      logger.warn({ activityId }, "Invalid activity ID.");
-      throw new Error("Activity ID not found.");
+    const activity = await this.activityRepository.findOneBy({
+      id: activityId,
+    });
+    if (!activity) {
+      throw new Error(`Activity with id ${activityId} not found.`);
     }
     return await this.activityRepository.delete(activityId).then(() => {});
   }
 
   async approveActivityById(activityId: number): Promise<Activity | null> {
-    const activity = await this.activityRepository.findOneBy({
-      id: activityId,
+    const activity = await this.activityRepository.findOne({
+      where: { id: activityId },
+      relations: { createdBy: true },
     });
     if (!activity) {
       logger.warn({ activityId }, "Invalid activity ID.");
@@ -113,8 +121,9 @@ export class ActivityServiceImpl implements ActivityService {
   }
 
   async rejectActivityById(activityId: number): Promise<Activity | null> {
-    const activity = await this.activityRepository.findOneBy({
-      id: activityId,
+    const activity = await this.activityRepository.findOne({
+      where: { id: activityId },
+      relations: { createdBy: true },
     });
     if (!activity) {
       logger.warn({ activityId }, "Invalid activity ID.");
@@ -138,7 +147,7 @@ export class ActivityServiceImpl implements ActivityService {
   async completeActivityById(activityId: number): Promise<Activity | null> {
     const activity = await this.activityRepository.findOne({
       where: { id: activityId },
-      relations: { participants: true, project: true },
+      relations: { participants: true, project: true, createdBy: true },
     });
 
     if (!activity) {
